@@ -1,0 +1,9 @@
+# Prepare Wind and Wave Data
+
+## Identify Appropriate Weather Stations
+
+## Obtain Wind Data
+
+## Determine Period of Record
+
+

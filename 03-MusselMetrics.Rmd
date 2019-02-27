@@ -1,0 +1,153 @@
+# Calculate Mussel Metrics
+
+## Prepare Mussel Sample Metrics
+The purpose of this step is to various metrics from unique sample data for input to the Maxent model.
+Working geodatabase: `//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW`
+
+## MCAT Metrics
+*Each metric will serve as an individual model run in Maxent.  These metrics are based on the Mussel Community Assessment Tool (MCAT) outlined in Dunn et al. (2016) and have been modified to fit a site-specific scale (i.e., Steamboat Island). The following MCAT metrics were selected for inclusion to the model:
+  *`% listed species`: percent of listed threatened or endangered species (federal or bordering states) is a measure of sensitive species
+  *`% tolerant`: percent of tolerant species (Amblema plicata, Quadrula quadrula, and Obliquaria reflexa) is a measure of a highly disturbed mussel assemblage; i.e., dominated by species tolerant of unstable substrates, silt accumulation, low current velocities, and fluctuating flow conditions.
+  *`% tribe Lampsilini`: percent of assemblage that falls within tribe Lampsilini is a measure of species composition, life history, and behavioral characteristics
+  *`% juveniles`: percent of mussels <= 5 years-old is a measure of recruitment into an assemblage over the past five years
+  *`% >= 15 yrs`: percent of mussels >= 15 years-old is a measure of age distribution in an assemblage
+  *`Q75 abundance`: a measure of abundance at the 75th quartile calculated as the density (no./m^2)
+  *`species evenness`: species evenness represents the dominance of an assemblage by a few species using Pielou's evenness index (range 0 to 1)
+  *`tribe evenness`: tribe evenness represents the dominance of a particular taxonomic group using Pielou's evenness index (range 0 to 1)
+  *`ES_100`: the expected number of species with a sample size of 100 estimated by rarefaction is a measure of a healthy mussel assemblage
+
+## Create the Individuals table
+*Create a feature class respresenting all individual mussel samples in the study area, using a definition query to include only live individuals and name it `Cordova_all_individuals`. Note: the Q75 abundance metric will be based on live mussel counts for each quadrat.
+*Add the following fields (Type=long integer) to the attribute table: 'Listed'; 'Tolerant'; 'Lampsilini'; 'Juveniles';'Over_15yrs'
+
+## Create Percent Listed
+*Dissolve this feature class by `SAMPLE_ID` and `ENAME` (Scientific name).  Add 'SUM_NumberLive' and 'SUM_Listed' fields in the Statistics section of the tool. Set Output Feature Class to the working .gdb and name it `PercentListed`.
+*Open the `PercentListed` attribute table.
+  *Add a field titled 'Perc_listed' Type=double and enter the expression `([SUM_Listed] / [SUM_NumberLive]) * 100` into the field calculator to calculate % of individual listed species per quadrat sample.
+  *Add 3 fields titled 'species' Type=string and Length=20; 'longitude' Type=double; and 'latitude' Type=double; in that order. 
+  *Use field calculator to populate the field with species="perc_listed". Use Calculate Geometry to populate the 'longitude' and 'latitude' fields, ensuring that the coordinate system is set to 'NAD 1983 2011 US Feet' and 'StatePlane Illinois West FIPS 1202' and the units are set to US feet.
+  *Use the Symbology tab to select a suitability threshold based on quartiles (e.g., only selecting "fair" or "good" locations with >=50% listed species). In the Symbology tab, Show: Quantities; field value 'perc_listed'; classes=5; and method=quantile. Export selected to .csv for Maxent model run.
+
+## Create Percent Tolerant
+  *Repeat the steps percent listed (except % tolerant, where thresholds are set at <50%) and export to .csv
+
+## Create Percent Tribe Lampsilini
+
+## Create Percent Juveniles
+
+## Create Percent Over 15 Years
+
+## Create Q75 Abundance
+*For Q75 abundance metric, dissolve `Cordova_all_individuals` by `SAMPLE_ID` and `ENAME` (Scientific name).  Add 'SUM_NumberLive' field in the Statistics section of the tool. Set Output Feature Class to the working .gdb and name it `Q75_abundance`.
+  *Use the Symbology tab to select a suitability threshold based on quartiles (e.g., only selecting the upper quartiles with >=50% live species per quadrat). Export selection to .csv for Maxent model run.
+
+## Create Species Evenness
+The purpose of this step is to calculate the Pielou's evenness index (range 0-1), estimated at the species level. 
+
+* Create a table of SampleID by species by abundance (number live). Use the dissolve tool:
+  * Input Features: `Cordova_all_individuals`
+  * Output feature class: `Cordova_sampleid_species`
+  * Dissolve Fields: `SampleID`, `EName`
+  * Statistics Fields: `NumberLive`, SUM
+  * Create Multipart: unchecked
+
+Ensure that the `Cordova_sampleid_species` feature class is of type `Point Features` and not `Multipoint Features`. If multipoint, then use the `Multipart to Singlepart` tool to convert from multipoint to point feature type. 
+
+```{r}
+# Load libraries
+library(sp)
+library(labdsv)
+library(vegan)
+library(arcgisbinding)
+
+# Check for ArcGIS license
+arc.check_product()
+
+# Define some ArcGIS helper functions
+
+# Converts ArcGIS feature class to an sp object
+arc2sp <- function(fc_path) {
+  # Open a connection to the specified ArcGIS feature class
+  arcobj <- arcgisbinding::arc.open(fc_path)
+  # Select the ArcGIS data
+  arc <- arcgisbinding::arc.select(arcobj)
+  # Convert the ArcGIS format to the sp format
+  sp <- arcgisbinding::arc.data2sp(arc)
+}
+
+# Converts an sp object to an ArcGIS feature class
+sp2arc <- function(sp_object, fc_path) {
+  # Convert the sp object to an ArcGIS data object
+  arcobj <- arcgisbinding::arc.sp2data(sp_object)
+  # Write the ArcGIS object to a geodatabase feature class
+  arcgisbinding::arc.write(data = arcobj, path = fc_path)
+}
+```
+
+```{r}
+# Import ArcGIS feature class
+cordova_sampleid_species <- arc2sp("//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW/Cordova_sampleid_species")
+
+# Convert sp object to a data frame
+sample_species <- cordova_sampleid_species@data
+
+# Remove OBJECTID field
+sample_species <- sample_species[,-1]
+
+# Convert to vegan community data matrix-like format using labdsv::matrify
+sample_species_matrix <- labdsv::matrify(sample_species)
+```
+
+```{r}
+# Calculate the Shannon-Weaver diversity index
+shannon_diversity <- vegan::diversity(sample_species_matrix, index = "shannon")
+
+# Calculate the number species per site (see ?vegan::diversity)
+species_number <- vegan::specnumber(sample_species_matrix)
+
+# Use the following equation to calculate Pielou's evenness
+# See the vegan Diversity Vignette for details
+pielou_evenness <- shannon_diversity/log(species_number)
+
+# Set NaN pielou_evenness values to zero
+pielou_evenness <- ifelse(is.nan(pielou_evenness), 0, pielou_evenness)
+# Create a data frame of results
+pielou <- data.frame(sampleid = names(pielou_evenness), 
+                     shannon_diversity, 
+                     species_number, 
+                     pielou_evenness)
+```
+
+```{r}
+# Merge the Pielou scores back on the sp object
+sample_species_pielou <- sp::merge(x = cordova_sampleid_species,
+                                   y = pielou,
+                                   by.x = "SampleID", by.y = "sampleid")
+```
+
+```{r}
+# Export to geodatabase
+#sp2arc(sample_species_pielou, fc_path = "//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW/sample_species_pielou")
+```
+
+* Create a table of SampleID by Pielou evenness score. Use the dissolve tool:
+  * Input Features: `sample_species_pielou`
+  * Output feature class: `sample_pielou`
+  * Dissolve Fields: `SampleID`
+  * Statistics Fields: `shannon_diversity`, MEAN
+                       `species_number`, MEAN
+                       `pielou_evenness`, MEAN
+  * Create Multipart: unchecked
+
+
+## Create Tribe Eveness
+The purpose of this step is to calculate the Pielou's evenness index (range 0-1), estimated at the tribe level.  (will probably need to add a new column for tribe; dissolve on this with sample ID)
+
+* Create a new variable for Tribe. 
+
+## Create ES 100
+ES_100-species richness estimated by rarefaction; caveat: sites need to be compared based on an equal sample size because # of species and # of individuals sampled are large correlated.  Not sure how best to approach this one; I defer to you!
+
+
+
+

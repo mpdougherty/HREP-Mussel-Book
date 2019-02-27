@@ -1,0 +1,19 @@
+--- 
+title: "HREP Mussel Model"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: mussel_model.bib
+biblio-style: apalike
+link-citations: yes
+description: "This document describes the process for modeling mussel suitability on Upper Mississippi River Restoration (UMRR) Habitat Rehabilitation and Restoration Projects (HREP)."
+---
+
+
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```

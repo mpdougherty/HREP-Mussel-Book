@@ -1,0 +1,24 @@
+# Mussel Data Processing
+
+## Prepare Mussel Sample Data
+Working geodatabase: `//mvrdfs/egis/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb`
+
+* Import sample location point feature class for each survey.
+* Import "individual" data tables for each survey.
+* Add `double` fields 'Easting' and 'Northing' and calculate geometry for each sample location point feature class.
+* Add `double` fields 'Easting' and 'Northing' to each mussel tabular data. 
+* Join the sample location point feature class to each mussel tabular data. Directionality of join is important: right-click mussel tabular data and select join, using SAMPLEID as join field.
+* Field calculate 'Easting' and 'Northing' from the sample location point feature class. Then remove the join. 
+* Use the "Display XY" tool to create events from the mussel tabular data. 
+* Export the events to the geodatabase as: `Cordova_YEAR`
+* Create 3 new fields (type: long integer) titled 'NumberLive', 'NUM5YEAR', and 'NUM30MM'
+  *Use field calculator to populate each field with '0' indicating absence and '1' for presence in each new field (number live, number less than 5 years, and number less than 30mm in length).
+* Create a definition query to select only those records where: `NUMBER_LIV > 0`
+* Dissolve the `Cordova_YEAR` feature class by `SAMPLEID` to collapse mussel tabular data to the unique sample location points. The dissolve tool can also be used to collapse mussel tabular data to unique sample location using multiple fields; e.g., if a count by species is required for analysis, select `SAMPLEID` and `ScientificName`. In the statistics box, add the newly created fields 'Number_Live', 'NUM5YEAR', and 'NUM30MM' and select 'SUM' as statistic to be calculated for each.  
+* Append all three datasets into one feature class in the .gdb called `Cordova`.  Right-click this feature class and select 'load'. 
+* Export to `.csv`. 
+
+
+
+
+

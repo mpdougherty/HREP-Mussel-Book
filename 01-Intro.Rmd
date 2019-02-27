@@ -1,0 +1,17 @@
+# Introduction
+
+Species Distribution Modeling (SDM) has become a common method for mapping suitable areas for many species or taxa groups [@elith2008working, @elith2009species]. The `dismo` R package has been created to support SDM in R [see the `dismo` package vignette `sdm`, @hijmans2013species]. Another good overview of SDM in R [@hijmans_sdm].
+
+## Literature Review
+
+* UMESC Pool 8 mussel model
+* UMESC Pool 18 mussel model
+
+## Identify Available Datasets
+The USACE Mussel Database
+HREP pre-project survey
+
+* 2018 Steamboat survey
+* 2014 Cordova survey
+* 2010 Cordova survey
+
