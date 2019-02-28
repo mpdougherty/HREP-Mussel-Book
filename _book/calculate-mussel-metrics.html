@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapter 3 Calculate Mussel Metrics | HREP Mussel Model</title>
+  <meta name="description" content="This document describes the process for modeling mussel suitability on Upper Mississippi River Restoration (UMRR) Habitat Rehabilitation and Restoration Projects (HREP).">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Chapter 3 Calculate Mussel Metrics | HREP Mussel Model" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This document describes the process for modeling mussel suitability on Upper Mississippi River Restoration (UMRR) Habitat Rehabilitation and Restoration Projects (HREP)." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Calculate Mussel Metrics | HREP Mussel Model" />
+  
+  <meta name="twitter:description" content="This document describes the process for modeling mussel suitability on Upper Mississippi River Restoration (UMRR) Habitat Rehabilitation and Restoration Projects (HREP)." />
+  
+
+
+
+<meta name="date" content="2019-02-28">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="mussel-data-processing.html">
+<link rel="next" href="create-backgound-data.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">HREP Mussel Model</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#abstract"><i class="fa fa-check"></i><b>0.1</b> Abstract</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#literature-review"><i class="fa fa-check"></i><b>1.1</b> Literature Review</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#identify-available-datasets"><i class="fa fa-check"></i><b>1.2</b> Identify Available Datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html"><i class="fa fa-check"></i><b>2</b> Mussel Data Processing</a><ul>
+<li class="chapter" data-level="2.1" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html#prepare-mussel-sample-data"><i class="fa fa-check"></i><b>2.1</b> Prepare Mussel Sample Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html"><i class="fa fa-check"></i><b>3</b> Calculate Mussel Metrics</a><ul>
+<li class="chapter" data-level="3.1" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#prepare-mussel-sample-metrics"><i class="fa fa-check"></i><b>3.1</b> Prepare Mussel Sample Metrics</a></li>
+<li class="chapter" data-level="3.2" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#mcat-metrics"><i class="fa fa-check"></i><b>3.2</b> MCAT Metrics</a></li>
+<li class="chapter" data-level="3.3" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-the-individuals-table"><i class="fa fa-check"></i><b>3.3</b> Create the Individuals table</a></li>
+<li class="chapter" data-level="3.4" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-listed"><i class="fa fa-check"></i><b>3.4</b> Create Percent Listed</a></li>
+<li class="chapter" data-level="3.5" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-tolerant"><i class="fa fa-check"></i><b>3.5</b> Create Percent Tolerant</a></li>
+<li class="chapter" data-level="3.6" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-tribe-lampsilini"><i class="fa fa-check"></i><b>3.6</b> Create Percent Tribe Lampsilini</a></li>
+<li class="chapter" data-level="3.7" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-juveniles"><i class="fa fa-check"></i><b>3.7</b> Create Percent Juveniles</a></li>
+<li class="chapter" data-level="3.8" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-over-15-years"><i class="fa fa-check"></i><b>3.8</b> Create Percent Over 15 Years</a></li>
+<li class="chapter" data-level="3.9" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-q75-abundance"><i class="fa fa-check"></i><b>3.9</b> Create Q75 Abundance</a></li>
+<li class="chapter" data-level="3.10" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-species-evenness"><i class="fa fa-check"></i><b>3.10</b> Create Species Evenness</a></li>
+<li class="chapter" data-level="3.11" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-tribe-eveness"><i class="fa fa-check"></i><b>3.11</b> Create Tribe Eveness</a></li>
+<li class="chapter" data-level="3.12" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-es-100"><i class="fa fa-check"></i><b>3.12</b> Create ES 100</a></li>
+<li class="chapter" data-level="3.13" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#determine-mcat-metric-per-site-threshold"><i class="fa fa-check"></i><b>3.13</b> Determine MCAT Metric per site threshold</a></li>
+<li class="chapter" data-level="3.14" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#export-to-maxent-swd-format"><i class="fa fa-check"></i><b>3.14</b> Export to Maxent “SWD” format</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="create-backgound-data.html"><a href="create-backgound-data.html"><i class="fa fa-check"></i><b>4</b> Create Backgound Data</a><ul>
+<li class="chapter" data-level="4.1" data-path="create-backgound-data.html"><a href="create-backgound-data.html#create-background-data"><i class="fa fa-check"></i><b>4.1</b> Create Background Data</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="prepare-environmental-predictor-data.html"><a href="prepare-environmental-predictor-data.html"><i class="fa fa-check"></i><b>5</b> Prepare Environmental Predictor Data</a><ul>
+<li class="chapter" data-level="5.1" data-path="prepare-environmental-predictor-data.html"><a href="prepare-environmental-predictor-data.html#create-mask"><i class="fa fa-check"></i><b>5.1</b> Create Mask</a></li>
+<li class="chapter" data-level="5.2" data-path="prepare-environmental-predictor-data.html"><a href="prepare-environmental-predictor-data.html#set-environments"><i class="fa fa-check"></i><b>5.2</b> Set Environments</a></li>
+<li class="chapter" data-level="5.3" data-path="prepare-environmental-predictor-data.html"><a href="prepare-environmental-predictor-data.html#process-adh-model-outputs"><i class="fa fa-check"></i><b>5.3</b> Process ADH Model Outputs</a></li>
+<li class="chapter" data-level="5.4" data-path="prepare-environmental-predictor-data.html"><a href="prepare-environmental-predictor-data.html#convert-to-.bil-format"><i class="fa fa-check"></i><b>5.4</b> Convert to .bil format</a></li>
+<li class="chapter" data-level="5.5" data-path="prepare-environmental-predictor-data.html"><a href="prepare-environmental-predictor-data.html#calculate-slope"><i class="fa fa-check"></i><b>5.5</b> Calculate Slope</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html"><i class="fa fa-check"></i><b>6</b> Prepare Wind and Wave Data</a><ul>
+<li class="chapter" data-level="6.1" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html#identify-appropriate-weather-stations"><i class="fa fa-check"></i><b>6.1</b> Identify Appropriate Weather Stations</a></li>
+<li class="chapter" data-level="6.2" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html#obtain-wind-data"><i class="fa fa-check"></i><b>6.2</b> Obtain Wind Data</a></li>
+<li class="chapter" data-level="6.3" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html#determine-period-of-record"><i class="fa fa-check"></i><b>6.3</b> Determine Period of Record</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="develop-maxent-mussel-model.html"><a href="develop-maxent-mussel-model.html"><i class="fa fa-check"></i><b>7</b> Develop Maxent Mussel Model</a><ul>
+<li class="chapter" data-level="7.1" data-path="develop-maxent-mussel-model.html"><a href="develop-maxent-mussel-model.html#convert-from-.bil-to-.mxe-format"><i class="fa fa-check"></i><b>7.1</b> Convert from <code>.bil</code> to <code>.mxe</code> format</a></li>
+<li class="chapter" data-level="7.2" data-path="develop-maxent-mussel-model.html"><a href="develop-maxent-mussel-model.html#run-maxent"><i class="fa fa-check"></i><b>7.2</b> Run Maxent</a></li>
+<li class="chapter" data-level="7.3" data-path="develop-maxent-mussel-model.html"><a href="develop-maxent-mussel-model.html#convert-model-output-from"><i class="fa fa-check"></i><b>7.3</b> Convert model output from</a></li>
+<li class="chapter" data-level="7.4" data-path="develop-maxent-mussel-model.html"><a href="develop-maxent-mussel-model.html#maxent-speed-issues"><i class="fa fa-check"></i><b>7.4</b> Maxent speed Issues</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="model-interpretation.html"><a href="model-interpretation.html"><i class="fa fa-check"></i><b>8</b> Model Interpretation</a><ul>
+<li class="chapter" data-level="8.1" data-path="model-interpretation.html"><a href="model-interpretation.html#section"><i class="fa fa-check"></i><b>8.1</b> ?</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">HREP Mussel Model</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="calculate-mussel-metrics" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Calculate Mussel Metrics</h1>
+<div id="prepare-mussel-sample-metrics" class="section level2">
+<h2><span class="header-section-number">3.1</span> Prepare Mussel Sample Metrics</h2>
+<p>The purpose of this step is to various metrics from unique sample data for input to the Maxent model.</p>
+<ul>
+<li>Working geodatabase: <code>//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW</code></li>
+</ul>
+</div>
+<div id="mcat-metrics" class="section level2">
+<h2><span class="header-section-number">3.2</span> MCAT Metrics</h2>
+<p>Each metric will serve as an individual model run in Maxent. These metrics are based on the Mussel Community Assessment Tool (MCAT) outlined in Dunn et al. (2016) and have been modified to fit a site-specific scale (i.e., Steamboat Island). The following MCAT metrics were selected for inclusion to the model:</p>
+<ul>
+<li><code>% listed species</code>: percent of listed threatened or endangered species (federal or bordering states) is a measure of sensitive species</li>
+<li><code>% tolerant</code>: percent of tolerant species (Amblema plicata, Quadrula quadrula, and Obliquaria reflexa) is a measure of a highly disturbed mussel assemblage; i.e., dominated by species tolerant of unstable substrates, silt accumulation, low current velocities, and fluctuating flow conditions.</li>
+<li><code>% tribe Lampsilini</code>: percent of assemblage that falls within tribe Lampsilini is a measure of species composition, life history, and behavioral characteristics</li>
+<li><code>% juveniles</code>: percent of mussels &lt;= 5 years-old is a measure of recruitment into an assemblage over the past five years</li>
+<li><code>% &gt;= 15 yrs</code>: percent of mussels &gt;= 15 years-old is a measure of age distribution in an assemblage</li>
+<li><code>Q75 abundance</code>: a measure of abundance at the 75th quartile calculated as the density (no./m^2)</li>
+<li><code>species evenness</code>: species evenness represents the dominance of an assemblage by a few species using Pielou’s evenness index (range 0 to 1)</li>
+<li><code>tribe evenness</code>: tribe evenness represents the dominance of a particular taxonomic group using Pielou’s evenness index (range 0 to 1)</li>
+<li><code>ES_100</code>: the expected number of species with a sample size of 100 estimated by rarefaction is a measure of a healthy mussel assemblage</li>
+</ul>
+</div>
+<div id="create-the-individuals-table" class="section level2">
+<h2><span class="header-section-number">3.3</span> Create the Individuals table</h2>
+<ul>
+<li>Create a feature class respresenting all individual mussel samples in the study area, using a definition query to include only live individuals and name it <code>Cordova_all_individuals</code>. Note: the Q75 abundance metric will be based on live mussel counts for each quadrat.</li>
+<li>Add the following fields (Type=long integer) to the attribute table: ‘Listed’; ‘Tolerant’; ‘Lampsilini’; ‘Juveniles’;‘Over_15yrs’</li>
+</ul>
+</div>
+<div id="create-percent-listed" class="section level2">
+<h2><span class="header-section-number">3.4</span> Create Percent Listed</h2>
+<ul>
+<li>Dissolve this feature class by <code>SAMPLE_ID</code> and <code>ENAME</code> (Scientific name). Add ‘SUM_NumberLive’ and ‘SUM_Listed’ fields in the Statistics section of the tool. Set Output Feature Class to the working .gdb and name it <code>PercentListed</code>.</li>
+<li>Open the <code>PercentListed</code> attribute table. Add a field titled ‘Perc_listed’ Type=double and enter the expression <code>([SUM_Listed] / [SUM_NumberLive]) * 100</code> into the field calculator to calculate % of individual listed species per quadrat sample.</li>
+<li>Add 3 fields titled ‘species’ Type=string and Length=20; ‘longitude’ Type=double; and ‘latitude’ Type=double; in that order.</li>
+<li>Use field calculator to populate the field with species=“perc_listed”. Use Calculate Geometry to populate the ‘longitude’ and ‘latitude’ fields, ensuring that the coordinate system is set to ‘NAD 1983 2011 US Feet’ and ‘StatePlane Illinois West FIPS 1202’ and the units are set to US feet.</li>
+<li>Use the Symbology tab to select a suitability threshold based on quartiles (e.g., only selecting “fair” or “good” locations with &gt;=50% listed species). In the Symbology tab, Show: Quantities; field value ‘perc_listed’; classes=5; and method=quantile. Export selected to .csv for Maxent model run.</li>
+</ul>
+</div>
+<div id="create-percent-tolerant" class="section level2">
+<h2><span class="header-section-number">3.5</span> Create Percent Tolerant</h2>
+<ul>
+<li>Repeat the steps percent listed (except % tolerant, where thresholds are set at &lt;50%) and export to .csv</li>
+</ul>
+</div>
+<div id="create-percent-tribe-lampsilini" class="section level2">
+<h2><span class="header-section-number">3.6</span> Create Percent Tribe Lampsilini</h2>
+</div>
+<div id="create-percent-juveniles" class="section level2">
+<h2><span class="header-section-number">3.7</span> Create Percent Juveniles</h2>
+</div>
+<div id="create-percent-over-15-years" class="section level2">
+<h2><span class="header-section-number">3.8</span> Create Percent Over 15 Years</h2>
+</div>
+<div id="create-q75-abundance" class="section level2">
+<h2><span class="header-section-number">3.9</span> Create Q75 Abundance</h2>
+<ul>
+<li>For Q75 abundance metric, dissolve <code>Cordova_all_individuals</code> by <code>SAMPLE_ID</code> and <code>ENAME</code> (Scientific name). Add ‘SUM_NumberLive’ field in the Statistics section of the tool. Set Output Feature Class to the working .gdb and name it <code>Q75_abundance</code>.</li>
+<li>Use the Symbology tab to select a suitability threshold based on quartiles (e.g., only selecting the upper quartiles with &gt;=50% live species per quadrat). Export selection to .csv for Maxent model run.</li>
+</ul>
+</div>
+<div id="create-species-evenness" class="section level2">
+<h2><span class="header-section-number">3.10</span> Create Species Evenness</h2>
+<p>The purpose of this step is to calculate the Pielou’s evenness index (range 0-1), estimated at the species level.</p>
+<ul>
+<li><p>Create a table of SampleID by species by abundance (number live). Use the dissolve tool:</p></li>
+<li>Input Features: <code>Cordova_all_individuals</code></li>
+<li>Output feature class: <code>Cordova_sampleid_species</code></li>
+<li>Dissolve Fields: <code>SampleID</code>, <code>EName</code></li>
+<li>Statistics Fields: <code>NumberLive</code>, SUM</li>
+<li><p>Create Multipart: unchecked</p></li>
+</ul>
+<p>Ensure that the <code>Cordova_sampleid_species</code> feature class is of type <code>Point Features</code> and not <code>Multipoint Features</code>. If multipoint, then use the <code>Multipart to Singlepart</code> tool to convert from multipoint to point feature type.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Import ArcGIS feature class</span>
+cordova_sampleid_species &lt;-<span class="st"> </span><span class="kw">arc2sp</span>(<span class="st">&quot;//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW/Cordova_sampleid_species&quot;</span>)
+
+<span class="co"># Convert sp object to a data frame</span>
+sample_species &lt;-<span class="st"> </span>cordova_sampleid_species<span class="op">@</span>data
+
+<span class="co"># Remove OBJECTID field</span>
+sample_species &lt;-<span class="st"> </span>sample_species[,<span class="op">-</span><span class="dv">1</span>]
+
+<span class="co"># Convert to vegan community data matrix-like format using labdsv::matrify</span>
+sample_species_matrix &lt;-<span class="st"> </span>labdsv<span class="op">::</span><span class="kw">matrify</span>(sample_species)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Calculate the Shannon-Weaver diversity index</span>
+shannon_diversity &lt;-<span class="st"> </span>vegan<span class="op">::</span><span class="kw">diversity</span>(sample_species_matrix, <span class="dt">index =</span> <span class="st">&quot;shannon&quot;</span>)
+
+<span class="co"># Calculate the number species per site (see ?vegan::diversity)</span>
+species_number &lt;-<span class="st"> </span>vegan<span class="op">::</span><span class="kw">specnumber</span>(sample_species_matrix)
+
+<span class="co"># Use the following equation to calculate Pielou&#39;s evenness</span>
+<span class="co"># See the vegan Diversity Vignette for details</span>
+pielou_evenness &lt;-<span class="st"> </span>shannon_diversity<span class="op">/</span><span class="kw">log</span>(species_number)
+
+<span class="co"># Set NaN pielou_evenness values to zero</span>
+pielou_evenness &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">is.nan</span>(pielou_evenness), <span class="dv">0</span>, pielou_evenness)
+<span class="co"># Create a data frame of results</span>
+pielou &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">sampleid =</span> <span class="kw">names</span>(pielou_evenness), 
+                     shannon_diversity, 
+                     species_number, 
+                     pielou_evenness)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Merge the Pielou scores back on the sp object</span>
+sample_species_pielou &lt;-<span class="st"> </span>sp<span class="op">::</span><span class="kw">merge</span>(<span class="dt">x =</span> cordova_sampleid_species,
+                                   <span class="dt">y =</span> pielou,
+                                   <span class="dt">by.x =</span> <span class="st">&quot;SampleID&quot;</span>, <span class="dt">by.y =</span> <span class="st">&quot;sampleid&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Export to geodatabase</span>
+<span class="kw">sp2arc</span>(sample_species_pielou, <span class="dt">fc_path =</span> <span class="st">&quot;//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW/sample_species_pielou&quot;</span>)</code></pre></div>
+<ul>
+<li><p>Create a table of SampleID by Pielou evenness score. Use the dissolve tool:</p></li>
+<li>Input Features: <code>sample_species_pielou</code></li>
+<li>Output feature class: <code>sample_pielou</code></li>
+<li>Dissolve Fields: <code>SampleID</code></li>
+<li>Statistics Fields: <code>shannon_diversity</code>, MEAN <code>species_number</code>, MEAN <code>pielou_evenness</code>, MEAN</li>
+<li><p>Create Multipart: unchecked</p></li>
+</ul>
+</div>
+<div id="create-tribe-eveness" class="section level2">
+<h2><span class="header-section-number">3.11</span> Create Tribe Eveness</h2>
+<p>The purpose of this step is to calculate the Pielou’s evenness index (range 0-1), estimated at the tribe level. (will probably need to add a new column for tribe; dissolve on this with sample ID)</p>
+<ul>
+<li>Create a new variable for Tribe.</li>
+</ul>
+</div>
+<div id="create-es-100" class="section level2">
+<h2><span class="header-section-number">3.12</span> Create ES 100</h2>
+<p>ES_100-species richness estimated by rarefaction; caveat: sites need to be compared based on an equal sample size because # of species and # of individuals sampled are large correlated. Not sure how best to approach this one; I defer to you!</p>
+</div>
+<div id="determine-mcat-metric-per-site-threshold" class="section level2">
+<h2><span class="header-section-number">3.13</span> Determine MCAT Metric per site threshold</h2>
+</div>
+<div id="export-to-maxent-swd-format" class="section level2">
+<h2><span class="header-section-number">3.14</span> Export to Maxent “SWD” format</h2>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="mussel-data-processing.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="create-backgound-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["HREP Mussel Model.pdf", "HREP Mussel Model.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

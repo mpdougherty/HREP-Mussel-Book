@@ -2,8 +2,9 @@
 
 ## Convert from `.bil` to `.mxe` format
 To speed model creation (from 10's of hours to 10's of minutes), convert the predictors to the Maxent `.mxe` format.
-*Open command prompt and change directory by typing `c:` and then `cd C:\Users\b6pdpdem\Documents\SteamboatMusselModel`
-*Create predictor_mxe folder
+
+* Open command prompt and change directory by typing `c:` and then `cd C:\Users\b6pdpdem\Documents\SteamboatMusselModel`
+* Create predictor_mxe folder
 
 ```java -Xmx5g -cp maxent.jar density.Convert C:\Users\b6pdpdem\Documents\SteamboatMusselModel\predictors bil C:\Users\b6pdpdem\Documents\SteamboatMusselModel\predictors_mxe mxe```
 

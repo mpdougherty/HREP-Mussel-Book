@@ -3,21 +3,25 @@
 ## Create Background Data
 Create a background to constrain points to aquatic areas (more data resolution) and reduce Maxent run times.
 
-  *Use the Create Random Points (Data Management) tool to create a background restricted to aquatic areas:
-    *Output location: `\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Data\SB_Mussels.gdb\`
-    *Output feature class: `background`
-    *Constraining feature class:`aquatic_areas_5m`
-    *Number of points: 10000
-    *Mininum allowed distance: 25m
-    *Leave all others as defaults
-    *Click Ok to run the tool
-  *Open the `background` attribute table. Add 3 fields titled 'species' Type=string and Length=20; 'longitude' Type=double; and 'latitude' Type=double; in that order. Use field calculator to populate the field with species="background". Use Calculate Geometry to populate the 'longitude' and 'latitude' fields, ensuring that the coordinate system is set to 'NAD 1983 2011 US Feet' and 'StatePlane Illinois West FIPS 1202' and the units are set to US feet. Do the same for `unionidae_swd`.
-  *Use Extract Multi Values to Points (spatial analyst) tool to write new values (velocity, depth, slope, and ss) onto feature classes `unionidae_swd` and `background`.
-     *Input point features: `\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Data\SB_Mussels.gdb\background`
-     *Input rasters: velocity, depth, slope, and ss (use rasters in the `Adh.gdb`, not .bil)  copy unionidae_swd and delete 3 variable fields. Ensure all layers have same spatial reference before running the tool. Copy .gdb on local drive prior to running Maxent.
-     *Ensure all layers have same spatial reference before running the tool.  
-     *May have to run Project (Data Mgmt) tool on the `unionidae_swd` points feature class prior to running Multi Values to Points tool. 
-     *Export `background` and each mussel metric as .csv files. Ensure ObjectID field is deleted in Excel prior to upload in Maxent.
+* Use the Create Random Points (Data Management) tool to create a background restricted to aquatic areas:
+
+    * Output location: `\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Data\SB_Mussels.gdb\`
+    * Output feature class: `background`
+    * Constraining feature class:`aquatic_areas_5m`
+    * Number of points: 10000
+    * Mininum allowed distance: 25m
+    * Leave all others as defaults
+    * Click Ok to run the tool
+
+* Open the `background` attribute table. Add 3 fields titled 'species' Type=string and Length=20; 'longitude' Type=double; and 'latitude' Type=double; in that order. Use field calculator to populate the field with species="background". Use Calculate Geometry to populate the 'longitude' and 'latitude' fields, ensuring that the coordinate system is set to 'NAD 1983 2011 US Feet' and 'StatePlane Illinois West FIPS 1202' and the units are set to US feet. Do the same for `unionidae_swd`.
+* Use Extract Multi Values to Points (spatial analyst) tool to write new values (velocity, depth, slope, and ss) onto feature classes `unionidae_swd` and `background`.
+
+     * Input point features: `\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Data\SB_Mussels.gdb\background`
+     * Input rasters: velocity, depth, slope, and ss (use rasters in the `Adh.gdb`, not .bil)  copy unionidae_swd and delete 3 variable fields. Ensure all layers have same spatial reference before running the tool. Copy .gdb on local drive prior to running Maxent.
+     
+* Ensure all layers have same spatial reference before running the tool.  
+* May have to run Project (Data Mgmt) tool on the `unionidae_swd` points feature class prior to running Multi Values to Points tool. 
+* Export `background` and each mussel metric as .csv files. Ensure ObjectID field is deleted in Excel prior to upload in Maxent.
 
 
 

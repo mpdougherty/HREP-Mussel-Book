@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Chapter 8 Model Interpretation | HREP Mussel Model</title>
+  <meta name="description" content="This document describes the process for modeling mussel suitability on Upper Mississippi River Restoration (UMRR) Habitat Rehabilitation and Restoration Projects (HREP).">
+  <meta name="generator" content="bookdown  and GitBook 2.6.7">
+
+  <meta property="og:title" content="Chapter 8 Model Interpretation | HREP Mussel Model" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This document describes the process for modeling mussel suitability on Upper Mississippi River Restoration (UMRR) Habitat Rehabilitation and Restoration Projects (HREP)." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 8 Model Interpretation | HREP Mussel Model" />
+  
+  <meta name="twitter:description" content="This document describes the process for modeling mussel suitability on Upper Mississippi River Restoration (UMRR) Habitat Rehabilitation and Restoration Projects (HREP)." />
+  
+
+
+
+<meta name="date" content="2019-02-28">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="develop-maxent-mussel-model.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">HREP Mussel Model</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#abstract"><i class="fa fa-check"></i><b>0.1</b> Abstract</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#literature-review"><i class="fa fa-check"></i><b>1.1</b> Literature Review</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#identify-available-datasets"><i class="fa fa-check"></i><b>1.2</b> Identify Available Datasets</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html"><i class="fa fa-check"></i><b>2</b> Mussel Data Processing</a><ul>
+<li class="chapter" data-level="2.1" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html#prepare-mussel-sample-data"><i class="fa fa-check"></i><b>2.1</b> Prepare Mussel Sample Data</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html"><i class="fa fa-check"></i><b>3</b> Calculate Mussel Metrics</a><ul>
+<li class="chapter" data-level="3.1" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#prepare-mussel-sample-metrics"><i class="fa fa-check"></i><b>3.1</b> Prepare Mussel Sample Metrics</a></li>
+<li class="chapter" data-level="3.2" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#mcat-metrics"><i class="fa fa-check"></i><b>3.2</b> MCAT Metrics</a></li>
+<li class="chapter" data-level="3.3" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-the-individuals-table"><i class="fa fa-check"></i><b>3.3</b> Create the Individuals table</a></li>
+<li class="chapter" data-level="3.4" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-listed"><i class="fa fa-check"></i><b>3.4</b> Create Percent Listed</a></li>
+<li class="chapter" data-level="3.5" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-tolerant"><i class="fa fa-check"></i><b>3.5</b> Create Percent Tolerant</a></li>
+<li class="chapter" data-level="3.6" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-tribe-lampsilini"><i class="fa fa-check"></i><b>3.6</b> Create Percent Tribe Lampsilini</a></li>
+<li class="chapter" data-level="3.7" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-juveniles"><i class="fa fa-check"></i><b>3.7</b> Create Percent Juveniles</a></li>
+<li class="chapter" data-level="3.8" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-over-15-years"><i class="fa fa-check"></i><b>3.8</b> Create Percent Over 15 Years</a></li>
+<li class="chapter" data-level="3.9" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-q75-abundance"><i class="fa fa-check"></i><b>3.9</b> Create Q75 Abundance</a></li>
+<li class="chapter" data-level="3.10" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-species-evenness"><i class="fa fa-check"></i><b>3.10</b> Create Species Evenness</a></li>
+<li class="chapter" data-level="3.11" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-tribe-eveness"><i class="fa fa-check"></i><b>3.11</b> Create Tribe Eveness</a></li>
+<li class="chapter" data-level="3.12" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-es-100"><i class="fa fa-check"></i><b>3.12</b> Create ES 100</a></li>
+<li class="chapter" data-level="3.13" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#determine-mcat-metric-per-site-threshold"><i class="fa fa-check"></i><b>3.13</b> Determine MCAT Metric per site threshold</a></li>
+<li class="chapter" data-level="3.14" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#export-to-maxent-swd-format"><i class="fa fa-check"></i><b>3.14</b> Export to Maxent “SWD” format</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="create-backgound-data.html"><a href="create-backgound-data.html"><i class="fa fa-check"></i><b>4</b> Create Backgound Data</a><ul>
+<li class="chapter" data-level="4.1" data-path="create-backgound-data.html"><a href="create-backgound-data.html#create-background-data"><i class="fa fa-check"></i><b>4.1</b> Create Background Data</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="prepare-environmental-predictor-data.html"><a href="prepare-environmental-predictor-data.html"><i class="fa fa-check"></i><b>5</b> Prepare Environmental Predictor Data</a><ul>
+<li class="chapter" data-level="5.1" data-path="prepare-environmental-predictor-data.html"><a href="prepare-environmental-predictor-data.html#create-mask"><i class="fa fa-check"></i><b>5.1</b> Create Mask</a></li>
+<li class="chapter" data-level="5.2" data-path="prepare-environmental-predictor-data.html"><a href="prepare-environmental-predictor-data.html#set-environments"><i class="fa fa-check"></i><b>5.2</b> Set Environments</a></li>
+<li class="chapter" data-level="5.3" data-path="prepare-environmental-predictor-data.html"><a href="prepare-environmental-predictor-data.html#process-adh-model-outputs"><i class="fa fa-check"></i><b>5.3</b> Process ADH Model Outputs</a></li>
+<li class="chapter" data-level="5.4" data-path="prepare-environmental-predictor-data.html"><a href="prepare-environmental-predictor-data.html#convert-to-.bil-format"><i class="fa fa-check"></i><b>5.4</b> Convert to .bil format</a></li>
+<li class="chapter" data-level="5.5" data-path="prepare-environmental-predictor-data.html"><a href="prepare-environmental-predictor-data.html#calculate-slope"><i class="fa fa-check"></i><b>5.5</b> Calculate Slope</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html"><i class="fa fa-check"></i><b>6</b> Prepare Wind and Wave Data</a><ul>
+<li class="chapter" data-level="6.1" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html#identify-appropriate-weather-stations"><i class="fa fa-check"></i><b>6.1</b> Identify Appropriate Weather Stations</a></li>
+<li class="chapter" data-level="6.2" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html#obtain-wind-data"><i class="fa fa-check"></i><b>6.2</b> Obtain Wind Data</a></li>
+<li class="chapter" data-level="6.3" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html#determine-period-of-record"><i class="fa fa-check"></i><b>6.3</b> Determine Period of Record</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="develop-maxent-mussel-model.html"><a href="develop-maxent-mussel-model.html"><i class="fa fa-check"></i><b>7</b> Develop Maxent Mussel Model</a><ul>
+<li class="chapter" data-level="7.1" data-path="develop-maxent-mussel-model.html"><a href="develop-maxent-mussel-model.html#convert-from-.bil-to-.mxe-format"><i class="fa fa-check"></i><b>7.1</b> Convert from <code>.bil</code> to <code>.mxe</code> format</a></li>
+<li class="chapter" data-level="7.2" data-path="develop-maxent-mussel-model.html"><a href="develop-maxent-mussel-model.html#run-maxent"><i class="fa fa-check"></i><b>7.2</b> Run Maxent</a></li>
+<li class="chapter" data-level="7.3" data-path="develop-maxent-mussel-model.html"><a href="develop-maxent-mussel-model.html#convert-model-output-from"><i class="fa fa-check"></i><b>7.3</b> Convert model output from</a></li>
+<li class="chapter" data-level="7.4" data-path="develop-maxent-mussel-model.html"><a href="develop-maxent-mussel-model.html#maxent-speed-issues"><i class="fa fa-check"></i><b>7.4</b> Maxent speed Issues</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="model-interpretation.html"><a href="model-interpretation.html"><i class="fa fa-check"></i><b>8</b> Model Interpretation</a><ul>
+<li class="chapter" data-level="8.1" data-path="model-interpretation.html"><a href="model-interpretation.html#section"><i class="fa fa-check"></i><b>8.1</b> ?</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">HREP Mussel Model</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="model-interpretation" class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> Model Interpretation</h1>
+<div id="section" class="section level2">
+<h2><span class="header-section-number">8.1</span> ?</h2>
+
+<div id="refs" class="references">
+<div>
+<p>Elith, Jane, and John R Leathwick. 2009. “Species Distribution Models: Ecological Explanation and Prediction Across Space and Time.” <em>Annual Review of Ecology, Evolution, and Systematics</em> 40. Annual Reviews: 677–97. doi:<a href="https://doi.org/10.1146/annurev.ecolsys.110308.120159">10.1146/annurev.ecolsys.110308.120159</a>.</p>
+</div>
+<div>
+<p>Elith, Jane, John R Leathwick, and Trevor Hastie. 2008. “A Working Guide to Boosted Regression Trees.” <em>Journal of Animal Ecology</em> 77 (4). Wiley Online Library: 802–13. doi:<a href="https://doi.org/10.1111/j.1365-2656.2008.01390.x">10.1111/j.1365-2656.2008.01390.x</a>.</p>
+</div>
+<div>
+<p>Hijmans, Robert J, and Jane Elith. 2013. “Species Distribution Modeling with R.” <em>R Package Version 0.8-11</em>.</p>
+</div>
+<div>
+<p>———. n.d. “Species Distribution Modeling.” In <em>Spatial Data Analysis and Modeling with R</em>, edited by Robert J Hijmans and Jane Elith. <a href="http://rspatial.org/sdm/index.html" class="uri">http://rspatial.org/sdm/index.html</a>.</p>
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="develop-maxent-mussel-model.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["HREP Mussel Model.pdf", "HREP Mussel Model.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
