@@ -24,7 +24,7 @@
 
 
 
-<meta name="date" content="2019-02-28">
+<meta name="date" content="2019-03-01">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -126,8 +126,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.10" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-species-evenness"><i class="fa fa-check"></i><b>3.10</b> Create Species Evenness</a></li>
 <li class="chapter" data-level="3.11" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-tribe-eveness"><i class="fa fa-check"></i><b>3.11</b> Create Tribe Eveness</a></li>
 <li class="chapter" data-level="3.12" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-es-100"><i class="fa fa-check"></i><b>3.12</b> Create ES 100</a></li>
-<li class="chapter" data-level="3.13" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#determine-mcat-metric-per-site-threshold"><i class="fa fa-check"></i><b>3.13</b> Determine MCAT Metric per site threshold</a></li>
-<li class="chapter" data-level="3.14" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#export-to-maxent-swd-format"><i class="fa fa-check"></i><b>3.14</b> Export to Maxent “SWD” format</a></li>
+<li class="chapter" data-level="3.13" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#determine-mcat-metric-per-site-threshold"><i class="fa fa-check"></i><b>3.13</b> Determine MCAT Metric per site threshold</a><ul>
+<li class="chapter" data-level="3.13.1" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#percent-listed"><i class="fa fa-check"></i><b>3.13.1</b> Percent Listed</a></li>
+<li class="chapter" data-level="3.13.2" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#percent-tolerant"><i class="fa fa-check"></i><b>3.13.2</b> Percent Tolerant</a></li>
+</ul></li>
+<li class="chapter" data-level="3.14" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#choice-of-site-level-mcat-metric-thresholds"><i class="fa fa-check"></i><b>3.14</b> Choice of Site Level MCAT Metric Thresholds</a></li>
+<li class="chapter" data-level="3.15" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#export-to-maxent-swd-format"><i class="fa fa-check"></i><b>3.15</b> Export to Maxent “SWD” format</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="create-backgound-data.html"><a href="create-backgound-data.html"><i class="fa fa-check"></i><b>4</b> Create Backgound Data</a><ul>
 <li class="chapter" data-level="4.1" data-path="create-backgound-data.html"><a href="create-backgound-data.html#create-background-data"><i class="fa fa-check"></i><b>4.1</b> Create Background Data</a></li>
@@ -177,14 +181,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">Chapter 3</span> Calculate Mussel Metrics</h1>
 <div id="prepare-mussel-sample-metrics" class="section level2">
 <h2><span class="header-section-number">3.1</span> Prepare Mussel Sample Metrics</h2>
-<p>The purpose of this step is to various metrics from unique sample data for input to the Maxent model.</p>
-<ul>
-<li>Working geodatabase: <code>//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW</code></li>
-</ul>
+<p>The purpose of this section is to calculate various metrics of habitat quality for each sampled site. Each of these metrics will be used as presence data as input to create a set of Maxent habitat suitability models. The metrics calculated in this section were taken from the Upper Mississippi River Mussel Community Assessment Tool (MCAT) <span class="citation">(<span class="citeproc-not-found" data-reference-id="dunn2016"><strong>???</strong></span>)</span>.</p>
 </div>
 <div id="mcat-metrics" class="section level2">
 <h2><span class="header-section-number">3.2</span> MCAT Metrics</h2>
-<p>Each metric will serve as an individual model run in Maxent. These metrics are based on the Mussel Community Assessment Tool (MCAT) outlined in Dunn et al. (2016) and have been modified to fit a site-specific scale (i.e., Steamboat Island). The following MCAT metrics were selected for inclusion to the model:</p>
+<p>The following MCAT metrics were selected for inclusion to the model:</p>
 <ul>
 <li><code>% listed species</code>: percent of listed threatened or endangered species (federal or bordering states) is a measure of sensitive species</li>
 <li><code>% tolerant</code>: percent of tolerant species (Amblema plicata, Quadrula quadrula, and Obliquaria reflexa) is a measure of a highly disturbed mussel assemblage; i.e., dominated by species tolerant of unstable substrates, silt accumulation, low current velocities, and fluctuating flow conditions.</li>
@@ -199,13 +200,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="create-the-individuals-table" class="section level2">
 <h2><span class="header-section-number">3.3</span> Create the Individuals table</h2>
+<p>The purpose of this step is to assemble the “individual” data for each of the surveys within the study area that will be used in the study.</p>
 <ul>
+<li>Working geodatabase: <code>//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW</code></li>
 <li>Create a feature class respresenting all individual mussel samples in the study area, using a definition query to include only live individuals and name it <code>Cordova_all_individuals</code>. Note: the Q75 abundance metric will be based on live mussel counts for each quadrat.</li>
-<li>Add the following fields (Type=long integer) to the attribute table: ‘Listed’; ‘Tolerant’; ‘Lampsilini’; ‘Juveniles’;‘Over_15yrs’</li>
+<li>Add the following fields (Type=long integer) to the attribute table: <code>Listed</code>, <code>Tolerant</code>, <code>Lampsilini</code>, <code>Juveniles</code>, <code>Over_15yrs</code>, <code>tribe</code></li>
 </ul>
 </div>
 <div id="create-percent-listed" class="section level2">
 <h2><span class="header-section-number">3.4</span> Create Percent Listed</h2>
+<p>The purpose of this step is to calculate the percent listed MCAT metric for each sampled site.</p>
 <ul>
 <li>Dissolve this feature class by <code>SAMPLE_ID</code> and <code>ENAME</code> (Scientific name). Add ‘SUM_NumberLive’ and ‘SUM_Listed’ fields in the Statistics section of the tool. Set Output Feature Class to the working .gdb and name it <code>PercentListed</code>.</li>
 <li>Open the <code>PercentListed</code> attribute table. Add a field titled ‘Perc_listed’ Type=double and enter the expression <code>([SUM_Listed] / [SUM_NumberLive]) * 100</code> into the field calculator to calculate % of individual listed species per quadrat sample.</li>
@@ -216,21 +220,23 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="create-percent-tolerant" class="section level2">
 <h2><span class="header-section-number">3.5</span> Create Percent Tolerant</h2>
-<ul>
-<li>Repeat the steps percent listed (except % tolerant, where thresholds are set at &lt;50%) and export to .csv</li>
-</ul>
+<p>The purpose of this step is to calculate the percent tolerant MCAT metric for each sampled site.</p>
 </div>
 <div id="create-percent-tribe-lampsilini" class="section level2">
 <h2><span class="header-section-number">3.6</span> Create Percent Tribe Lampsilini</h2>
+<p>The purpose of this step is to calculate the percent tribe Lampsilini MCAT metric for each sampled site.</p>
 </div>
 <div id="create-percent-juveniles" class="section level2">
 <h2><span class="header-section-number">3.7</span> Create Percent Juveniles</h2>
+<p>The purpose of this step is to calculate the percent juveniles MCAT metric for each sampled site.</p>
 </div>
 <div id="create-percent-over-15-years" class="section level2">
 <h2><span class="header-section-number">3.8</span> Create Percent Over 15 Years</h2>
+<p>The purpose of this step is to calculate the percent over 15 years old MCAT metric for each sampled site.</p>
 </div>
 <div id="create-q75-abundance" class="section level2">
 <h2><span class="header-section-number">3.9</span> Create Q75 Abundance</h2>
+<p>The purpose of this step is to calculate the Q75 abundance MCAT metric for each sampled site.</p>
 <ul>
 <li>For Q75 abundance metric, dissolve <code>Cordova_all_individuals</code> by <code>SAMPLE_ID</code> and <code>ENAME</code> (Scientific name). Add ‘SUM_NumberLive’ field in the Statistics section of the tool. Set Output Feature Class to the working .gdb and name it <code>Q75_abundance</code>.</li>
 <li>Use the Symbology tab to select a suitability threshold based on quartiles (e.g., only selecting the upper quartiles with &gt;=50% live species per quadrat). Export selection to .csv for Maxent model run.</li>
@@ -238,17 +244,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="create-species-evenness" class="section level2">
 <h2><span class="header-section-number">3.10</span> Create Species Evenness</h2>
-<p>The purpose of this step is to calculate the Pielou’s evenness index (range 0-1), estimated at the species level.</p>
+<p>The purpose of this step is to calculate the Pielou’s evenness index (range 0-1), estimated at the species level for each sampled site.</p>
 <ul>
-<li><p>Create a table of SampleID by species by abundance (number live). Use the dissolve tool:</p></li>
+<li>Create a table of SampleID by species by abundance (number live). Use the <code>Dissolve</code> tool:</li>
 <li>Input Features: <code>Cordova_all_individuals</code></li>
 <li>Output feature class: <code>Cordova_sampleid_species</code></li>
 <li>Dissolve Fields: <code>SampleID</code>, <code>EName</code></li>
 <li>Statistics Fields: <code>NumberLive</code>, SUM</li>
-<li><p>Create Multipart: unchecked</p></li>
+<li>Create Multipart: unchecked</li>
 </ul>
 <p>Ensure that the <code>Cordova_sampleid_species</code> feature class is of type <code>Point Features</code> and not <code>Multipoint Features</code>. If multipoint, then use the <code>Multipart to Singlepart</code> tool to convert from multipoint to point feature type.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Import ArcGIS feature class</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Import ArcGIS feature class into R</span>
 cordova_sampleid_species &lt;-<span class="st"> </span><span class="kw">arc2sp</span>(<span class="st">&quot;//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW/Cordova_sampleid_species&quot;</span>)
 
 <span class="co"># Convert sp object to a data frame</span>
@@ -276,37 +282,114 @@ pielou &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span cl
                      shannon_diversity, 
                      species_number, 
                      pielou_evenness)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Merge the Pielou scores back on the sp object</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Merge the Pielou scores back onto the sp object</span>
 sample_species_pielou &lt;-<span class="st"> </span>sp<span class="op">::</span><span class="kw">merge</span>(<span class="dt">x =</span> cordova_sampleid_species,
                                    <span class="dt">y =</span> pielou,
                                    <span class="dt">by.x =</span> <span class="st">&quot;SampleID&quot;</span>, <span class="dt">by.y =</span> <span class="st">&quot;sampleid&quot;</span>)</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Export to geodatabase</span>
 <span class="kw">sp2arc</span>(sample_species_pielou, <span class="dt">fc_path =</span> <span class="st">&quot;//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW/sample_species_pielou&quot;</span>)</code></pre></div>
 <ul>
-<li><p>Create a table of SampleID by Pielou evenness score. Use the dissolve tool:</p></li>
+<li>Create a table of SampleID by species Pielou evenness score. Use the <code>Dissolve</code> tool:</li>
 <li>Input Features: <code>sample_species_pielou</code></li>
-<li>Output feature class: <code>sample_pielou</code></li>
+<li>Output feature class: <code>species_pielou</code></li>
 <li>Dissolve Fields: <code>SampleID</code></li>
 <li>Statistics Fields: <code>shannon_diversity</code>, MEAN <code>species_number</code>, MEAN <code>pielou_evenness</code>, MEAN</li>
 <li><p>Create Multipart: unchecked</p></li>
+<li><p>Add “SWD” fields.</p></li>
 </ul>
 </div>
 <div id="create-tribe-eveness" class="section level2">
 <h2><span class="header-section-number">3.11</span> Create Tribe Eveness</h2>
 <p>The purpose of this step is to calculate the Pielou’s evenness index (range 0-1), estimated at the tribe level. (will probably need to add a new column for tribe; dissolve on this with sample ID)</p>
 <ul>
-<li>Create a new variable for Tribe.</li>
+<li>In the feature class <code>Cordova_all_individuals</code>, create a new text variable named <code>tribe</code>.</li>
+<li>Use the <code>Field Calculator</code> tool on the <code>tribe</code> field to calculate its value using the following Python expression: <code>!Ename!.split()[0]</code></li>
+<li>Create a table of SampleID by tribe by abundance (number live). Use the <code>Dissolve</code> tool:</li>
+<li>Input Features: <code>Cordova_all_individuals</code></li>
+<li>Output feature class: <code>Cordova_sampleid_tribe</code></li>
+<li>Dissolve Fields: <code>SampleID</code>, <code>tribe</code></li>
+<li>Statistics Fields: <code>NumberLive</code>, SUM</li>
+<li>Create Multipart: unchecked</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Import ArcGIS feature class into R</span>
+cordova_sampleid_tribe &lt;-<span class="st"> </span><span class="kw">arc2sp</span>(<span class="st">&quot;//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW/Cordova_sampleid_tribe&quot;</span>)
+
+<span class="co"># Convert sp object to a data frame</span>
+sample_tribe &lt;-<span class="st"> </span>cordova_sampleid_tribe<span class="op">@</span>data
+
+<span class="co"># Remove OBJECTID field</span>
+sample_tribe &lt;-<span class="st"> </span>sample_tribe[,<span class="op">-</span><span class="dv">1</span>]
+
+<span class="co"># Convert to vegan community data matrix-like format using labdsv::matrify</span>
+sample_tribe_matrix &lt;-<span class="st"> </span>labdsv<span class="op">::</span><span class="kw">matrify</span>(sample_tribe)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Calculate the Shannon-Weaver diversity index</span>
+tribe_shannon_diversity &lt;-<span class="st"> </span>vegan<span class="op">::</span><span class="kw">diversity</span>(sample_tribe_matrix, <span class="dt">index =</span> <span class="st">&quot;shannon&quot;</span>)
+
+<span class="co"># Calculate the number species per site (see ?vegan::diversity)</span>
+tribe_number &lt;-<span class="st"> </span>vegan<span class="op">::</span><span class="kw">specnumber</span>(sample_tribe_matrix)
+
+<span class="co"># Use the following equation to calculate Pielou&#39;s evenness</span>
+<span class="co"># See the vegan Diversity Vignette for details</span>
+tribe_pielou_evenness &lt;-<span class="st"> </span>tribe_shannon_diversity<span class="op">/</span><span class="kw">log</span>(tribe_number)
+
+<span class="co"># Set NaN pielou_evenness values to zero</span>
+tribe_pielou_evenness &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">is.nan</span>(tribe_pielou_evenness), <span class="dv">0</span>, 
+                                tribe_pielou_evenness)
+<span class="co"># Create a data frame of results</span>
+tribe_pielou &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">sampleid =</span> <span class="kw">names</span>(tribe_pielou_evenness), 
+                           tribe_shannon_diversity, 
+                           tribe_number, 
+                           tribe_pielou_evenness)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Merge the Pielou scores back onto the sp object</span>
+sample_tribe_pielou &lt;-<span class="st"> </span>sp<span class="op">::</span><span class="kw">merge</span>(<span class="dt">x =</span> cordova_sampleid_tribe,
+                                 <span class="dt">y =</span> tribe_pielou,
+                                 <span class="dt">by.x =</span> <span class="st">&quot;SampleID&quot;</span>, <span class="dt">by.y =</span> <span class="st">&quot;sampleid&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Export to geodatabase</span>
+<span class="kw">sp2arc</span>(sample_tribe_pielou, <span class="dt">fc_path =</span> <span class="st">&quot;//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW/sample_tribe_pielou&quot;</span>)</code></pre></div>
+<ul>
+<li>Create a table of SampleID by tribe Pielou evenness score. Use the <code>Dissolve</code> tool:</li>
+<li>Input Features: <code>sample_tribe_pielou</code></li>
+<li>Output feature class: <code>tribe_pielou</code></li>
+<li>Dissolve Fields: <code>SampleID</code></li>
+<li>Statistics Fields: <code>tribe_shannon_diversity</code>, MEAN <code>tribe_number</code>, MEAN <code>tribe_pielou_evenness</code>, MEAN</li>
+<li><p>Create Multipart: unchecked</p></li>
+<li><p>Add “SWD” fields.</p></li>
 </ul>
 </div>
 <div id="create-es-100" class="section level2">
 <h2><span class="header-section-number">3.12</span> Create ES 100</h2>
+<p>The purpose of this step is to calculate the ES 100 MCAT metric for each sampled site.</p>
 <p>ES_100-species richness estimated by rarefaction; caveat: sites need to be compared based on an equal sample size because # of species and # of individuals sampled are large correlated. Not sure how best to approach this one; I defer to you!</p>
 </div>
 <div id="determine-mcat-metric-per-site-threshold" class="section level2">
 <h2><span class="header-section-number">3.13</span> Determine MCAT Metric per site threshold</h2>
+<p>The purpose of this section is to display the range of calculated values for each of the MCAT metrics for each of the sites in the Steamboat Island study area. The MCAT report is clear about metric thresholds to use for evaluating quality mussel beds. However, this study is using the individual site unit of analysis. Therefore, decisions must be made on what is the appropriate metric threshold to use for the site level of analysis. The descriptive statistics in this section will help to inform that decsion.</p>
+<div id="percent-listed" class="section level3">
+<h3><span class="header-section-number">3.13.1</span> Percent Listed</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot percent listed</span>
+percent_listed_p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(percent_listed, <span class="kw">aes</span>(Perc_listed)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">10</span>)
+<span class="kw">print</span>(percent_listed_p)</code></pre></div>
+<p><img src="HREP_Mussel_Model_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#sort(percent_listed$Perc_listed[percent_listed$Perc_listed &gt; 0])</span></code></pre></div>
+</div>
+<div id="percent-tolerant" class="section level3">
+<h3><span class="header-section-number">3.13.2</span> Percent Tolerant</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot percent listed</span>
+percent_tolerant_p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(percent_tolerant, <span class="kw">aes</span>(Perc_tolerant)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">10</span>)
+<span class="kw">print</span>(percent_tolerant_p)</code></pre></div>
+<p><img src="HREP_Mussel_Model_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#sort(percent_tolerant$Perc_tolerant[percent_tolerant$Perc_tolerant &lt; 50])</span></code></pre></div>
+</div>
+</div>
+<div id="choice-of-site-level-mcat-metric-thresholds" class="section level2">
+<h2><span class="header-section-number">3.14</span> Choice of Site Level MCAT Metric Thresholds</h2>
+<p>The discriptive statistics presented in the previous section were used to select MCAT metrics thresolds.</p>
+<p>Table 1.</p>
 </div>
 <div id="export-to-maxent-swd-format" class="section level2">
-<h2><span class="header-section-number">3.14</span> Export to Maxent “SWD” format</h2>
+<h2><span class="header-section-number">3.15</span> Export to Maxent “SWD” format</h2>
 
 </div>
 </div>

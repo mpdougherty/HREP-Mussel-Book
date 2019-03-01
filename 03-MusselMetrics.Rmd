@@ -1,12 +1,10 @@
 # Calculate Mussel Metrics
 
 ## Prepare Mussel Sample Metrics
-The purpose of this step is to various metrics from unique sample data for input to the Maxent model.
-
-* Working geodatabase: `//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW`
+The purpose of this section is to calculate various metrics of habitat quality for each sampled site. Each of these metrics will be used as presence data as input to create a set of Maxent habitat suitability models. The metrics calculated in this section were taken from the Upper Mississippi River Mussel Community Assessment Tool (MCAT) [@dunn2016].
 
 ## MCAT Metrics
-Each metric will serve as an individual model run in Maxent.  These metrics are based on the Mussel Community Assessment Tool (MCAT) outlined in Dunn et al. (2016) and have been modified to fit a site-specific scale (i.e., Steamboat Island). The following MCAT metrics were selected for inclusion to the model:
+The following MCAT metrics were selected for inclusion to the model:
 
 * `% listed species`: percent of listed threatened or endangered species (federal or bordering states) is a measure of sensitive species
 * `% tolerant`: percent of tolerant species (Amblema plicata, Quadrula quadrula, and Obliquaria reflexa) is a measure of a highly disturbed mussel assemblage; i.e., dominated by species tolerant of unstable substrates, silt accumulation, low current velocities, and fluctuating flow conditions.
@@ -19,11 +17,14 @@ Each metric will serve as an individual model run in Maxent.  These metrics are 
 * `ES_100`: the expected number of species with a sample size of 100 estimated by rarefaction is a measure of a healthy mussel assemblage
 
 ## Create the Individuals table
+The purpose of this step is to assemble the "individual" data for each of the surveys within the study area that will be used in the study. 
 
+* Working geodatabase: `//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW`
 * Create a feature class respresenting all individual mussel samples in the study area, using a definition query to include only live individuals and name it `Cordova_all_individuals`. Note: the Q75 abundance metric will be based on live mussel counts for each quadrat.
-* Add the following fields (Type=long integer) to the attribute table: 'Listed'; 'Tolerant'; 'Lampsilini'; 'Juveniles';'Over_15yrs'
+* Add the following fields (Type=long integer) to the attribute table: `Listed`, `Tolerant`, `Lampsilini`, `Juveniles`, `Over_15yrs`, `tribe` 
 
 ## Create Percent Listed
+The purpose of this step is to calculate the percent listed MCAT metric for each sampled site. 
 
 * Dissolve this feature class by `SAMPLE_ID` and `ENAME` (Scientific name).  Add 'SUM_NumberLive' and 'SUM_Listed' fields in the Statistics section of the tool. Set Output Feature Class to the working .gdb and name it `PercentListed`.
 * Open the `PercentListed` attribute table. Add a field titled 'Perc_listed' Type=double and enter the expression `([SUM_Listed] / [SUM_NumberLive]) * 100` into the field calculator to calculate % of individual listed species per quadrat sample.
@@ -32,25 +33,27 @@ Each metric will serve as an individual model run in Maxent.  These metrics are 
 * Use the Symbology tab to select a suitability threshold based on quartiles (e.g., only selecting "fair" or "good" locations with >=50% listed species). In the Symbology tab, Show: Quantities; field value 'perc_listed'; classes=5; and method=quantile. Export selected to .csv for Maxent model run.
 
 ## Create Percent Tolerant
-
-* Repeat the steps percent listed (except % tolerant, where thresholds are set at <50%) and export to .csv
+The purpose of this step is to calculate the percent tolerant MCAT metric for each sampled site. 
 
 ## Create Percent Tribe Lampsilini
+The purpose of this step is to calculate the percent tribe Lampsilini MCAT metric for each sampled site.
 
 ## Create Percent Juveniles
+The purpose of this step is to calculate the percent juveniles MCAT metric for each sampled site.
 
 ## Create Percent Over 15 Years
+The purpose of this step is to calculate the percent over 15 years old MCAT metric for each sampled site.
 
 ## Create Q75 Abundance
+The purpose of this step is to calculate the Q75 abundance MCAT metric for each sampled site.
 
 * For Q75 abundance metric, dissolve `Cordova_all_individuals` by `SAMPLE_ID` and `ENAME` (Scientific name).  Add 'SUM_NumberLive' field in the Statistics section of the tool. Set Output Feature Class to the working .gdb and name it `Q75_abundance`.
 * Use the Symbology tab to select a suitability threshold based on quartiles (e.g., only selecting the upper quartiles with >=50% live species per quadrat). Export selection to .csv for Maxent model run.
 
 ## Create Species Evenness
-The purpose of this step is to calculate the Pielou's evenness index (range 0-1), estimated at the species level. 
+The purpose of this step is to calculate the Pielou's evenness index (range 0-1), estimated at the species level for each sampled site. 
 
-* Create a table of SampleID by species by abundance (number live). Use the dissolve tool:
-
+* Create a table of SampleID by species by abundance (number live). Use the `Dissolve` tool:
   * Input Features: `Cordova_all_individuals`
   * Output feature class: `Cordova_sampleid_species`
   * Dissolve Fields: `SampleID`, `EName`
@@ -64,6 +67,8 @@ Ensure that the `Cordova_sampleid_species` feature class is of type `Point Featu
 library(sp)
 library(labdsv)
 library(vegan)
+library(ggplot2)
+library(dplyr)
 library(arcgisbinding)
 
 # Check for ArcGIS license
@@ -91,7 +96,7 @@ sp2arc <- function(sp_object, fc_path) {
 ```
 
 ```{r}
-# Import ArcGIS feature class
+# Import ArcGIS feature class into R
 cordova_sampleid_species <- arc2sp("//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW/Cordova_sampleid_species")
 
 # Convert sp object to a data frame
@@ -125,7 +130,7 @@ pielou <- data.frame(sampleid = names(pielou_evenness),
 ```
 
 ```{r}
-# Merge the Pielou scores back on the sp object
+# Merge the Pielou scores back onto the sp object
 sample_species_pielou <- sp::merge(x = cordova_sampleid_species,
                                    y = pielou,
                                    by.x = "SampleID", by.y = "sampleid")
@@ -136,29 +141,142 @@ sample_species_pielou <- sp::merge(x = cordova_sampleid_species,
 sp2arc(sample_species_pielou, fc_path = "//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW/sample_species_pielou")
 ```
 
-* Create a table of SampleID by Pielou evenness score. Use the dissolve tool:
-
+* Create a table of SampleID by species Pielou evenness score. Use the `Dissolve` tool:
   * Input Features: `sample_species_pielou`
-  * Output feature class: `sample_pielou`
+  * Output feature class: `species_pielou`
   * Dissolve Fields: `SampleID`
   * Statistics Fields: `shannon_diversity`, MEAN
                        `species_number`, MEAN
                        `pielou_evenness`, MEAN
   * Create Multipart: unchecked
 
+* Add "SWD" fields.
 
 ## Create Tribe Eveness
 The purpose of this step is to calculate the Pielou's evenness index (range 0-1), estimated at the tribe level.  (will probably need to add a new column for tribe; dissolve on this with sample ID)
 
-* Create a new variable for Tribe. 
+* In the feature class `Cordova_all_individuals`, create a new text variable named `tribe`. 
+* Use the `Field Calculator` tool on the `tribe` field to calculate its value using the following Python expression: `!Ename!.split()[0]`
+* Create a table of SampleID by tribe by abundance (number live). Use the `Dissolve` tool:
+  * Input Features: `Cordova_all_individuals`
+  * Output feature class: `Cordova_sampleid_tribe`
+  * Dissolve Fields: `SampleID`, `tribe`
+  * Statistics Fields: `NumberLive`, SUM
+  * Create Multipart: unchecked
+
+
+```{r}
+# Import ArcGIS feature class into R
+cordova_sampleid_tribe <- arc2sp("//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW/Cordova_sampleid_tribe")
+
+# Convert sp object to a data frame
+sample_tribe <- cordova_sampleid_tribe@data
+
+# Remove OBJECTID field
+sample_tribe <- sample_tribe[,-1]
+
+# Convert to vegan community data matrix-like format using labdsv::matrify
+sample_tribe_matrix <- labdsv::matrify(sample_tribe)
+```
+
+
+```{r}
+# Calculate the Shannon-Weaver diversity index
+tribe_shannon_diversity <- vegan::diversity(sample_tribe_matrix, index = "shannon")
+
+# Calculate the number species per site (see ?vegan::diversity)
+tribe_number <- vegan::specnumber(sample_tribe_matrix)
+
+# Use the following equation to calculate Pielou's evenness
+# See the vegan Diversity Vignette for details
+tribe_pielou_evenness <- tribe_shannon_diversity/log(tribe_number)
+
+# Set NaN pielou_evenness values to zero
+tribe_pielou_evenness <- ifelse(is.nan(tribe_pielou_evenness), 0, 
+                                tribe_pielou_evenness)
+# Create a data frame of results
+tribe_pielou <- data.frame(sampleid = names(tribe_pielou_evenness), 
+                           tribe_shannon_diversity, 
+                           tribe_number, 
+                           tribe_pielou_evenness)
+```
+
+```{r}
+# Merge the Pielou scores back onto the sp object
+sample_tribe_pielou <- sp::merge(x = cordova_sampleid_tribe,
+                                 y = tribe_pielou,
+                                 by.x = "SampleID", by.y = "sampleid")
+```
+
+```{r eval=FALSE}
+# Export to geodatabase
+sp2arc(sample_tribe_pielou, fc_path = "//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW/sample_tribe_pielou")
+```
+
+* Create a table of SampleID by tribe Pielou evenness score. Use the `Dissolve` tool:
+  * Input Features: `sample_tribe_pielou`
+  * Output feature class: `tribe_pielou`
+  * Dissolve Fields: `SampleID`
+  * Statistics Fields: `tribe_shannon_diversity`, MEAN
+                       `tribe_number`, MEAN
+                       `tribe_pielou_evenness`, MEAN
+  * Create Multipart: unchecked
+
+* Add "SWD" fields.
 
 ## Create ES 100
+The purpose of this step is to calculate the ES 100 MCAT metric for each sampled site.
+
 ES_100-species richness estimated by rarefaction; caveat: sites need to be compared based on an equal sample size because # of species and # of individuals sampled are large correlated.  Not sure how best to approach this one; I defer to you!
 
 
 ## Determine MCAT Metric per site threshold
+The purpose of this section is to display the range of calculated values for each of the MCAT metrics for each of the sites in the Steamboat Island study area. The MCAT report is clear about metric thresholds to use for evaluating quality mussel beds. However, this study is using the individual site unit of analysis. Therefore, decisions must be made on what is the appropriate metric threshold to use for the site level of analysis. The descriptive statistics in this section will help to inform that decsion. 
 
+```{r message=FALSE, warning=FALSE, include=FALSE}
+# Import MCAT Metrics from geodatabase
+# Percent Listed
+percent_listed_sp <- arc2sp("//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW/PercentListed")
+
+# Convert sp object to a data frame
+percent_listed <- percent_listed_sp@data
+
+# Percent Tolerant
+percent_tolerant_sp <- arc2sp("//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW/PercentTolerant")
+
+# Convert sp object to a data frame
+percent_tolerant <- percent_tolerant_sp@data
+```
+
+### Percent Listed
+```{r}
+# Plot percent listed
+percent_listed_p <- ggplot(percent_listed, aes(Perc_listed)) + 
+  geom_histogram(binwidth = 10)
+print(percent_listed_p)
+
+#sort(percent_listed$Perc_listed[percent_listed$Perc_listed > 0])
+```
+
+### Percent Tolerant
+```{r}
+# Plot percent listed
+percent_tolerant_p <- ggplot(percent_tolerant, aes(Perc_tolerant)) + 
+  geom_histogram(binwidth = 10)
+print(percent_tolerant_p)
+
+#sort(percent_tolerant$Perc_tolerant[percent_tolerant$Perc_tolerant < 50])
+```
+
+##  Choice of Site Level MCAT Metric Thresholds
+The discriptive statistics presented in the previous section were used to select MCAT metrics thresolds. 
+
+
+Table 1.
 
 
 ## Export to Maxent "SWD" format
+
+
+
 
