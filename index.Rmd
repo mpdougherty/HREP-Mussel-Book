@@ -1,7 +1,11 @@
 --- 
 title: "HREP Mussel Modeling"
+subtitle: "Modeling Mussel Habitat Suitability for Upper Mississippi River Restoration Projects"
 date: "`r Sys.Date()`"
-author: [Michael Dougherty, Davi Michl, Dan Kelner]
+author: 
+  - Michael Dougherty, Geographer, US Army Corps of Engineers, Rock Island District
+  - Davi Michl, Biologist, US Army Corps of Engineers, Rock Island District
+  - Dan Kelner, Fisheries Biologist, US Army Corps of Engineers, St. Paul District
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [mussel_model.bib, packages.bib]

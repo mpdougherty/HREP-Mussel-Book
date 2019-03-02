@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 7 Develop Maxent Mussel Model | HREP Mussel Modeling</title>
+  <title>Chapter 4 Create Backgound Data | HREP Mussel Modeling</title>
   <meta name="description" content="This document describes the process for modeling mussel suitability on Upper Mississippi River Restoration (UMRR) Habitat Rehabilitation and Restoration Projects (HREP).">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 7 Develop Maxent Mussel Model | HREP Mussel Modeling" />
+  <meta property="og:title" content="Chapter 4 Create Backgound Data | HREP Mussel Modeling" />
   <meta property="og:type" content="book" />
   
   
@@ -17,14 +17,14 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 7 Develop Maxent Mussel Model | HREP Mussel Modeling" />
+  <meta name="twitter:title" content="Chapter 4 Create Backgound Data | HREP Mussel Modeling" />
   
   <meta name="twitter:description" content="This document describes the process for modeling mussel suitability on Upper Mississippi River Restoration (UMRR) Habitat Rehabilitation and Restoration Projects (HREP)." />
   
 
-<meta name="author" content="Michael Dougherty">
-<meta name="author" content="Davi Michl">
-<meta name="author" content="Dan Kelner">
+<meta name="author" content="Michael Dougherty, Geographer, US Army Corps of Engineers, Rock Island District">
+<meta name="author" content="Davi Michl, Biologist, US Army Corps of Engineers, Rock Island District">
+<meta name="author" content="Dan Kelner, Fisheries Biologist, US Army Corps of Engineers, St. Paul District">
 
 
 <meta name="date" content="2019-03-02">
@@ -34,8 +34,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="prepare-wind-and-wave-data.html">
-<link rel="next" href="model-interpretation.html">
+<link rel="prev" href="calculate-mussel-metrics.html">
+<link rel="next" href="prepare-environmental-predictor-data.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -187,41 +187,32 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="develop-maxent-mussel-model" class="section level1">
-<h1><span class="header-section-number">Chapter 7</span> Develop Maxent Mussel Model</h1>
-<div id="convert-from-.bil-to-.mxe-format" class="section level2">
-<h2><span class="header-section-number">7.1</span> Convert from <code>.bil</code> to <code>.mxe</code> format</h2>
-<p>To speed model creation (from 10’s of hours to 10’s of minutes), convert the predictors to the Maxent <code>.mxe</code> format.</p>
+<div id="create-backgound-data" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Create Backgound Data</h1>
+<div id="create-background-data" class="section level2">
+<h2><span class="header-section-number">4.1</span> Create Background Data</h2>
+<p>Create a background to constrain points to aquatic areas (more data resolution) and reduce Maxent run times.</p>
 <ul>
-<li>Open command prompt and change directory by typing <code>c:</code> and then <code>cd C:\Users\b6pdpdem\Documents\SteamboatMusselModel</code></li>
-<li>Create predictor_mxe folder</li>
-</ul>
-<p><code>java -Xmx5g -cp maxent.jar density.Convert C:\Users\b6pdpdem\Documents\SteamboatMusselModel\predictors bil C:\Users\b6pdpdem\Documents\SteamboatMusselModel\predictors_mxe mxe</code></p>
-</div>
-<div id="run-maxent" class="section level2">
-<h2><span class="header-section-number">7.2</span> Run Maxent</h2>
-</div>
-<div id="convert-model-output-from" class="section level2">
-<h2><span class="header-section-number">7.3</span> Convert model output from</h2>
-<p>To convert the <code>.mxe</code> format back to a format that can be read by ESRI.</p>
-<p><code>java -Xmx5g -cp maxent.jar density.Convert C:\Users\b6pdpdem\Documents\SteamboatMusselModel\sb_existing_20181203_2 mxe C:\Users\b6pdpdem\Documents\SteamboatMusselModel\sb_existing_20181203_2 bil</code></p>
+<li><p>Use the Create Random Points (Data Management) tool to create a background restricted to aquatic areas:</p>
 <ul>
-<li>Use the <code>Define Projection</code> tool to set the projection of the <code>.bil</code> rasters.</li>
-</ul>
-</div>
-<div id="maxent-speed-issues" class="section level2">
-<h2><span class="header-section-number">7.4</span> Maxent speed Issues</h2>
-<p>Follow these simple performance guidelines to reduce Maxent run time from a week to half an hour.</p>
+<li>Output location: <code>\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Data\SB_Mussels.gdb\</code></li>
+<li>Output feature class: <code>background</code></li>
+<li>Constraining feature class:<code>aquatic_areas_5m</code></li>
+<li>Number of points: 10000</li>
+<li>Mininum allowed distance: 25m</li>
+<li>Leave all others as defaults</li>
+<li>Click Ok to run the tool</li>
+</ul></li>
+<li>Open the <code>background</code> attribute table. Add 3 fields titled ‘species’ Type=string and Length=20; ‘longitude’ Type=double; and ‘latitude’ Type=double; in that order. Use field calculator to populate the field with species=“background”. Use Calculate Geometry to populate the ‘longitude’ and ‘latitude’ fields, ensuring that the coordinate system is set to ‘NAD 1983 2011 US Feet’ and ‘StatePlane Illinois West FIPS 1202’ and the units are set to US feet. Do the same for <code>unionidae_swd</code>.</li>
+<li><p>Use Extract Multi Values to Points (spatial analyst) tool to write new values (velocity, depth, slope, and ss) onto feature classes <code>unionidae_swd</code> and <code>background</code>.</p>
 <ul>
-<li>Run the model on a physical computer, not on a virtual machine.</li>
-<li>Select a computer with the fastest processor and most memory available.</li>
-<li>Increase the memory available to the java virtual machine (JVM). Edit the first line of the <code>maxent.bat</code> file to something like the following: <code>java -Xmx5g -jar maxent.jar</code>, where the <code>-Xmx</code> parameter sets the maximum heap size for the JVM. Set it to something less than the total amount of physical memory on your computer.</li>
-<li>Do not run the model across the LAN (inputs and outputs stored on a network file system). Copy all inputs and write all outputs to the local file system.</li>
-<li>Use a solid state drive for storing inputs and outputs.</li>
-<li>Use the “SWD” format for specifying both samples (species occurances) and environmental layers (background points).</li>
-<li>Convert all predictor grids to the Maxent <code>.mxe</code> format.</li>
-<li>Write all outputs to the Maxent <code>.mxe</code> format.</li>
-<li>Set the <code>threads</code> parameter to at least the number of cores on your computer (or a large percentage of logical processors) to speed processing of replicates.</li>
+<li>Input point features: <code>\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Data\SB_Mussels.gdb\background</code></li>
+<li>Input rasters: velocity, depth, slope, and ss (use rasters in the <code>Adh.gdb</code>, not .bil) copy unionidae_swd and delete 3 variable fields. Ensure all layers have same spatial reference before running the tool. Copy .gdb on local drive prior to running Maxent.</li>
+</ul></li>
+<li>Ensure all layers have same spatial reference before running the tool.<br />
+</li>
+<li>May have to run Project (Data Mgmt) tool on the <code>unionidae_swd</code> points feature class prior to running Multi Values to Points tool.</li>
+<li><p>Export <code>background</code> and each mussel metric as .csv files. Ensure ObjectID field is deleted in Excel prior to upload in Maxent.</p></li>
 </ul>
 
 </div>
@@ -231,8 +222,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-<a href="prepare-wind-and-wave-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="model-interpretation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="calculate-mussel-metrics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="prepare-environmental-predictor-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

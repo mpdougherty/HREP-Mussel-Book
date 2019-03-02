@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 8 Model Interpretation | HREP Mussel Modeling</title>
+  <title>Chapter 2 Mussel Data Processing | HREP Mussel Modeling</title>
   <meta name="description" content="This document describes the process for modeling mussel suitability on Upper Mississippi River Restoration (UMRR) Habitat Rehabilitation and Restoration Projects (HREP).">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 8 Model Interpretation | HREP Mussel Modeling" />
+  <meta property="og:title" content="Chapter 2 Mussel Data Processing | HREP Mussel Modeling" />
   <meta property="og:type" content="book" />
   
   
@@ -17,14 +17,14 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 8 Model Interpretation | HREP Mussel Modeling" />
+  <meta name="twitter:title" content="Chapter 2 Mussel Data Processing | HREP Mussel Modeling" />
   
   <meta name="twitter:description" content="This document describes the process for modeling mussel suitability on Upper Mississippi River Restoration (UMRR) Habitat Rehabilitation and Restoration Projects (HREP)." />
   
 
-<meta name="author" content="Michael Dougherty">
-<meta name="author" content="Davi Michl">
-<meta name="author" content="Dan Kelner">
+<meta name="author" content="Michael Dougherty, Geographer, US Army Corps of Engineers, Rock Island District">
+<meta name="author" content="Davi Michl, Biologist, US Army Corps of Engineers, Rock Island District">
+<meta name="author" content="Dan Kelner, Fisheries Biologist, US Army Corps of Engineers, St. Paul District">
 
 
 <meta name="date" content="2019-03-02">
@@ -34,8 +34,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="develop-maxent-mussel-model.html">
-
+<link rel="prev" href="introduction.html">
+<link rel="next" href="calculate-mussel-metrics.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -187,25 +187,28 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="model-interpretation" class="section level1">
-<h1><span class="header-section-number">Chapter 8</span> Model Interpretation</h1>
-<div id="section" class="section level2">
-<h2><span class="header-section-number">8.1</span> ?</h2>
+<div id="mussel-data-processing" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Mussel Data Processing</h1>
+<div id="prepare-mussel-sample-data" class="section level2">
+<h2><span class="header-section-number">2.1</span> Prepare Mussel Sample Data</h2>
+<p>Working geodatabase: <code>//mvrdfs/egis/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb</code></p>
+<ul>
+<li>Import sample location point feature class for each survey.</li>
+<li>Import “individual” data tables for each survey.</li>
+<li>Add <code>double</code> fields ‘Easting’ and ‘Northing’ and calculate geometry for each sample location point feature class.</li>
+<li>Add <code>double</code> fields ‘Easting’ and ‘Northing’ to each mussel tabular data.</li>
+<li>Join the sample location point feature class to each mussel tabular data. Directionality of join is important: right-click mussel tabular data and select join, using SAMPLEID as join field.</li>
+<li>Field calculate ‘Easting’ and ‘Northing’ from the sample location point feature class. Then remove the join.</li>
+<li>Use the “Display XY” tool to create events from the mussel tabular data.</li>
+<li>Export the events to the geodatabase as: <code>Cordova_YEAR</code></li>
+<li>Create 3 new fields (type: long integer) titled ‘NumberLive’, ‘NUM5YEAR’, and ‘NUM30MM’</li>
+<li>Use field calculator to populate each field with ‘0’ indicating absence and ‘1’ for presence in each new field (number live, number less than 5 years, and number less than 30mm in length).</li>
+<li>Create a definition query to select only those records where: <code>NUMBER_LIV &gt; 0</code></li>
+<li>Dissolve the <code>Cordova_YEAR</code> feature class by <code>SAMPLEID</code> to collapse mussel tabular data to the unique sample location points. The dissolve tool can also be used to collapse mussel tabular data to unique sample location using multiple fields; e.g., if a count by species is required for analysis, select <code>SAMPLEID</code> and <code>ScientificName</code>. In the statistics box, add the newly created fields ‘Number_Live’, ‘NUM5YEAR’, and ‘NUM30MM’ and select ‘SUM’ as statistic to be calculated for each.</li>
+<li>Append all three datasets into one feature class in the .gdb called <code>Cordova</code>. Right-click this feature class and select ‘load’.</li>
+<li>Export to <code>.csv</code>.</li>
+</ul>
 
-<div id="refs" class="references">
-<div>
-<p>Elith, Jane, and John R Leathwick. 2009. “Species Distribution Models: Ecological Explanation and Prediction Across Space and Time.” <em>Annual Review of Ecology, Evolution, and Systematics</em> 40. Annual Reviews: 677–97. doi:<a href="https://doi.org/10.1146/annurev.ecolsys.110308.120159">10.1146/annurev.ecolsys.110308.120159</a>.</p>
-</div>
-<div>
-<p>Elith, Jane, John R Leathwick, and Trevor Hastie. 2008. “A Working Guide to Boosted Regression Trees.” <em>Journal of Animal Ecology</em> 77 (4). Wiley Online Library: 802–13. doi:<a href="https://doi.org/10.1111/j.1365-2656.2008.01390.x">10.1111/j.1365-2656.2008.01390.x</a>.</p>
-</div>
-<div>
-<p>Hijmans, Robert J, and Jane Elith. 2013. “Species Distribution Modeling with R.” <em>R Package Version 0.8-11</em>.</p>
-</div>
-<div>
-<p>———. n.d. “Species Distribution Modeling.” In <em>Spatial Data Analysis and Modeling with R</em>, edited by Robert J Hijmans and Jane Elith. <a href="http://rspatial.org/sdm/index.html" class="uri">http://rspatial.org/sdm/index.html</a>.</p>
-</div>
-</div>
 </div>
 </div>
             </section>
@@ -213,8 +216,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-<a href="develop-maxent-mussel-model.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="calculate-mussel-metrics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
