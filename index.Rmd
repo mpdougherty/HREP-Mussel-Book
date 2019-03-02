@@ -1,6 +1,7 @@
 --- 
-title: "HREP Mussel Model"
+title: "HREP Mussel Modeling"
 date: "`r Sys.Date()`"
+author: [Michael Dougherty, Davi Michl, Dan Kelner]
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [mussel_model.bib, packages.bib]

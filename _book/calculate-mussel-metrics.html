@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 3 Calculate Mussel Metrics | HREP Mussel Model</title>
+  <title>Chapter 3 Calculate Mussel Metrics | HREP Mussel Modeling</title>
   <meta name="description" content="This document describes the process for modeling mussel suitability on Upper Mississippi River Restoration (UMRR) Habitat Rehabilitation and Restoration Projects (HREP).">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 3 Calculate Mussel Metrics | HREP Mussel Model" />
+  <meta property="og:title" content="Chapter 3 Calculate Mussel Metrics | HREP Mussel Modeling" />
   <meta property="og:type" content="book" />
   
   
@@ -17,14 +17,17 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Calculate Mussel Metrics | HREP Mussel Model" />
+  <meta name="twitter:title" content="Chapter 3 Calculate Mussel Metrics | HREP Mussel Modeling" />
   
   <meta name="twitter:description" content="This document describes the process for modeling mussel suitability on Upper Mississippi River Restoration (UMRR) Habitat Rehabilitation and Restoration Projects (HREP)." />
   
 
+<meta name="author" content="Michael Dougherty">
+<meta name="author" content="Davi Michl">
+<meta name="author" content="Dan Kelner">
 
 
-<meta name="date" content="2019-03-01">
+<meta name="date" content="2019-03-02">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -100,7 +103,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">HREP Mussel Model</a></li>
+<li><a href="./index.html">HREP Mussel Modeling</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
@@ -122,13 +125,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="3.6" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-tribe-lampsilini"><i class="fa fa-check"></i><b>3.6</b> Create Percent Tribe Lampsilini</a></li>
 <li class="chapter" data-level="3.7" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-juveniles"><i class="fa fa-check"></i><b>3.7</b> Create Percent Juveniles</a></li>
 <li class="chapter" data-level="3.8" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-over-15-years"><i class="fa fa-check"></i><b>3.8</b> Create Percent Over 15 Years</a></li>
-<li class="chapter" data-level="3.9" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-q75-abundance"><i class="fa fa-check"></i><b>3.9</b> Create Q75 Abundance</a></li>
+<li class="chapter" data-level="3.9" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-abundance"><i class="fa fa-check"></i><b>3.9</b> Create Abundance</a></li>
 <li class="chapter" data-level="3.10" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-species-evenness"><i class="fa fa-check"></i><b>3.10</b> Create Species Evenness</a></li>
 <li class="chapter" data-level="3.11" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-tribe-eveness"><i class="fa fa-check"></i><b>3.11</b> Create Tribe Eveness</a></li>
 <li class="chapter" data-level="3.12" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-es-100"><i class="fa fa-check"></i><b>3.12</b> Create ES 100</a></li>
 <li class="chapter" data-level="3.13" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#determine-mcat-metric-per-site-threshold"><i class="fa fa-check"></i><b>3.13</b> Determine MCAT Metric per site threshold</a><ul>
 <li class="chapter" data-level="3.13.1" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#percent-listed"><i class="fa fa-check"></i><b>3.13.1</b> Percent Listed</a></li>
 <li class="chapter" data-level="3.13.2" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#percent-tolerant"><i class="fa fa-check"></i><b>3.13.2</b> Percent Tolerant</a></li>
+<li class="chapter" data-level="3.13.3" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#percent-tribe-lampsilini"><i class="fa fa-check"></i><b>3.13.3</b> Percent Tribe Lampsilini</a></li>
+<li class="chapter" data-level="3.13.4" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#percent-juveniles"><i class="fa fa-check"></i><b>3.13.4</b> Percent Juveniles</a></li>
+<li class="chapter" data-level="3.13.5" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#percent-over-15-years"><i class="fa fa-check"></i><b>3.13.5</b> Percent over 15 years</a></li>
+<li class="chapter" data-level="3.13.6" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#abundance"><i class="fa fa-check"></i><b>3.13.6</b> Abundance</a></li>
+<li class="chapter" data-level="3.13.7" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#species-evenness"><i class="fa fa-check"></i><b>3.13.7</b> Species Evenness</a></li>
+<li class="chapter" data-level="3.13.8" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#tribe-evenness"><i class="fa fa-check"></i><b>3.13.8</b> Tribe Evenness</a></li>
+<li class="chapter" data-level="3.13.9" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#es_100"><i class="fa fa-check"></i><b>3.13.9</b> ES_100</a></li>
 </ul></li>
 <li class="chapter" data-level="3.14" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#choice-of-site-level-mcat-metric-thresholds"><i class="fa fa-check"></i><b>3.14</b> Choice of Site Level MCAT Metric Thresholds</a></li>
 <li class="chapter" data-level="3.15" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#export-to-maxent-swd-format"><i class="fa fa-check"></i><b>3.15</b> Export to Maxent “SWD” format</a></li>
@@ -169,7 +179,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">HREP Mussel Model</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">HREP Mussel Modeling</a>
           </h1>
         </div>
 
@@ -187,11 +197,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">3.2</span> MCAT Metrics</h2>
 <p>The following MCAT metrics were selected for inclusion to the model:</p>
 <ul>
-<li><code>% listed species</code>: percent of listed threatened or endangered species (federal or bordering states) is a measure of sensitive species</li>
-<li><code>% tolerant</code>: percent of tolerant species (Amblema plicata, Quadrula quadrula, and Obliquaria reflexa) is a measure of a highly disturbed mussel assemblage; i.e., dominated by species tolerant of unstable substrates, silt accumulation, low current velocities, and fluctuating flow conditions.</li>
-<li><code>% tribe Lampsilini</code>: percent of assemblage that falls within tribe Lampsilini is a measure of species composition, life history, and behavioral characteristics</li>
-<li><code>% juveniles</code>: percent of mussels &lt;= 5 years-old is a measure of recruitment into an assemblage over the past five years</li>
-<li><code>% &gt;= 15 yrs</code>: percent of mussels &gt;= 15 years-old is a measure of age distribution in an assemblage</li>
+<li><code>percent listed species</code>: percent of listed threatened or endangered species (federal or bordering states) is a measure of sensitive species</li>
+<li><code>percent tolerant</code>: percent of tolerant species (Amblema plicata, Quadrula quadrula, and Obliquaria reflexa) is a measure of a highly disturbed mussel assemblage; i.e., dominated by species tolerant of unstable substrates, silt accumulation, low current velocities, and fluctuating flow conditions.</li>
+<li><code>percent tribe Lampsilini</code>: percent of assemblage that falls within tribe Lampsilini is a measure of species composition, life history, and behavioral characteristics</li>
+<li><code>percent juveniles</code>: percent of mussels &lt;= 5 years-old is a measure of recruitment into an assemblage over the past five years</li>
+<li><code>percent &gt;= 15 yrs</code>: percent of mussels &gt;= 15 years-old is a measure of age distribution in an assemblage</li>
 <li><code>Q75 abundance</code>: a measure of abundance at the 75th quartile calculated as the density (no./m^2)</li>
 <li><code>species evenness</code>: species evenness represents the dominance of an assemblage by a few species using Pielou’s evenness index (range 0 to 1)</li>
 <li><code>tribe evenness</code>: tribe evenness represents the dominance of a particular taxonomic group using Pielou’s evenness index (range 0 to 1)</li>
@@ -211,7 +221,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">3.4</span> Create Percent Listed</h2>
 <p>The purpose of this step is to calculate the percent listed MCAT metric for each sampled site.</p>
 <ul>
-<li>Dissolve this feature class by <code>SAMPLE_ID</code> and <code>ENAME</code> (Scientific name). Add ‘SUM_NumberLive’ and ‘SUM_Listed’ fields in the Statistics section of the tool. Set Output Feature Class to the working .gdb and name it <code>PercentListed</code>.</li>
+<li>Dissolve this feature class by <code>SAMPLE_ID</code> and <code>ENAME</code> (Scientific name). Add ‘SUM_NumberLive’ and ‘SUM_Listed’ fields in the Statistics section of the tool. Uncheck create multipart features. Set Output Feature Class to the working .gdb and name it <code>PercentListed</code>.</li>
 <li>Open the <code>PercentListed</code> attribute table. Add a field titled ‘Perc_listed’ Type=double and enter the expression <code>([SUM_Listed] / [SUM_NumberLive]) * 100</code> into the field calculator to calculate % of individual listed species per quadrat sample.</li>
 <li>Add 3 fields titled ‘species’ Type=string and Length=20; ‘longitude’ Type=double; and ‘latitude’ Type=double; in that order.</li>
 <li>Use field calculator to populate the field with species=“perc_listed”. Use Calculate Geometry to populate the ‘longitude’ and ‘latitude’ fields, ensuring that the coordinate system is set to ‘NAD 1983 2011 US Feet’ and ‘StatePlane Illinois West FIPS 1202’ and the units are set to US feet.</li>
@@ -234,24 +244,40 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">3.8</span> Create Percent Over 15 Years</h2>
 <p>The purpose of this step is to calculate the percent over 15 years old MCAT metric for each sampled site.</p>
 </div>
-<div id="create-q75-abundance" class="section level2">
-<h2><span class="header-section-number">3.9</span> Create Q75 Abundance</h2>
-<p>The purpose of this step is to calculate the Q75 abundance MCAT metric for each sampled site.</p>
+<div id="create-abundance" class="section level2">
+<h2><span class="header-section-number">3.9</span> Create Abundance</h2>
+<p>The purpose of this step is to calculate the Abundance MCAT metric for each sampled site.</p>
 <ul>
-<li>For Q75 abundance metric, dissolve <code>Cordova_all_individuals</code> by <code>SAMPLE_ID</code> and <code>ENAME</code> (Scientific name). Add ‘SUM_NumberLive’ field in the Statistics section of the tool. Set Output Feature Class to the working .gdb and name it <code>Q75_abundance</code>.</li>
-<li>Use the Symbology tab to select a suitability threshold based on quartiles (e.g., only selecting the upper quartiles with &gt;=50% live species per quadrat). Export selection to .csv for Maxent model run.</li>
+<li>For the abundance metric, dissolve <code>Cordova_all_individuals</code> by <code>SAMPLE_ID</code> and <code>ENAME</code> (Scientific name). Add ‘SUM_NumberLive’ field in the Statistics section of the tool. Uncheck create multipart features. Set Output Feature Class to the working .gdb and name it <code>Abundance</code>.</li>
 </ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Import Abundance from geodatabase</span>
+abundance_sp &lt;-<span class="st"> </span><span class="kw">arc2sp</span>(<span class="st">&quot;//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW/Abundance&quot;</span>)
+
+<span class="co"># Convert sp object to a data frame</span>
+abundance &lt;-<span class="st"> </span>abundance_sp<span class="op">@</span>data</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Calculate the quantiles</span>
+q &lt;-<span class="st"> </span><span class="kw">quantile</span>(abundance<span class="op">$</span>SUM_NumberLive)
+q</code></pre></div>
+<pre><code>##   0%  25%  50%  75% 100% 
+##    0    1    1    2   33</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create a new df num live &gt;= 2nd quartile (50%)</span>
+q50abund &lt;-<span class="st"> </span>abundance[abundance<span class="op">$</span>SUM_NumberLive <span class="op">&gt;=</span><span class="st"> </span>q[<span class="dv">3</span>], ]
+
+<span class="co"># Create a new df num live &gt;= 3rd quartile (75%)</span>
+q75abund &lt;-<span class="st"> </span>abundance[abundance<span class="op">$</span>SUM_NumberLive <span class="op">&gt;=</span><span class="st"> </span>q[<span class="dv">4</span>], ]</code></pre></div>
 </div>
 <div id="create-species-evenness" class="section level2">
 <h2><span class="header-section-number">3.10</span> Create Species Evenness</h2>
 <p>The purpose of this step is to calculate the Pielou’s evenness index (range 0-1), estimated at the species level for each sampled site.</p>
 <ul>
-<li>Create a table of SampleID by species by abundance (number live). Use the <code>Dissolve</code> tool:</li>
+<li>Create a table of SampleID by species by abundance (number live). Use the <code>Dissolve</code> tool:
+<ul>
 <li>Input Features: <code>Cordova_all_individuals</code></li>
 <li>Output feature class: <code>Cordova_sampleid_species</code></li>
 <li>Dissolve Fields: <code>SampleID</code>, <code>EName</code></li>
 <li>Statistics Fields: <code>NumberLive</code>, SUM</li>
 <li>Create Multipart: unchecked</li>
+</ul></li>
 </ul>
 <p>Ensure that the <code>Cordova_sampleid_species</code> feature class is of type <code>Point Features</code> and not <code>Multipoint Features</code>. If multipoint, then use the <code>Multipart to Singlepart</code> tool to convert from multipoint to point feature type.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Import ArcGIS feature class into R</span>
@@ -289,13 +315,15 @@ sample_species_pielou &lt;-<span class="st"> </span>sp<span class="op">::</span>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Export to geodatabase</span>
 <span class="kw">sp2arc</span>(sample_species_pielou, <span class="dt">fc_path =</span> <span class="st">&quot;//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW/sample_species_pielou&quot;</span>)</code></pre></div>
 <ul>
-<li>Create a table of SampleID by species Pielou evenness score. Use the <code>Dissolve</code> tool:</li>
+<li>Create a table of SampleID by species Pielou evenness score. Use the <code>Dissolve</code> tool:
+<ul>
 <li>Input Features: <code>sample_species_pielou</code></li>
 <li>Output feature class: <code>species_pielou</code></li>
 <li>Dissolve Fields: <code>SampleID</code></li>
 <li>Statistics Fields: <code>shannon_diversity</code>, MEAN <code>species_number</code>, MEAN <code>pielou_evenness</code>, MEAN</li>
-<li><p>Create Multipart: unchecked</p></li>
-<li><p>Add “SWD” fields.</p></li>
+<li>Create Multipart: unchecked</li>
+</ul></li>
+<li>Add “SWD” fields.</li>
 </ul>
 </div>
 <div id="create-tribe-eveness" class="section level2">
@@ -304,12 +332,14 @@ sample_species_pielou &lt;-<span class="st"> </span>sp<span class="op">::</span>
 <ul>
 <li>In the feature class <code>Cordova_all_individuals</code>, create a new text variable named <code>tribe</code>.</li>
 <li>Use the <code>Field Calculator</code> tool on the <code>tribe</code> field to calculate its value using the following Python expression: <code>!Ename!.split()[0]</code></li>
-<li>Create a table of SampleID by tribe by abundance (number live). Use the <code>Dissolve</code> tool:</li>
+<li>Create a table of SampleID by tribe by abundance (number live). Use the <code>Dissolve</code> tool:
+<ul>
 <li>Input Features: <code>Cordova_all_individuals</code></li>
 <li>Output feature class: <code>Cordova_sampleid_tribe</code></li>
 <li>Dissolve Fields: <code>SampleID</code>, <code>tribe</code></li>
 <li>Statistics Fields: <code>NumberLive</code>, SUM</li>
 <li>Create Multipart: unchecked</li>
+</ul></li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Import ArcGIS feature class into R</span>
 cordova_sampleid_tribe &lt;-<span class="st"> </span><span class="kw">arc2sp</span>(<span class="st">&quot;//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW/Cordova_sampleid_tribe&quot;</span>)
@@ -347,13 +377,15 @@ sample_tribe_pielou &lt;-<span class="st"> </span>sp<span class="op">::</span><s
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Export to geodatabase</span>
 <span class="kw">sp2arc</span>(sample_tribe_pielou, <span class="dt">fc_path =</span> <span class="st">&quot;//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW/sample_tribe_pielou&quot;</span>)</code></pre></div>
 <ul>
-<li>Create a table of SampleID by tribe Pielou evenness score. Use the <code>Dissolve</code> tool:</li>
+<li>Create a table of SampleID by tribe Pielou evenness score. Use the <code>Dissolve</code> tool:
+<ul>
 <li>Input Features: <code>sample_tribe_pielou</code></li>
 <li>Output feature class: <code>tribe_pielou</code></li>
 <li>Dissolve Fields: <code>SampleID</code></li>
 <li>Statistics Fields: <code>tribe_shannon_diversity</code>, MEAN <code>tribe_number</code>, MEAN <code>tribe_pielou_evenness</code>, MEAN</li>
-<li><p>Create Multipart: unchecked</p></li>
-<li><p>Add “SWD” fields.</p></li>
+<li>Create Multipart: unchecked</li>
+</ul></li>
+<li>Add “SWD” fields.</li>
 </ul>
 </div>
 <div id="create-es-100" class="section level2">
@@ -366,21 +398,38 @@ sample_tribe_pielou &lt;-<span class="st"> </span>sp<span class="op">::</span><s
 <p>The purpose of this section is to display the range of calculated values for each of the MCAT metrics for each of the sites in the Steamboat Island study area. The MCAT report is clear about metric thresholds to use for evaluating quality mussel beds. However, this study is using the individual site unit of analysis. Therefore, decisions must be made on what is the appropriate metric threshold to use for the site level of analysis. The descriptive statistics in this section will help to inform that decsion.</p>
 <div id="percent-listed" class="section level3">
 <h3><span class="header-section-number">3.13.1</span> Percent Listed</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot percent listed</span>
-percent_listed_p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(percent_listed, <span class="kw">aes</span>(Perc_listed)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">10</span>)
-<span class="kw">print</span>(percent_listed_p)</code></pre></div>
-<p><img src="HREP_Mussel_Model_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#sort(percent_listed$Perc_listed[percent_listed$Perc_listed &gt; 0])</span></code></pre></div>
+<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-15-1.png" width="624" /></p>
 </div>
 <div id="percent-tolerant" class="section level3">
 <h3><span class="header-section-number">3.13.2</span> Percent Tolerant</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot percent listed</span>
-percent_tolerant_p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(percent_tolerant, <span class="kw">aes</span>(Perc_tolerant)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">10</span>)
-<span class="kw">print</span>(percent_tolerant_p)</code></pre></div>
-<p><img src="HREP_Mussel_Model_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#sort(percent_tolerant$Perc_tolerant[percent_tolerant$Perc_tolerant &lt; 50])</span></code></pre></div>
+<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-16-1.png" width="624" /></p>
+</div>
+<div id="percent-tribe-lampsilini" class="section level3">
+<h3><span class="header-section-number">3.13.3</span> Percent Tribe Lampsilini</h3>
+<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-17-1.png" width="624" /></p>
+</div>
+<div id="percent-juveniles" class="section level3">
+<h3><span class="header-section-number">3.13.4</span> Percent Juveniles</h3>
+<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-18-1.png" width="624" /></p>
+</div>
+<div id="percent-over-15-years" class="section level3">
+<h3><span class="header-section-number">3.13.5</span> Percent over 15 years</h3>
+<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-19-1.png" width="624" /></p>
+</div>
+<div id="abundance" class="section level3">
+<h3><span class="header-section-number">3.13.6</span> Abundance</h3>
+<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-20-1.png" width="624" /></p>
+</div>
+<div id="species-evenness" class="section level3">
+<h3><span class="header-section-number">3.13.7</span> Species Evenness</h3>
+<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-21-1.png" width="624" /></p>
+</div>
+<div id="tribe-evenness" class="section level3">
+<h3><span class="header-section-number">3.13.8</span> Tribe Evenness</h3>
+<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-22-1.png" width="624" /></p>
+</div>
+<div id="es_100" class="section level3">
+<h3><span class="header-section-number">3.13.9</span> ES_100</h3>
 </div>
 </div>
 <div id="choice-of-site-level-mcat-metric-thresholds" class="section level2">
@@ -436,7 +485,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["HREP Mussel Model.pdf", "HREP Mussel Model.epub"],
+"download": ["HREP Mussel Modeling.pdf", "HREP Mussel Modeling.epub"],
 "toc": {
 "collapse": "subsection"
 }
