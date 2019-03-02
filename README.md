@@ -1,5 +1,5 @@
 # HREP Mussel Modeling: Modeling mussel habitat suitability for Upper Mississippi River Restoration projects
-This bookdown document describes the process for modeling mussel habitat suitability on Upper Mississippi River Restoration (UMRR) Habitat Rehabilitation and Restoration Projects (HREP). <img src="docs/images/castle.png" align="right" />
+This bookdown document describes the process for modeling mussel habitat suitability on Upper Mississippi River Restoration (UMRR) Habitat Rehabilitation and Restoration Projects (HREP). <img src="docs/images/HDQLO-03.gif" align="right" />
 
 ## Project Status
 
@@ -12,7 +12,7 @@ This bookdown document describes the process for modeling mussel habitat suitabi
 The feasibility phase of UMRR HREPs has a need for evaluating mussel habitat suitabilty. Currently, there are no USACE approved planning models for estimating mussel suitability. This document seeks to outline an approach that makes use of existing mussel occurance data from the USACE Upper Mississippi River mussel database and [Adaptive Hydraulics (ADH)](https://www.erdc.usace.army.mil/Media/Fact-Sheets/Fact-Sheet-Article-View/Article/476708/adaptive-hydraulics-model-system/) models of river hydraulics as input into to the species distribution modeling application [Maxent](https://biodiversityinformatics.amnh.org/open_source/maxent/). 
 
 ## Funding
-This project has been funded by the Upper Mississippi River Restoration Program. <img src="docs/images/UMRRlogo_tag_rgb_300px.jpg" align="right" />
+This project has been funded by the US Army Corps of Engineers (USACE) Upper Mississippi River Restoration Program (UMRR). <img src="docs/images/UMRRlogo_tag_rgb_300px.jpg" align="right" />
 
 ## Authors
 * [Michael Dougherty](mailto:Michael.P.Dougherty@usace.army.mil), Geographer, US Army Corps of Engineers, Rock Island District
