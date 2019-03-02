@@ -1,9 +1,10 @@
 # Introduction
 
-Species Distribution Modeling (SDM) has become a common method for mapping suitable areas for many species or taxa groups [@elith2008working, @elith2009species]. The `dismo` R package has been created to support SDM in R [see the `dismo` package vignette `sdm`, @hijmans2013species]. Another good overview of SDM in R [@hijmans_sdm].
+Species Distribution Modeling (SDM) has become a common method for mapping suitable habitats for many species or taxa groups [@elith2008working, @elith2009species]. The `dismo` R package has been created to support SDM in R [see the `dismo` package vignette `sdm`, @hijmans2013species]. Another good overview of SDM in R [@hijmans_sdm].
 
 ## Literature Review
 
+* MCAT
 * UMESC Pool 8 mussel model
 * UMESC Pool 18 mussel model
 
