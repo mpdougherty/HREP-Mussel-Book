@@ -1,5 +1,5 @@
 # HREP Mussel Modeling: Modeling mussel habitat suitability for Upper Mississippi River Restoration projects
-This bookdown document describes the process for modeling mussel habitat suitability on Upper Mississippi River Restoration (UMRR) Habitat Rehabilitation and Restoration Projects (HREP). <img src="docs/images/HDQLO-03.gif" align="right" />
+This bookdown document describes the process for modeling mussel habitat suitability on Upper Mississippi River Restoration (UMRR) Habitat Rehabilitation and Restoration Projects (HREP). <img src="docs/images/HDQLO-03_h120.jpg" align="right" />
 
 ## Project Status
 

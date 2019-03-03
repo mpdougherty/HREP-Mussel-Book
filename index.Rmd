@@ -17,9 +17,9 @@ description: "This document describes the process for modeling mussel suitabilit
 # Preface {-}
 This project has been funded by the US Army Corps of Engineers (USACE) Upper Mississippi River Restoration Program (UMRR). 
 
-```{r}
-knitr::include_graphics("docs/images/HDQLO-03.gif")
-knitr::include_graphics("docs/UMRRlogo_tag_rgb_300px.jpg")
+```{r echo=FALSE}
+knitr::include_graphics("docs/images/HDQLO-03_h120.jpg")
+knitr::include_graphics("docs/images/UMRRlogo_tag_rgb_300px.jpg")
 ```
 
 ## Abstract
