@@ -27,7 +27,7 @@
 <meta name="author" content="Dan Kelner, Fisheries Biologist, US Army Corps of Engineers, St. Paul District">
 
 
-<meta name="date" content="2019-03-02">
+<meta name="date" content="2019-03-07">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -50,6 +50,7 @@
 
 
 
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
 
 
 <style type="text/css">
@@ -191,11 +192,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">Chapter 3</span> Calculate Mussel Metrics</h1>
 <div id="prepare-mussel-sample-metrics" class="section level2">
 <h2><span class="header-section-number">3.1</span> Prepare Mussel Sample Metrics</h2>
-<p>The purpose of this section is to calculate various metrics of habitat quality for each sampled site. Each of these metrics will be used as presence data as input to create a set of Maxent habitat suitability models. The metrics calculated in this section were taken from the Upper Mississippi River Mussel Community Assessment Tool (MCAT) <span class="citation">(<span class="citeproc-not-found" data-reference-id="dunn2016"><strong>???</strong></span>)</span>.</p>
+<p>The purpose of this section is to calculate various metrics of habitat quality for each sampled site. Each of these metrics will be used as presence data as input to create a set of Maxent habitat suitability models. The metrics calculated in this section were taken from the <a href="https://acwi.gov/monitoring/conference/2014/2ConcurrentSessions/J2/J2Dunn.pdf">Upper Mississippi River Mussel Community Assessment Tool (MCAT)</a> <span class="citation">(Dunn, Zigler, and Newton <a href="#ref-dunn2016">2016</a>)</span>.</p>
 </div>
 <div id="mcat-metrics" class="section level2">
 <h2><span class="header-section-number">3.2</span> MCAT Metrics</h2>
-<p>The following MCAT metrics were selected for inclusion to the model:</p>
+<p>The following MCAT metrics were selected for inclusion in the model:</p>
 <ul>
 <li><code>percent listed species</code>: percent of listed threatened or endangered species (federal or bordering states) is a measure of sensitive species</li>
 <li><code>percent tolerant</code>: percent of tolerant species (Amblema plicata, Quadrula quadrula, and Obliquaria reflexa) is a measure of a highly disturbed mussel assemblage; i.e., dominated by species tolerant of unstable substrates, silt accumulation, low current velocities, and fluctuating flow conditions.</li>
@@ -254,17 +255,24 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 abundance_sp &lt;-<span class="st"> </span><span class="kw">arc2sp</span>(<span class="st">&quot;//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW/Abundance&quot;</span>)
 
 <span class="co"># Convert sp object to a data frame</span>
-abundance &lt;-<span class="st"> </span>abundance_sp<span class="op">@</span>data</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Calculate the quantiles</span>
-q &lt;-<span class="st"> </span><span class="kw">quantile</span>(abundance<span class="op">$</span>SUM_NumberLive)
+abundance &lt;-<span class="st"> </span>abundance_sp<span class="op">@</span>data
+
+<span class="co"># Remove OBJECTID field</span>
+abundance &lt;-<span class="st"> </span>abundance[,<span class="op">-</span><span class="dv">1</span>]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Convert from num. of mussels per 0.25 sq m to num. per 1.0 square m</span>
+abundance<span class="op">$</span>num_sq_m &lt;-<span class="st"> </span>abundance<span class="op">$</span>SUM_NumberLive <span class="op">*</span><span class="st"> </span><span class="dv">4</span>
+
+<span class="co"># Calculate the quantiles</span>
+q &lt;-<span class="st"> </span><span class="kw">quantile</span>(abundance<span class="op">$</span>num_sq_m)
 q</code></pre></div>
 <pre><code>##   0%  25%  50%  75% 100% 
-##    0    1    1    2   33</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create a new df num live &gt;= 2nd quartile (50%)</span>
-q50abund &lt;-<span class="st"> </span>abundance[abundance<span class="op">$</span>SUM_NumberLive <span class="op">&gt;=</span><span class="st"> </span>q[<span class="dv">3</span>], ]
-
-<span class="co"># Create a new df num live &gt;= 3rd quartile (75%)</span>
-q75abund &lt;-<span class="st"> </span>abundance[abundance<span class="op">$</span>SUM_NumberLive <span class="op">&gt;=</span><span class="st"> </span>q[<span class="dv">4</span>], ]</code></pre></div>
+##    0    4    8   20  180</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Merge the abundance scores back onto the sp object</span>
+sample_abundance &lt;-<span class="st"> </span>sp<span class="op">::</span><span class="kw">merge</span>(<span class="dt">x =</span> abundance_sp,
+                              <span class="dt">y =</span> abundance,
+                              <span class="dt">by.x =</span> <span class="st">&quot;SampleID&quot;</span>, <span class="dt">by.y =</span> <span class="st">&quot;SampleID&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Export to geodatabase</span>
+<span class="kw">sp2arc</span>(sample_abundance, <span class="dt">fc_path =</span> <span class="st">&quot;//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW/sample_abundance&quot;</span>)</code></pre></div>
 </div>
 <div id="create-species-evenness" class="section level2">
 <h2><span class="header-section-number">3.10</span> Create Species Evenness</h2>
@@ -390,56 +398,328 @@ sample_tribe_pielou &lt;-<span class="st"> </span>sp<span class="op">::</span><s
 </div>
 <div id="create-es-100" class="section level2">
 <h2><span class="header-section-number">3.12</span> Create ES 100</h2>
-<p>The purpose of this step is to calculate the ES 100 MCAT metric for each sampled site.</p>
+<p>The purpose of this step is to calculate the ES 100 MCAT metric for each sampled site. ES_100 is the expected number of species with a sample size of 100 estimated by rarefaction based on random resampling of the data <span class="citation">(Dunn, Zigler, and Newton <a href="#ref-dunn2016">2016</a>)</span>.</p>
 <p>ES_100-species richness estimated by rarefaction; caveat: sites need to be compared based on an equal sample size because # of species and # of individuals sampled are large correlated. Not sure how best to approach this one; I defer to you!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Uses the sample_species_matrix calculated from the species evenness section</span>
+
+<span class="co"># Calculate rarefaction using a sample size of 100</span>
+rarefy_es_<span class="dv">100</span> &lt;-<span class="st"> </span>vegan<span class="op">::</span><span class="kw">rarefy</span>(<span class="dt">x =</span> sample_species_matrix, 
+                               <span class="dt">sample =</span> <span class="dv">100</span>)</code></pre></div>
+<pre><code>## Warning in vegan::rarefy(x = sample_species_matrix, sample = 100):
+## requested &#39;sample&#39; was larger than smallest site maximum (0)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Calculate rarefaction using a reasonable sample size</span>
+rarefy_rowmedian &lt;-<span class="st"> </span>vegan<span class="op">::</span><span class="kw">rarefy</span>(<span class="dt">x =</span> sample_species_matrix,
+                                  <span class="dt">sample =</span> <span class="kw">median</span>(<span class="kw">rowSums</span>(sample_species_matrix)))</code></pre></div>
+<pre><code>## Warning in vegan::rarefy(x = sample_species_matrix, sample =
+## median(rowSums(sample_species_matrix))): requested &#39;sample&#39; was larger than
+## smallest site maximum (0)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create a data frame of results</span>
+rarefy_species &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">sampleid =</span> <span class="kw">names</span>(rarefy_es_<span class="dv">100</span>), 
+                             rarefy_es_<span class="dv">100</span>,
+                             rarefy_rowmedian,
+                             <span class="dt">shannon =</span> <span class="kw">diversity</span>(sample_species_matrix),
+                             <span class="dt">specnumber =</span> <span class="kw">specnumber</span>(sample_species_matrix))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Merge the rarefaction scores back onto the sp object</span>
+rarefy_sampleid_species &lt;-<span class="st"> </span>sp<span class="op">::</span><span class="kw">merge</span>(<span class="dt">x =</span> cordova_sampleid_species,
+                                     <span class="dt">y =</span> rarefy_species,
+                                     <span class="dt">by.x =</span> <span class="st">&quot;SampleID&quot;</span>, <span class="dt">by.y =</span> <span class="st">&quot;sampleid&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Export to geodatabase</span>
+<span class="kw">sp2arc</span>(rarefy_sampleid_species, <span class="dt">fc_path =</span> <span class="st">&quot;//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW/rarefy_sampleid_species&quot;</span>)</code></pre></div>
+<ul>
+<li>Create a table of SampleID by tribe Pielou evenness score. Use the <code>Dissolve</code> tool:
+<ul>
+<li>Input Features: <code>rarefy_sampleid_species</code></li>
+<li>Output feature class: <code>rarefy_samples</code></li>
+<li>Dissolve Fields: <code>SampleID</code></li>
+<li>Statistics Fields: <code>SUM_NumberLive</code>, MEAN <code>rarefy_es_100</code>, MEAN <code>rarefy_rowmedian</code>, MEAN <code>shannon</code>, MEAN <code>specnumber</code>, MEAN</li>
+<li>Create Multipart: unchecked</li>
+</ul></li>
+<li>Add “SWD” fields.</li>
+</ul>
 </div>
 <div id="determine-mcat-metric-per-site-threshold" class="section level2">
 <h2><span class="header-section-number">3.13</span> Determine MCAT Metric per site threshold</h2>
 <p>The purpose of this section is to display the range of calculated values for each of the MCAT metrics for each of the sites in the Steamboat Island study area. The MCAT report is clear about metric thresholds to use for evaluating quality mussel beds. However, this study is using the individual site unit of analysis. Therefore, decisions must be made on what is the appropriate metric threshold to use for the site level of analysis. The descriptive statistics in this section will help to inform that decsion.</p>
 <div id="percent-listed" class="section level3">
 <h3><span class="header-section-number">3.13.1</span> Percent Listed</h3>
-<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-16-1.png" width="624" /></p>
+<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-20-1.png" width="624" /></p>
 </div>
 <div id="percent-tolerant" class="section level3">
 <h3><span class="header-section-number">3.13.2</span> Percent Tolerant</h3>
-<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-17-1.png" width="624" /></p>
+<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-21-1.png" width="624" /></p>
 </div>
 <div id="percent-tribe-lampsilini" class="section level3">
 <h3><span class="header-section-number">3.13.3</span> Percent Tribe Lampsilini</h3>
-<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-18-1.png" width="624" /></p>
+<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-22-1.png" width="624" /></p>
 </div>
 <div id="percent-juveniles" class="section level3">
 <h3><span class="header-section-number">3.13.4</span> Percent Juveniles</h3>
-<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-19-1.png" width="624" /></p>
+<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-23-1.png" width="624" /></p>
 </div>
 <div id="percent-over-15-years" class="section level3">
 <h3><span class="header-section-number">3.13.5</span> Percent over 15 years</h3>
-<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-20-1.png" width="624" /></p>
+<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-24-1.png" width="624" /></p>
 </div>
 <div id="abundance" class="section level3">
 <h3><span class="header-section-number">3.13.6</span> Abundance</h3>
-<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-21-1.png" width="624" /></p>
+<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-25-1.png" width="624" /></p>
 </div>
 <div id="species-evenness" class="section level3">
 <h3><span class="header-section-number">3.13.7</span> Species Evenness</h3>
-<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-22-1.png" width="624" /></p>
+<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-26-1.png" width="624" /></p>
 </div>
 <div id="tribe-evenness" class="section level3">
 <h3><span class="header-section-number">3.13.8</span> Tribe Evenness</h3>
-<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-23-1.png" width="624" /></p>
+<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-27-1.png" width="624" /></p>
 </div>
 <div id="es_100" class="section level3">
 <h3><span class="header-section-number">3.13.9</span> ES_100</h3>
+<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-28-1.png" width="624" /></p>
 </div>
 </div>
 <div id="choice-of-site-level-mcat-metric-thresholds" class="section level2">
 <h2><span class="header-section-number">3.14</span> Choice of Site Level MCAT Metric Thresholds</h2>
 <p>The discriptive statistics presented in the previous section were used to select MCAT metrics thresolds.</p>
-<p>Table 1.</p>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:fig">Table 3.1: </span>Translating MCAT Metric Thresholds from the Bed to the Site Scale.
+</caption>
+<thead>
+<tr>
+<th style="border-bottom:hidden" colspan="1">
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="3">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Bed Scale
+</div>
+</th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
+Site Scale
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+Metrics
+</th>
+<th style="text-align:left;">
+Poor
+</th>
+<th style="text-align:left;">
+Fair
+</th>
+<th style="text-align:left;">
+Good
+</th>
+<th style="text-align:left;">
+Site Threshold
+</th>
+<th style="text-align:right;">
+No. of Sites
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+% listed
+</td>
+<td style="text-align:left;">
+&lt;0.6
+</td>
+<td style="text-align:left;">
+0.6-3.6
+</td>
+<td style="text-align:left;">
+&gt;3.6
+</td>
+<td style="text-align:left;">
+&gt;3
+</td>
+<td style="text-align:right;">
+34
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+% tolerant
+</td>
+<td style="text-align:left;">
+&gt;62.7
+</td>
+<td style="text-align:left;">
+38.3-62.7
+</td>
+<td style="text-align:left;">
+&lt;38.3
+</td>
+<td style="text-align:left;">
+&lt;40
+</td>
+<td style="text-align:right;">
+72
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+% lampsilini
+</td>
+<td style="text-align:left;">
+&lt;17.2 or &gt;56.4
+</td>
+<td style="text-align:left;">
+&lt;17.2-34.7 or &gt;39.5-56.4
+</td>
+<td style="text-align:left;">
+&gt;34.7-39.5
+</td>
+<td style="text-align:left;">
+&gt;40
+</td>
+<td style="text-align:right;">
+93
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+% juveniles
+</td>
+<td style="text-align:left;">
+&lt;19.8
+</td>
+<td style="text-align:left;">
+&lt;19.8-49.3
+</td>
+<td style="text-align:left;">
+&gt;49.3
+</td>
+<td style="text-align:left;">
+&gt;50
+</td>
+<td style="text-align:right;">
+72
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+% &gt;= 15 years
+</td>
+<td style="text-align:left;">
+&lt;0.8 or &gt;16.0
+</td>
+<td style="text-align:left;">
+&gt;5.6-16.0
+</td>
+<td style="text-align:left;">
+&gt;2.4-5.6
+</td>
+<td style="text-align:left;">
+&gt;5
+</td>
+<td style="text-align:right;">
+13
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+abundance
+</td>
+<td style="text-align:left;">
+&lt;8
+</td>
+<td style="text-align:left;">
+8-13
+</td>
+<td style="text-align:left;">
+&gt;13
+</td>
+<td style="text-align:left;">
+&gt;13
+</td>
+<td style="text-align:right;">
+62
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+species evenness
+</td>
+<td style="text-align:left;">
+&lt;0.665
+</td>
+<td style="text-align:left;">
+0.665-0.780
+</td>
+<td style="text-align:left;">
+&gt;0.780
+</td>
+<td style="text-align:left;">
+&gt;0.7
+</td>
+<td style="text-align:right;">
+98
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+tribe evenness
+</td>
+<td style="text-align:left;">
+&lt;0.719
+</td>
+<td style="text-align:left;">
+0.719-0.823
+</td>
+<td style="text-align:left;">
+&gt;0.823
+</td>
+<td style="text-align:left;">
+&gt;0.8
+</td>
+<td style="text-align:right;">
+86
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ES 100
+</td>
+<td style="text-align:left;">
+&lt;11.5
+</td>
+<td style="text-align:left;">
+11.5-15.7
+</td>
+<td style="text-align:left;">
+&gt;15.7
+</td>
+<td style="text-align:left;">
+3*
+</td>
+<td style="text-align:right;">
+49
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border: 0;" colspan="100%">
+<sup>*</sup> The site threshold for this metric is lower than the bed threshold due to the lower number of individuals of each species found at each sampled site.
+</td>
+</tr>
+</tfoot>
+</table>
 </div>
 <div id="export-to-maxent-swd-format" class="section level2">
 <h2><span class="header-section-number">3.15</span> Export to Maxent “SWD” format</h2>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-dunn2016">
+<p>Dunn, Heidi, Steve Zigler, and Teresa Newton. 2016. “Validation of a Mussel Community Assessment Tool for the Upper Mississippi River System.” 2014 MCA2. Rock Island, IL: U.S. Army Corps of Engineers, Rock Island District.</p>
 </div>
 </div>
             </section>
