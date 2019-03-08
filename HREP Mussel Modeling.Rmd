@@ -1,3 +1,87 @@
+--- 
+title: "HREP Mussel Modeling"
+subtitle: "Modeling Mussel Habitat Suitability for Upper Mississippi River Restoration Projects"
+date: "`r Sys.Date()`"
+author: 
+  - Michael Dougherty, Geographer, US Army Corps of Engineers, Rock Island District
+  - Davi Michl, Biologist, US Army Corps of Engineers, Rock Island District
+  - Dan Kelner, Fisheries Biologist, US Army Corps of Engineers, St. Paul District
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [mussel_model.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+description: "This document describes the process for modeling mussel suitability on Upper Mississippi River Restoration (UMRR) Habitat Rehabilitation and Restoration Projects (HREP)."
+---
+
+# Preface {-}
+This project has been funded by the US Army Corps of Engineers (USACE) Upper Mississippi River Restoration Program (UMRR). 
+
+```{r echo=FALSE}
+knitr::include_graphics("docs/images/HDQLO-03_h120.jpg")
+knitr::include_graphics("docs/images/UMRRlogo_tag_rgb_300px.jpg")
+```
+
+## Abstract
+
+
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(.packages(), 'bookdown', 'knitr', 'rmarkdown'),                              'packages.bib')
+```
+
+
+<!--chapter:end:index.Rmd-->
+
+# Introduction
+
+Species Distribution Modeling (SDM) has become a common method for mapping suitable habitats for many species or taxa groups [@elith2008working, @elith2009species]. The `dismo` R package has been created to support SDM in R [see the `dismo` package vignette `sdm`, @hijmans2013species]. Another good overview of SDM in R [@hijmans_sdm].
+
+## Literature Review
+
+* MCAT
+* UMESC Pool 8 mussel model
+* UMESC Pool 18 mussel model
+
+## Identify Available Datasets
+The USACE Mussel Database
+HREP pre-project survey
+
+* 2018 Steamboat survey
+* 2014 Cordova survey
+* 2010 Cordova survey
+
+
+<!--chapter:end:01-Intro.Rmd-->
+
+# Mussel Data Processing
+
+## Prepare Mussel Sample Data
+Working geodatabase: `//mvrdfs/egis/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb`
+
+* Import sample location point feature class for each survey.
+* Import "individual" data tables for each survey.
+* Add `double` fields 'Easting' and 'Northing' and calculate geometry for each sample location point feature class.
+* Add `double` fields 'Easting' and 'Northing' to each mussel tabular data. 
+* Join the sample location point feature class to each mussel tabular data. Directionality of join is important: right-click mussel tabular data and select join, using SAMPLEID as join field.
+* Field calculate 'Easting' and 'Northing' from the sample location point feature class. Then remove the join. 
+* Use the "Display XY" tool to create events from the mussel tabular data. 
+* Export the events to the geodatabase as: `Cordova_YEAR`
+* Create 3 new fields (type: long integer) titled 'NumberLive', 'NUM5YEAR', and 'NUM30MM'
+* Use field calculator to populate each field with '0' indicating absence and '1' for presence in each new field (number live, number less than 5 years, and number less than 30mm in length).
+* Create a definition query to select only those records where: `NUMBER_LIV > 0`
+* Dissolve the `Cordova_YEAR` feature class by `SAMPLEID` to collapse mussel tabular data to the unique sample location points. The dissolve tool can also be used to collapse mussel tabular data to unique sample location using multiple fields; e.g., if a count by species is required for analysis, select `SAMPLEID` and `ScientificName`. In the statistics box, add the newly created fields 'Number_Live', 'NUM5YEAR', and 'NUM30MM' and select 'SUM' as statistic to be calculated for each.
+* Append all three datasets into one feature class in the .gdb called `Cordova`.  Right-click this feature class and select 'load'. 
+* Export to `.csv`. 
+
+
+
+
+
+
+<!--chapter:end:02-MusselPreProcessing.Rmd-->
+
 # Calculate Mussel Metrics
 
 ## Prepare Mussel Sample Metrics
@@ -476,4 +560,200 @@ kable(metric_thresholds,
 
 
 
+
+
+<!--chapter:end:03-MusselMetrics.Rmd-->
+
+# Create Backgound Data
+
+## Create Background Data
+Create a background to constrain points to aquatic areas (more data resolution) and reduce Maxent run times.
+
+* Use the Create Random Points (Data Management) tool to create a background restricted to aquatic areas:
+
+    * Output location: `\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Data\SB_Mussels.gdb\`
+    * Output feature class: `background`
+    * Constraining feature class:`aquatic_areas_5m`
+    * Number of points: 10000
+    * Mininum allowed distance: 25m
+    * Leave all others as defaults
+    * Click Ok to run the tool
+
+* Open the `background` attribute table. Add 3 fields titled 'species' Type=string and Length=20; 'longitude' Type=double; and 'latitude' Type=double; in that order. Use field calculator to populate the field with species="background". Use Calculate Geometry to populate the 'longitude' and 'latitude' fields, ensuring that the coordinate system is set to 'NAD 1983 2011 US Feet' and 'StatePlane Illinois West FIPS 1202' and the units are set to US feet. Do the same for `unionidae_swd`.
+* Use Extract Multi Values to Points (spatial analyst) tool to write new values (velocity, depth, slope, and ss) onto feature classes `unionidae_swd` and `background`.
+
+     * Input point features: `\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Data\SB_Mussels.gdb\background`
+     * Input rasters: velocity, depth, slope, and ss (use rasters in the `Adh.gdb`, not .bil)  copy unionidae_swd and delete 3 variable fields. Ensure all layers have same spatial reference before running the tool. Copy .gdb on local drive prior to running Maxent.
+     
+* Ensure all layers have same spatial reference before running the tool.  
+* May have to run Project (Data Mgmt) tool on the `unionidae_swd` points feature class prior to running Multi Values to Points tool. 
+* Export `background` and each mussel metric as .csv files. Ensure ObjectID field is deleted in Excel prior to upload in Maxent.
+
+
+
+
+
+
+
+
+
+
+
+<!--chapter:end:04-Background.Rmd-->
+
+# Prepare Environmental Predictor Data
+
+## Create Mask
+The goal of this step is to define no data areas outside of the study.
+
+* Create a new polygon feature class named: `\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Data\SB_Mussels.gdb\SB_ILStatePlaneW\study_area`.
+* Edit the the 'study_area' feature class by tracing one of the rasters created in the previous step (e.g., 'velocity'). The resulting polygon will become the clip feature for the next tool run.
+* Use the `Aquatic_Areas_2010` layer to prepare data for the Clip (Analysis) tool (`\\mvrdfs\egis\Data\Layers\Biology\Aquatic_Areas_2010.lyr`).
+
+    * Input Features: `Aquatic Areas 2010\Classifications\Aquatic Areas: Level 2`
+    * Clip Features: `study_area`
+    * Output Feature Class: `\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Data\SB_Mussels.gdb\aquatic_areas`
+    
+* Delete "Isolated Floodplain Lake" records from the `aquatic_areas` attribute table.  
+* Use the Dissolve (Data Management tool) `aquatic_areas` using 'LAND_WATER' as the dissolve field. 
+
+    * Output feature class: `\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Data\SB_Mussels.gdb\aquatic_areas_dissolve`
+    * Create multipart features: uncheck box  
+    
+* Open an edit session to edit the `aquatic_areas_dissolve` attribute table. Select the row where 'LAND_WATER' field is set to Land, and delete.
+* Run the Multipart to Singlepart Tool (Data Management) on `aquatic_areas_dissolve`. Name the feature class `aquatic_areas_dissolve_singlepart`.
+* Turn on `topobathy` and use it as a guide to edit out areas where where it is too shallow in the `aquatic_areas_dissolve_singlepart` feature class. Be sure to merge the polygons before saving edits and delete intermediates `aquatic_areas_dissolve` and `aquatic_areas_dissolve_singlepart`.
+* Use the Buffer (Analysis) tool to expand  the study area beyond the extent of valid values. This expanded area will be used to define no data portions of the modeled Adh values.
+
+    * Input features: `aquatic_areas`
+    * Output Feature Class: `\\mvrdfs\egis\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Data\SB_Mussels.gdb\SB_ILStatePlaneW\aquatic_areas_20m`
+    * Distance: 20 meters
+    
+* Use the Polygon to Raster (Conversion) tool to convert the `aquatic_areas_20m` feature class to a raster.
+
+    * Input Features: `aquatic_areas_20m`
+    * Value field: `OBJECTID`
+    * Output Raster Dataset: `\\mvrdfs\egis\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Adh\Existing_condition\existingcondition.gdb\mask`
+* Set Environments
+
+    * Ouput Coordinates: `NAD_1983_2011_StatePlane_Illinois_West_FIPS_1202_Ft_US`
+    * Processing Extent: `study_area`
+    * Cell Size: 3 ft
+
+## Set Environments
+The purpose of this step is to set the Environments to `mask` so that all the subsequent Adh raster outputs will have the same coordinate system, extent, cell alignment, cell size, and no data area.
+*Set Environments
+
+    * Ouput Coordinates: `mask`
+    * Processing Extent: `mask`
+    * Snap raster: `mask`
+    * Cell Size: `mask`
+    * Mask: `mask`
+
+## Process ADH Model Outputs
+The goal of this step is to convert the raw Adaptive Hydraulics Model (Adh) data (depth, slope velocity, sheer stress, froude_number, reynolds_number) into raster format that can be input to the Maxent model. Adh models will be produced for the Q5 (high flow) and Q95 (low flow) flow conditions. This wil result in the creation of 12 raster (one for each of 6 Adh parameter) by 2 flow conditions. 
+
+* Create a new folder and geodatabase to represent the alternative that this Adh model represents. In this example we will be modeling the existing condition alternative: `\\mvrdfs\egis\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Adh\Existing_condition/existingcondition.gdb`
+* Get the Adh output from the hydraulic engineer. Copy it to the alternative folder you created in the last step. EC-HH Working directory: `\\mvr-netapp2\MVRDATA\ED\ec-hh\Mississippi_River\Steamboat Island\AdH\Model Runs\`
+* Use Excel to convert the space-delimited `.txt` file to `.csv`. Open a blank Excel workbook and open the `.txt` file. Use the import wizard to convert the space-delimited file into an Excel workbook. Ensure the import works correctly, delete any header information above the row of field names, and then save as a `.csv` file. 
+* Import the `.csv` file into the `existingcondition` geodatabase. Name the table by the flow condition it represents (Q5, Q95). 
+* Add the Q5 table into a blank ArcMap document. 
+* Right-click the `Q5` table and click "Display XY Data".
+* Set appropriate 'X','Y', and 'Z' fields.
+* Identify the datum and coordinate system recorded in the Adh table; all future output feature classes and rasters will need to be in the same projected coordinate system. In this example, Datum: 'NAD 1983 2011 US Feet' and Coordinate System: 'StatePlane Illinois West FIPS 1202'.
+* Export `Q5_Events` as new point feature class named `Q5_pts`.
+* Use the IDW (Spatial Analyst) tool to interpolate a raster surface.
+
+    * Input point features: `Q5_pts`. 
+    * Z value field: velocity
+    * Output raster: `\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Adh\Existing_condition\existingcondition.gdb\q5_velocity`
+    
+* Complete these steps for the other variables, 'depth', 'slope', and 'sheer stress', 'froude_number', 'reynolds_number'.
+
+## Convert to .bil format
+The goal of this step is to convert the Adh output into a format that can be used by Maxent. The .bil format is one of the formats common to both Maxent and Esri. This step will repeated for all Adh (Q5, Q95) predictors.
+
+* Use the Copy Raster (Data Management) tool to covert the Adh predictor rasters into .bil format.
+
+    * Input Raster: `q5_velocity`
+    * Output Raster Dataset: `\\mvrdfs\egis\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Adh\Existing_condition\q5_velocity.bil` (Note: cannot save .bil format within the .gdb)
+    * Format: Esri BIL
+
+
+## Calculate Slope
+The goal of the step is to calculate slope from the Adh depth variable created in the previous step.
+
+* Use the Slope (Spatial Analyst) tool to calculate slope.
+
+    * Input raster: `q5_depth`
+    * Output raster: `\\mvrdfs\egis\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Adh\Existing_condition\existingcondition.gdb\q5_slope`
+    * Output measurement: degree
+    * Z factor = 1 (linear units same)
+    
+* Use Copy Raster (Data Management) tool to convert the `q5_slope` raster into .bil format, as outlined in previous step.
+  
+
+<!--chapter:end:05-AdhPrep.Rmd-->
+
+# Prepare Wind and Wave Data
+
+## Identify Appropriate Weather Stations
+
+## Obtain Wind Data
+
+## Determine Period of Record
+
+
+
+<!--chapter:end:06-WindWaveModels.Rmd-->
+
+# Develop Maxent Mussel Model
+
+## Convert from `.bil` to `.mxe` format
+To speed model creation (from 10's of hours to 10's of minutes), convert the predictors to the Maxent `.mxe` format.
+
+* Open command prompt and change directory by typing `c:` and then `cd C:\Users\b6pdpdem\Documents\SteamboatMusselModel`
+* Create predictor_mxe folder
+
+```java -Xmx5g -cp maxent.jar density.Convert C:\Users\b6pdpdem\Documents\SteamboatMusselModel\predictors bil C:\Users\b6pdpdem\Documents\SteamboatMusselModel\predictors_mxe mxe```
+
+
+## Run Maxent
+
+
+## Convert model output from 
+To convert the `.mxe` format back to a format that can be read by ESRI. 
+
+```java -Xmx5g -cp maxent.jar density.Convert C:\Users\b6pdpdem\Documents\SteamboatMusselModel\sb_existing_20181203_2 mxe C:\Users\b6pdpdem\Documents\SteamboatMusselModel\sb_existing_20181203_2 bil```
+
+* Use the `Define Projection` tool to set the projection of the `.bil` rasters. 
+
+## Maxent speed Issues
+Follow these simple performance guidelines to reduce Maxent run time from a week to half an hour. 
+
+* Run the model on a physical computer, not on a virtual machine. 
+* Select a computer with the fastest processor and most memory available. 
+* Increase the memory available to the java virtual machine (JVM). Edit the first line of the `maxent.bat` file to something like the following: `java -Xmx5g -jar maxent.jar`, where the `-Xmx` parameter sets the maximum heap size for the JVM. Set it to something less than the total amount of physical memory on your computer. 
+* Do not run the model across the LAN (inputs and outputs stored on a network file system). Copy all inputs and write all outputs to the local file system.
+* Use a solid state drive for storing inputs and outputs. 
+* Use the "SWD" format for specifying both samples (species occurances) and environmental layers (background points). 
+* Convert all predictor grids to the Maxent `.mxe` format. 
+* Write all outputs to the Maxent `.mxe` format. 
+* Set the `threads` parameter to at least the number of cores on your computer (or a large percentage of logical processors) to speed processing of replicates. 
+
+
+
+
+
+
+
+<!--chapter:end:07-MaxentSetup.Rmd-->
+
+# Model Interpretation
+
+## ?
+
+
+
+<!--chapter:end:08-Interpretation.Rmd-->
 
