@@ -11,7 +11,7 @@ The following MCAT metrics were selected for inclusion in the model:
 * `percent tribe Lampsilini`: percent of assemblage that falls within tribe Lampsilini is a measure of species composition, life history, and behavioral characteristics
 * `percent juveniles`: percent of mussels <= 5 years-old is a measure of recruitment into an assemblage over the past five years
 * `percent >= 15 yrs`: percent of mussels >= 15 years-old is a measure of age distribution in an assemblage
-* `Q75 abundance`: a measure of abundance at the 75th quartile calculated as the density (no./m^2)
+* `abundance`: a measure of abundance at the 75th quartile calculated as the density (no./m^2)
 * `species evenness`: species evenness represents the dominance of an assemblage by a few species using Pielou's evenness index (range 0 to 1)
 * `tribe evenness`: tribe evenness represents the dominance of a particular taxonomic group using Pielou's evenness index (range 0 to 1)
 * `ES_100`: the expected number of species with a sample size of 100 estimated by rarefaction is a measure of a healthy mussel assemblage
@@ -56,20 +56,30 @@ sp2arc <- function(sp_object, fc_path) {
 The purpose of this step is to assemble the "individual" data for each of the surveys within the study area that will be used in the study. 
 
 * Working geodatabase: `//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW`
-* Create a feature class respresenting all individual mussel samples in the study area, using a definition query to include only live individuals and name it `Cordova_all_individuals`. Note: the Q75 abundance metric will be based on live mussel counts for each quadrat.
+* Create a feature class respresenting all individual mussel samples in the study area, using a definition query to include only live individuals (`NUMBER_LIV > 0`) and name it `Cordova_all_individuals`. Note: the `abundance` metric will be based on live mussel counts for each quadrat.
 * Add the following fields (Type=long integer) to the attribute table: `Listed`, `Tolerant`, `Lampsilini`, `Juveniles`, `Over_15yrs`, `tribe` 
 
 ## Create Percent Listed
 The purpose of this step is to calculate the percent listed MCAT metric for each sampled site. 
 
-* Dissolve this feature class by `SAMPLE_ID` and `ENAME` (Scientific name).  Add 'SUM_NumberLive' and 'SUM_Listed' fields in the Statistics section of the tool. Uncheck create multipart features. Set Output Feature Class to the working .gdb and name it `PercentListed`.
+* Dissolve the `Cordova_all_individuals` feature class by `SAMPLE_ID` and `ENAME` (Scientific name).  Add 'SUM_NumberLive' and 'SUM_Listed' fields in the Statistics section of the tool. Uncheck create multipart features. Set Output Feature Class to the working .gdb and name it `PercentListed`.
 * Open the `PercentListed` attribute table. Add a field titled 'Perc_listed' Type=double and enter the expression `([SUM_Listed] / [SUM_NumberLive]) * 100` into the field calculator to calculate % of individual listed species per quadrat sample.
 * Add 3 fields titled 'species' Type=string and Length=20; 'longitude' Type=double; and 'latitude' Type=double; in that order. 
 * Use field calculator to populate the field with species="perc_listed". Use Calculate Geometry to populate the 'longitude' and 'latitude' fields, ensuring that the coordinate system is set to 'NAD 1983 2011 US Feet' and 'StatePlane Illinois West FIPS 1202' and the units are set to US feet.
-* Use the Symbology tab to select a suitability threshold based on quartiles (e.g., only selecting "fair" or "good" locations with >=50% listed species). In the Symbology tab, Show: Quantities; field value 'perc_listed'; classes=5; and method=quantile. Export selected to .csv for Maxent model run.
+* Use the Symbology tab to select a suitability threshold based on quartiles (e.g., only selecting "fair" or "good" locations with >=50% listed species). In the Symbology tab, Show: Quantities; field value 'perc_listed'; classes=5; and method=quantile. 
+* Once a threshold is selected, create a definition query where `Perc_listed > 3`.  This will result in a lower quantity of sample records.
+* Export selected to .csv for Maxent model run.
 
 ## Create Percent Tolerant
 The purpose of this step is to calculate the percent tolerant MCAT metric for each sampled site. 
+
+* Dissolve this feature class by `SAMPLE_ID` and `ENAME` (Scientific name).  Add 'SUM_NumberLive' and 'SUM_Tolerant' fields in the Statistics section of the tool. Uncheck create multipart features. Set Output Feature Class to the working .gdb and name it `PercentTolerant`.
+* Open the `PercentTolerant` attribute table. Add a field titled 'Perc_tolerant' Type=double and enter the expression `([SUM_Tolerant] / [SUM_NumberLive]) * 100` into the field calculator to calculate % of individual tolerant species per quadrat sample.
+* Add 3 fields titled 'species' Type=string and Length=20; 'longitude' Type=double; and 'latitude' Type=double; in that order. 
+* Use field calculator to populate the field with species="perc_tolerant". Use Calculate Geometry to populate the 'longitude' and 'latitude' fields, ensuring that the coordinate system is set to 'NAD 1983 2011 US Feet' and 'StatePlane Illinois West FIPS 1202' and the units are set to US feet.
+* Use the Symbology tab to select a suitability threshold based on quartiles (e.g., only selecting "fair" or "good" locations with >=50% listed species). In the Symbology tab, Show: Quantities; field value 'perc_listed'; classes=5; and method=quantile. 
+* Once a threshold is selected, create a definition query where `Perc_tolerant < 40`.  This will result in a lower quantity of sample records.
+* Export selected to .csv for Maxent model run.
 
 ## Create Percent Tribe Lampsilini
 The purpose of this step is to calculate the percent tribe Lampsilini MCAT metric for each sampled site.
@@ -458,7 +468,7 @@ metric_thresholds <- tribble(
 "abundance"        , "<8"             , "8-13"                     , ">13"        , ">13"        , nrow(abund[abund$num_sq_m > 13, ]),
 "species evenness" , "<0.665"         , "0.665-0.780"              , ">0.780"     , ">0.7"       , nrow(species_pielou[species_pielou$MEAN_pielou_evenness > 0.7, ]),
 "tribe evenness"   , "<0.719"         , "0.719-0.823"              , ">0.823"     , ">0.8"       , nrow(tribe_pielou[tribe_pielou$MEAN_tribe_pielou_evenness > 0.8, ]),
-"ES 100"           , "<11.5"          , "11.5-15.7"                , ">15.7"      , "3*"         , nrow(rarefy_samples[rarefy_samples$MEAN_rarefy_es_100 > 3, ])
+"ES 100"           , "<11.5"          , "11.5-15.7"                , ">15.7"      , ">3*"         , nrow(rarefy_samples[rarefy_samples$MEAN_rarefy_es_100 > 3, ])
 )
 ```
 
@@ -473,7 +483,13 @@ kable(metric_thresholds,
 
 
 ## Export to Maxent "SWD" format
+The purpose of this step is to assign the ADH predictor variables (and optionally the wind/wave variables) to each MCAT metric. The Maxent documentation refers to this format as the "Samples With Data" (SWD) format because it contains the samples (i.e., sample identifier, latitude, longitude) with the environmental predictor variables (e.g., q5_velocity, q5_depth, q5_slope, etc.). 
 
+* Use Extract Multi Values to Points (spatial analyst) tool to write new values (velocity, depth, slope, and ss) onto each MCAT metric feature class and `background`.
 
-
+     * Input point features: `\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Data\SB_Mussels.gdb\SB_ILStatePlaneW\PercentListed`
+     * Input rasters: velocity, depth, slope, and ss (use rasters in the `Adh.gdb`, not .bil)  copy unionidae_swd and delete 3 variable fields. Ensure all layers have same spatial reference before running the tool. Copy .gdb on local drive prior to running Maxent.
+     * Repeat this process for `PercentTolerant`, `PercentLampsilini`, `PercentJuvenile`, `PercentOver15yrs`, `Abundance`, `species_pielou`, `tribe_pielou`, `rarefy_samples`, and `background`.
+* Ensure all layers have same spatial reference before running the tool.  
+* Export `background` and each mussel MCAT metric as .csv files. Ensure ObjectID field is deleted in Excel prior to upload in Maxent.
 

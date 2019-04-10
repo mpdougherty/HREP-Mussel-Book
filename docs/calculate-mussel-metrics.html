@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 3 Calculate Mussel Metrics | HREP Mussel Modeling</title>
+  <title>Chapter 6 Calculate Mussel Metrics | HREP Mussel Modeling</title>
   <meta name="description" content="This document describes the process for modeling mussel suitability on Upper Mississippi River Restoration (UMRR) Habitat Rehabilitation and Restoration Projects (HREP).">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 3 Calculate Mussel Metrics | HREP Mussel Modeling" />
+  <meta property="og:title" content="Chapter 6 Calculate Mussel Metrics | HREP Mussel Modeling" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Calculate Mussel Metrics | HREP Mussel Modeling" />
+  <meta name="twitter:title" content="Chapter 6 Calculate Mussel Metrics | HREP Mussel Modeling" />
   
   <meta name="twitter:description" content="This document describes the process for modeling mussel suitability on Upper Mississippi River Restoration (UMRR) Habitat Rehabilitation and Restoration Projects (HREP)." />
   
@@ -27,7 +27,7 @@
 <meta name="author" content="Dan Kelner, Fisheries Biologist, US Army Corps of Engineers, St. Paul District">
 
 
-<meta name="date" content="2019-03-07">
+<meta name="date" content="2019-04-10">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,7 +35,7 @@
   
   
 <link rel="prev" href="mussel-data-processing.html">
-<link rel="next" href="create-backgound-data.html">
+<link rel="next" href="develop-maxent-mussel-model.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -114,50 +114,51 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#literature-review"><i class="fa fa-check"></i><b>1.1</b> Literature Review</a></li>
 <li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#identify-available-datasets"><i class="fa fa-check"></i><b>1.2</b> Identify Available Datasets</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html"><i class="fa fa-check"></i><b>2</b> Mussel Data Processing</a><ul>
-<li class="chapter" data-level="2.1" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html#prepare-mussel-sample-data"><i class="fa fa-check"></i><b>2.1</b> Prepare Mussel Sample Data</a></li>
+<li class="chapter" data-level="2" data-path="prepare-environmental-predictor-data.html"><a href="prepare-environmental-predictor-data.html"><i class="fa fa-check"></i><b>2</b> Prepare Environmental Predictor Data</a><ul>
+<li class="chapter" data-level="2.1" data-path="prepare-environmental-predictor-data.html"><a href="prepare-environmental-predictor-data.html#create-mask"><i class="fa fa-check"></i><b>2.1</b> Create Mask</a></li>
+<li class="chapter" data-level="2.2" data-path="prepare-environmental-predictor-data.html"><a href="prepare-environmental-predictor-data.html#set-environments"><i class="fa fa-check"></i><b>2.2</b> Set Environments</a></li>
+<li class="chapter" data-level="2.3" data-path="prepare-environmental-predictor-data.html"><a href="prepare-environmental-predictor-data.html#process-adh-model-outputs"><i class="fa fa-check"></i><b>2.3</b> Process ADH Model Outputs</a></li>
+<li class="chapter" data-level="2.4" data-path="prepare-environmental-predictor-data.html"><a href="prepare-environmental-predictor-data.html#convert-to-.bil-format"><i class="fa fa-check"></i><b>2.4</b> Convert to .bil format</a></li>
+<li class="chapter" data-level="2.5" data-path="prepare-environmental-predictor-data.html"><a href="prepare-environmental-predictor-data.html#calculate-slope"><i class="fa fa-check"></i><b>2.5</b> Calculate Slope</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html"><i class="fa fa-check"></i><b>3</b> Calculate Mussel Metrics</a><ul>
-<li class="chapter" data-level="3.1" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#prepare-mussel-sample-metrics"><i class="fa fa-check"></i><b>3.1</b> Prepare Mussel Sample Metrics</a></li>
-<li class="chapter" data-level="3.2" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#mcat-metrics"><i class="fa fa-check"></i><b>3.2</b> MCAT Metrics</a></li>
-<li class="chapter" data-level="3.3" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-the-individuals-table"><i class="fa fa-check"></i><b>3.3</b> Create the Individuals table</a></li>
-<li class="chapter" data-level="3.4" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-listed"><i class="fa fa-check"></i><b>3.4</b> Create Percent Listed</a></li>
-<li class="chapter" data-level="3.5" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-tolerant"><i class="fa fa-check"></i><b>3.5</b> Create Percent Tolerant</a></li>
-<li class="chapter" data-level="3.6" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-tribe-lampsilini"><i class="fa fa-check"></i><b>3.6</b> Create Percent Tribe Lampsilini</a></li>
-<li class="chapter" data-level="3.7" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-juveniles"><i class="fa fa-check"></i><b>3.7</b> Create Percent Juveniles</a></li>
-<li class="chapter" data-level="3.8" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-over-15-years"><i class="fa fa-check"></i><b>3.8</b> Create Percent Over 15 Years</a></li>
-<li class="chapter" data-level="3.9" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-abundance"><i class="fa fa-check"></i><b>3.9</b> Create Abundance</a></li>
-<li class="chapter" data-level="3.10" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-species-evenness"><i class="fa fa-check"></i><b>3.10</b> Create Species Evenness</a></li>
-<li class="chapter" data-level="3.11" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-tribe-eveness"><i class="fa fa-check"></i><b>3.11</b> Create Tribe Eveness</a></li>
-<li class="chapter" data-level="3.12" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-es-100"><i class="fa fa-check"></i><b>3.12</b> Create ES 100</a></li>
-<li class="chapter" data-level="3.13" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#determine-mcat-metric-per-site-threshold"><i class="fa fa-check"></i><b>3.13</b> Determine MCAT Metric per site threshold</a><ul>
-<li class="chapter" data-level="3.13.1" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#percent-listed"><i class="fa fa-check"></i><b>3.13.1</b> Percent Listed</a></li>
-<li class="chapter" data-level="3.13.2" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#percent-tolerant"><i class="fa fa-check"></i><b>3.13.2</b> Percent Tolerant</a></li>
-<li class="chapter" data-level="3.13.3" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#percent-tribe-lampsilini"><i class="fa fa-check"></i><b>3.13.3</b> Percent Tribe Lampsilini</a></li>
-<li class="chapter" data-level="3.13.4" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#percent-juveniles"><i class="fa fa-check"></i><b>3.13.4</b> Percent Juveniles</a></li>
-<li class="chapter" data-level="3.13.5" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#percent-over-15-years"><i class="fa fa-check"></i><b>3.13.5</b> Percent over 15 years</a></li>
-<li class="chapter" data-level="3.13.6" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#abundance"><i class="fa fa-check"></i><b>3.13.6</b> Abundance</a></li>
-<li class="chapter" data-level="3.13.7" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#species-evenness"><i class="fa fa-check"></i><b>3.13.7</b> Species Evenness</a></li>
-<li class="chapter" data-level="3.13.8" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#tribe-evenness"><i class="fa fa-check"></i><b>3.13.8</b> Tribe Evenness</a></li>
-<li class="chapter" data-level="3.13.9" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#es_100"><i class="fa fa-check"></i><b>3.13.9</b> ES_100</a></li>
-</ul></li>
-<li class="chapter" data-level="3.14" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#choice-of-site-level-mcat-metric-thresholds"><i class="fa fa-check"></i><b>3.14</b> Choice of Site Level MCAT Metric Thresholds</a></li>
-<li class="chapter" data-level="3.15" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#export-to-maxent-swd-format"><i class="fa fa-check"></i><b>3.15</b> Export to Maxent “SWD” format</a></li>
+<li class="chapter" data-level="3" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html"><i class="fa fa-check"></i><b>3</b> Prepare Wind and Wave Data</a><ul>
+<li class="chapter" data-level="3.1" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html#identify-appropriate-weather-stations"><i class="fa fa-check"></i><b>3.1</b> Identify Appropriate Weather Stations</a></li>
+<li class="chapter" data-level="3.2" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html#obtain-wind-data"><i class="fa fa-check"></i><b>3.2</b> Obtain Wind Data</a></li>
+<li class="chapter" data-level="3.3" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html#determine-period-of-record"><i class="fa fa-check"></i><b>3.3</b> Determine Period of Record</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="create-backgound-data.html"><a href="create-backgound-data.html"><i class="fa fa-check"></i><b>4</b> Create Backgound Data</a><ul>
 <li class="chapter" data-level="4.1" data-path="create-backgound-data.html"><a href="create-backgound-data.html#create-background-data"><i class="fa fa-check"></i><b>4.1</b> Create Background Data</a></li>
+<li class="chapter" data-level="4.2" data-path="create-backgound-data.html"><a href="create-backgound-data.html#export-to-maxent-swd-format"><i class="fa fa-check"></i><b>4.2</b> Export to Maxent “SWD” Format</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="prepare-environmental-predictor-data.html"><a href="prepare-environmental-predictor-data.html"><i class="fa fa-check"></i><b>5</b> Prepare Environmental Predictor Data</a><ul>
-<li class="chapter" data-level="5.1" data-path="prepare-environmental-predictor-data.html"><a href="prepare-environmental-predictor-data.html#create-mask"><i class="fa fa-check"></i><b>5.1</b> Create Mask</a></li>
-<li class="chapter" data-level="5.2" data-path="prepare-environmental-predictor-data.html"><a href="prepare-environmental-predictor-data.html#set-environments"><i class="fa fa-check"></i><b>5.2</b> Set Environments</a></li>
-<li class="chapter" data-level="5.3" data-path="prepare-environmental-predictor-data.html"><a href="prepare-environmental-predictor-data.html#process-adh-model-outputs"><i class="fa fa-check"></i><b>5.3</b> Process ADH Model Outputs</a></li>
-<li class="chapter" data-level="5.4" data-path="prepare-environmental-predictor-data.html"><a href="prepare-environmental-predictor-data.html#convert-to-.bil-format"><i class="fa fa-check"></i><b>5.4</b> Convert to .bil format</a></li>
-<li class="chapter" data-level="5.5" data-path="prepare-environmental-predictor-data.html"><a href="prepare-environmental-predictor-data.html#calculate-slope"><i class="fa fa-check"></i><b>5.5</b> Calculate Slope</a></li>
+<li class="chapter" data-level="5" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html"><i class="fa fa-check"></i><b>5</b> Mussel Data Processing</a><ul>
+<li class="chapter" data-level="5.1" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html#prepare-mussel-sample-data"><i class="fa fa-check"></i><b>5.1</b> Prepare Mussel Sample Data</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html"><i class="fa fa-check"></i><b>6</b> Prepare Wind and Wave Data</a><ul>
-<li class="chapter" data-level="6.1" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html#identify-appropriate-weather-stations"><i class="fa fa-check"></i><b>6.1</b> Identify Appropriate Weather Stations</a></li>
-<li class="chapter" data-level="6.2" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html#obtain-wind-data"><i class="fa fa-check"></i><b>6.2</b> Obtain Wind Data</a></li>
-<li class="chapter" data-level="6.3" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html#determine-period-of-record"><i class="fa fa-check"></i><b>6.3</b> Determine Period of Record</a></li>
+<li class="chapter" data-level="6" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html"><i class="fa fa-check"></i><b>6</b> Calculate Mussel Metrics</a><ul>
+<li class="chapter" data-level="6.1" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#prepare-mussel-sample-metrics"><i class="fa fa-check"></i><b>6.1</b> Prepare Mussel Sample Metrics</a></li>
+<li class="chapter" data-level="6.2" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#mcat-metrics"><i class="fa fa-check"></i><b>6.2</b> MCAT Metrics</a></li>
+<li class="chapter" data-level="6.3" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-the-individuals-table"><i class="fa fa-check"></i><b>6.3</b> Create the Individuals table</a></li>
+<li class="chapter" data-level="6.4" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-listed"><i class="fa fa-check"></i><b>6.4</b> Create Percent Listed</a></li>
+<li class="chapter" data-level="6.5" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-tolerant"><i class="fa fa-check"></i><b>6.5</b> Create Percent Tolerant</a></li>
+<li class="chapter" data-level="6.6" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-tribe-lampsilini"><i class="fa fa-check"></i><b>6.6</b> Create Percent Tribe Lampsilini</a></li>
+<li class="chapter" data-level="6.7" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-juveniles"><i class="fa fa-check"></i><b>6.7</b> Create Percent Juveniles</a></li>
+<li class="chapter" data-level="6.8" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-over-15-years"><i class="fa fa-check"></i><b>6.8</b> Create Percent Over 15 Years</a></li>
+<li class="chapter" data-level="6.9" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-abundance"><i class="fa fa-check"></i><b>6.9</b> Create Abundance</a></li>
+<li class="chapter" data-level="6.10" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-species-evenness"><i class="fa fa-check"></i><b>6.10</b> Create Species Evenness</a></li>
+<li class="chapter" data-level="6.11" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-tribe-eveness"><i class="fa fa-check"></i><b>6.11</b> Create Tribe Eveness</a></li>
+<li class="chapter" data-level="6.12" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-es-100"><i class="fa fa-check"></i><b>6.12</b> Create ES 100</a></li>
+<li class="chapter" data-level="6.13" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#determine-mcat-metric-per-site-threshold"><i class="fa fa-check"></i><b>6.13</b> Determine MCAT Metric per site threshold</a><ul>
+<li class="chapter" data-level="6.13.1" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#percent-listed"><i class="fa fa-check"></i><b>6.13.1</b> Percent Listed</a></li>
+<li class="chapter" data-level="6.13.2" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#percent-tolerant"><i class="fa fa-check"></i><b>6.13.2</b> Percent Tolerant</a></li>
+<li class="chapter" data-level="6.13.3" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#percent-tribe-lampsilini"><i class="fa fa-check"></i><b>6.13.3</b> Percent Tribe Lampsilini</a></li>
+<li class="chapter" data-level="6.13.4" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#percent-juveniles"><i class="fa fa-check"></i><b>6.13.4</b> Percent Juveniles</a></li>
+<li class="chapter" data-level="6.13.5" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#percent-over-15-years"><i class="fa fa-check"></i><b>6.13.5</b> Percent over 15 years</a></li>
+<li class="chapter" data-level="6.13.6" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#abundance"><i class="fa fa-check"></i><b>6.13.6</b> Abundance</a></li>
+<li class="chapter" data-level="6.13.7" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#species-evenness"><i class="fa fa-check"></i><b>6.13.7</b> Species Evenness</a></li>
+<li class="chapter" data-level="6.13.8" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#tribe-evenness"><i class="fa fa-check"></i><b>6.13.8</b> Tribe Evenness</a></li>
+<li class="chapter" data-level="6.13.9" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#es_100"><i class="fa fa-check"></i><b>6.13.9</b> ES_100</a></li>
+</ul></li>
+<li class="chapter" data-level="6.14" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#choice-of-site-level-mcat-metric-thresholds"><i class="fa fa-check"></i><b>6.14</b> Choice of Site Level MCAT Metric Thresholds</a></li>
+<li class="chapter" data-level="6.15" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#export-to-maxent-swd-format-1"><i class="fa fa-check"></i><b>6.15</b> Export to Maxent “SWD” format</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="develop-maxent-mussel-model.html"><a href="develop-maxent-mussel-model.html"><i class="fa fa-check"></i><b>7</b> Develop Maxent Mussel Model</a><ul>
 <li class="chapter" data-level="7.1" data-path="develop-maxent-mussel-model.html"><a href="develop-maxent-mussel-model.html#convert-from-.bil-to-.mxe-format"><i class="fa fa-check"></i><b>7.1</b> Convert from <code>.bil</code> to <code>.mxe</code> format</a></li>
@@ -189,13 +190,13 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="calculate-mussel-metrics" class="section level1">
-<h1><span class="header-section-number">Chapter 3</span> Calculate Mussel Metrics</h1>
+<h1><span class="header-section-number">Chapter 6</span> Calculate Mussel Metrics</h1>
 <div id="prepare-mussel-sample-metrics" class="section level2">
-<h2><span class="header-section-number">3.1</span> Prepare Mussel Sample Metrics</h2>
+<h2><span class="header-section-number">6.1</span> Prepare Mussel Sample Metrics</h2>
 <p>The purpose of this section is to calculate various metrics of habitat quality for each sampled site. Each of these metrics will be used as presence data as input to create a set of Maxent habitat suitability models. The metrics calculated in this section were taken from the <a href="https://acwi.gov/monitoring/conference/2014/2ConcurrentSessions/J2/J2Dunn.pdf">Upper Mississippi River Mussel Community Assessment Tool (MCAT)</a> <span class="citation">(Dunn, Zigler, and Newton <a href="#ref-dunn2016">2016</a>)</span>.</p>
 </div>
 <div id="mcat-metrics" class="section level2">
-<h2><span class="header-section-number">3.2</span> MCAT Metrics</h2>
+<h2><span class="header-section-number">6.2</span> MCAT Metrics</h2>
 <p>The following MCAT metrics were selected for inclusion in the model:</p>
 <ul>
 <li><code>percent listed species</code>: percent of listed threatened or endangered species (federal or bordering states) is a measure of sensitive species</li>
@@ -203,50 +204,61 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li><code>percent tribe Lampsilini</code>: percent of assemblage that falls within tribe Lampsilini is a measure of species composition, life history, and behavioral characteristics</li>
 <li><code>percent juveniles</code>: percent of mussels &lt;= 5 years-old is a measure of recruitment into an assemblage over the past five years</li>
 <li><code>percent &gt;= 15 yrs</code>: percent of mussels &gt;= 15 years-old is a measure of age distribution in an assemblage</li>
-<li><code>Q75 abundance</code>: a measure of abundance at the 75th quartile calculated as the density (no./m^2)</li>
+<li><code>abundance</code>: a measure of abundance at the 75th quartile calculated as the density (no./m^2)</li>
 <li><code>species evenness</code>: species evenness represents the dominance of an assemblage by a few species using Pielou’s evenness index (range 0 to 1)</li>
 <li><code>tribe evenness</code>: tribe evenness represents the dominance of a particular taxonomic group using Pielou’s evenness index (range 0 to 1)</li>
 <li><code>ES_100</code>: the expected number of species with a sample size of 100 estimated by rarefaction is a measure of a healthy mussel assemblage</li>
 </ul>
 </div>
 <div id="create-the-individuals-table" class="section level2">
-<h2><span class="header-section-number">3.3</span> Create the Individuals table</h2>
+<h2><span class="header-section-number">6.3</span> Create the Individuals table</h2>
 <p>The purpose of this step is to assemble the “individual” data for each of the surveys within the study area that will be used in the study.</p>
 <ul>
 <li>Working geodatabase: <code>//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW</code></li>
-<li>Create a feature class respresenting all individual mussel samples in the study area, using a definition query to include only live individuals and name it <code>Cordova_all_individuals</code>. Note: the Q75 abundance metric will be based on live mussel counts for each quadrat.</li>
+<li>Create a feature class respresenting all individual mussel samples in the study area, using a definition query to include only live individuals (<code>NUMBER_LIV &gt; 0</code>) and name it <code>Cordova_all_individuals</code>. Note: the <code>abundance</code> metric will be based on live mussel counts for each quadrat.</li>
 <li>Add the following fields (Type=long integer) to the attribute table: <code>Listed</code>, <code>Tolerant</code>, <code>Lampsilini</code>, <code>Juveniles</code>, <code>Over_15yrs</code>, <code>tribe</code></li>
 </ul>
 </div>
 <div id="create-percent-listed" class="section level2">
-<h2><span class="header-section-number">3.4</span> Create Percent Listed</h2>
+<h2><span class="header-section-number">6.4</span> Create Percent Listed</h2>
 <p>The purpose of this step is to calculate the percent listed MCAT metric for each sampled site.</p>
 <ul>
-<li>Dissolve this feature class by <code>SAMPLE_ID</code> and <code>ENAME</code> (Scientific name). Add ‘SUM_NumberLive’ and ‘SUM_Listed’ fields in the Statistics section of the tool. Uncheck create multipart features. Set Output Feature Class to the working .gdb and name it <code>PercentListed</code>.</li>
+<li>Dissolve the <code>Cordova_all_individuals</code> feature class by <code>SAMPLE_ID</code> and <code>ENAME</code> (Scientific name). Add ‘SUM_NumberLive’ and ‘SUM_Listed’ fields in the Statistics section of the tool. Uncheck create multipart features. Set Output Feature Class to the working .gdb and name it <code>PercentListed</code>.</li>
 <li>Open the <code>PercentListed</code> attribute table. Add a field titled ‘Perc_listed’ Type=double and enter the expression <code>([SUM_Listed] / [SUM_NumberLive]) * 100</code> into the field calculator to calculate % of individual listed species per quadrat sample.</li>
 <li>Add 3 fields titled ‘species’ Type=string and Length=20; ‘longitude’ Type=double; and ‘latitude’ Type=double; in that order.</li>
 <li>Use field calculator to populate the field with species=“perc_listed”. Use Calculate Geometry to populate the ‘longitude’ and ‘latitude’ fields, ensuring that the coordinate system is set to ‘NAD 1983 2011 US Feet’ and ‘StatePlane Illinois West FIPS 1202’ and the units are set to US feet.</li>
-<li>Use the Symbology tab to select a suitability threshold based on quartiles (e.g., only selecting “fair” or “good” locations with &gt;=50% listed species). In the Symbology tab, Show: Quantities; field value ‘perc_listed’; classes=5; and method=quantile. Export selected to .csv for Maxent model run.</li>
+<li>Use the Symbology tab to select a suitability threshold based on quartiles (e.g., only selecting “fair” or “good” locations with &gt;=50% listed species). In the Symbology tab, Show: Quantities; field value ‘perc_listed’; classes=5; and method=quantile.</li>
+<li>Once a threshold is selected, create a definition query where <code>Perc_listed &gt; 3</code>. This will result in a lower quantity of sample records.</li>
+<li>Export selected to .csv for Maxent model run.</li>
 </ul>
 </div>
 <div id="create-percent-tolerant" class="section level2">
-<h2><span class="header-section-number">3.5</span> Create Percent Tolerant</h2>
+<h2><span class="header-section-number">6.5</span> Create Percent Tolerant</h2>
 <p>The purpose of this step is to calculate the percent tolerant MCAT metric for each sampled site.</p>
+<ul>
+<li>Dissolve this feature class by <code>SAMPLE_ID</code> and <code>ENAME</code> (Scientific name). Add ‘SUM_NumberLive’ and ‘SUM_Tolerant’ fields in the Statistics section of the tool. Uncheck create multipart features. Set Output Feature Class to the working .gdb and name it <code>PercentTolerant</code>.</li>
+<li>Open the <code>PercentTolerant</code> attribute table. Add a field titled ‘Perc_tolerant’ Type=double and enter the expression <code>([SUM_Tolerant] / [SUM_NumberLive]) * 100</code> into the field calculator to calculate % of individual tolerant species per quadrat sample.</li>
+<li>Add 3 fields titled ‘species’ Type=string and Length=20; ‘longitude’ Type=double; and ‘latitude’ Type=double; in that order.</li>
+<li>Use field calculator to populate the field with species=“perc_tolerant”. Use Calculate Geometry to populate the ‘longitude’ and ‘latitude’ fields, ensuring that the coordinate system is set to ‘NAD 1983 2011 US Feet’ and ‘StatePlane Illinois West FIPS 1202’ and the units are set to US feet.</li>
+<li>Use the Symbology tab to select a suitability threshold based on quartiles (e.g., only selecting “fair” or “good” locations with &gt;=50% listed species). In the Symbology tab, Show: Quantities; field value ‘perc_listed’; classes=5; and method=quantile.</li>
+<li>Once a threshold is selected, create a definition query where <code>Perc_tolerant &lt; 40</code>. This will result in a lower quantity of sample records.</li>
+<li>Export selected to .csv for Maxent model run.</li>
+</ul>
 </div>
 <div id="create-percent-tribe-lampsilini" class="section level2">
-<h2><span class="header-section-number">3.6</span> Create Percent Tribe Lampsilini</h2>
+<h2><span class="header-section-number">6.6</span> Create Percent Tribe Lampsilini</h2>
 <p>The purpose of this step is to calculate the percent tribe Lampsilini MCAT metric for each sampled site.</p>
 </div>
 <div id="create-percent-juveniles" class="section level2">
-<h2><span class="header-section-number">3.7</span> Create Percent Juveniles</h2>
+<h2><span class="header-section-number">6.7</span> Create Percent Juveniles</h2>
 <p>The purpose of this step is to calculate the percent juveniles MCAT metric for each sampled site.</p>
 </div>
 <div id="create-percent-over-15-years" class="section level2">
-<h2><span class="header-section-number">3.8</span> Create Percent Over 15 Years</h2>
+<h2><span class="header-section-number">6.8</span> Create Percent Over 15 Years</h2>
 <p>The purpose of this step is to calculate the percent over 15 years old MCAT metric for each sampled site.</p>
 </div>
 <div id="create-abundance" class="section level2">
-<h2><span class="header-section-number">3.9</span> Create Abundance</h2>
+<h2><span class="header-section-number">6.9</span> Create Abundance</h2>
 <p>The purpose of this step is to calculate the Abundance MCAT metric for each sampled site.</p>
 <ul>
 <li>For the abundance metric, dissolve <code>Cordova_all_individuals</code> by <code>SAMPLE_ID</code> and <code>ENAME</code> (Scientific name). Add ‘SUM_NumberLive’ field in the Statistics section of the tool. Uncheck create multipart features. Set Output Feature Class to the working .gdb and name it <code>Abundance</code>.</li>
@@ -266,7 +278,7 @@ abundance<span class="op">$</span>num_sq_m &lt;-<span class="st"> </span>abundan
 q &lt;-<span class="st"> </span><span class="kw">quantile</span>(abundance<span class="op">$</span>num_sq_m)
 q</code></pre></div>
 <pre><code>##   0%  25%  50%  75% 100% 
-##    0    4    8   20  180</code></pre>
+##    4    4    8   20  180</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Merge the abundance scores back onto the sp object</span>
 sample_abundance &lt;-<span class="st"> </span>sp<span class="op">::</span><span class="kw">merge</span>(<span class="dt">x =</span> abundance_sp,
                               <span class="dt">y =</span> abundance,
@@ -275,7 +287,7 @@ sample_abundance &lt;-<span class="st"> </span>sp<span class="op">::</span><span
 <span class="kw">sp2arc</span>(sample_abundance, <span class="dt">fc_path =</span> <span class="st">&quot;//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW/sample_abundance&quot;</span>)</code></pre></div>
 </div>
 <div id="create-species-evenness" class="section level2">
-<h2><span class="header-section-number">3.10</span> Create Species Evenness</h2>
+<h2><span class="header-section-number">6.10</span> Create Species Evenness</h2>
 <p>The purpose of this step is to calculate the Pielou’s evenness index (range 0-1), estimated at the species level for each sampled site.</p>
 <ul>
 <li>Create a table of SampleID by species by abundance (number live). Use the <code>Dissolve</code> tool:
@@ -335,7 +347,7 @@ sample_species_pielou &lt;-<span class="st"> </span>sp<span class="op">::</span>
 </ul>
 </div>
 <div id="create-tribe-eveness" class="section level2">
-<h2><span class="header-section-number">3.11</span> Create Tribe Eveness</h2>
+<h2><span class="header-section-number">6.11</span> Create Tribe Eveness</h2>
 <p>The purpose of this step is to calculate the Pielou’s evenness index (range 0-1), estimated at the tribe level. (will probably need to add a new column for tribe; dissolve on this with sample ID)</p>
 <ul>
 <li>In the feature class <code>Cordova_all_individuals</code>, create a new text variable named <code>tribe</code>.</li>
@@ -397,7 +409,7 @@ sample_tribe_pielou &lt;-<span class="st"> </span>sp<span class="op">::</span><s
 </ul>
 </div>
 <div id="create-es-100" class="section level2">
-<h2><span class="header-section-number">3.12</span> Create ES 100</h2>
+<h2><span class="header-section-number">6.12</span> Create ES 100</h2>
 <p>The purpose of this step is to calculate the ES 100 MCAT metric for each sampled site. ES_100 is the expected number of species with a sample size of 100 estimated by rarefaction based on random resampling of the data <span class="citation">(Dunn, Zigler, and Newton <a href="#ref-dunn2016">2016</a>)</span>.</p>
 <p>ES_100-species richness estimated by rarefaction; caveat: sites need to be compared based on an equal sample size because # of species and # of individuals sampled are large correlated. Not sure how best to approach this one; I defer to you!</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Uses the sample_species_matrix calculated from the species evenness section</span>
@@ -438,51 +450,51 @@ rarefy_sampleid_species &lt;-<span class="st"> </span>sp<span class="op">::</spa
 </ul>
 </div>
 <div id="determine-mcat-metric-per-site-threshold" class="section level2">
-<h2><span class="header-section-number">3.13</span> Determine MCAT Metric per site threshold</h2>
+<h2><span class="header-section-number">6.13</span> Determine MCAT Metric per site threshold</h2>
 <p>The purpose of this section is to display the range of calculated values for each of the MCAT metrics for each of the sites in the Steamboat Island study area. The MCAT report is clear about metric thresholds to use for evaluating quality mussel beds. However, this study is using the individual site unit of analysis. Therefore, decisions must be made on what is the appropriate metric threshold to use for the site level of analysis. The descriptive statistics in this section will help to inform that decsion.</p>
 <div id="percent-listed" class="section level3">
-<h3><span class="header-section-number">3.13.1</span> Percent Listed</h3>
+<h3><span class="header-section-number">6.13.1</span> Percent Listed</h3>
 <p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-20-1.png" width="624" /></p>
 </div>
 <div id="percent-tolerant" class="section level3">
-<h3><span class="header-section-number">3.13.2</span> Percent Tolerant</h3>
+<h3><span class="header-section-number">6.13.2</span> Percent Tolerant</h3>
 <p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-21-1.png" width="624" /></p>
 </div>
 <div id="percent-tribe-lampsilini" class="section level3">
-<h3><span class="header-section-number">3.13.3</span> Percent Tribe Lampsilini</h3>
+<h3><span class="header-section-number">6.13.3</span> Percent Tribe Lampsilini</h3>
 <p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-22-1.png" width="624" /></p>
 </div>
 <div id="percent-juveniles" class="section level3">
-<h3><span class="header-section-number">3.13.4</span> Percent Juveniles</h3>
+<h3><span class="header-section-number">6.13.4</span> Percent Juveniles</h3>
 <p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-23-1.png" width="624" /></p>
 </div>
 <div id="percent-over-15-years" class="section level3">
-<h3><span class="header-section-number">3.13.5</span> Percent over 15 years</h3>
+<h3><span class="header-section-number">6.13.5</span> Percent over 15 years</h3>
 <p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-24-1.png" width="624" /></p>
 </div>
 <div id="abundance" class="section level3">
-<h3><span class="header-section-number">3.13.6</span> Abundance</h3>
+<h3><span class="header-section-number">6.13.6</span> Abundance</h3>
 <p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-25-1.png" width="624" /></p>
 </div>
 <div id="species-evenness" class="section level3">
-<h3><span class="header-section-number">3.13.7</span> Species Evenness</h3>
+<h3><span class="header-section-number">6.13.7</span> Species Evenness</h3>
 <p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-26-1.png" width="624" /></p>
 </div>
 <div id="tribe-evenness" class="section level3">
-<h3><span class="header-section-number">3.13.8</span> Tribe Evenness</h3>
+<h3><span class="header-section-number">6.13.8</span> Tribe Evenness</h3>
 <p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-27-1.png" width="624" /></p>
 </div>
 <div id="es_100" class="section level3">
-<h3><span class="header-section-number">3.13.9</span> ES_100</h3>
+<h3><span class="header-section-number">6.13.9</span> ES_100</h3>
 <p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-28-1.png" width="624" /></p>
 </div>
 </div>
 <div id="choice-of-site-level-mcat-metric-thresholds" class="section level2">
-<h2><span class="header-section-number">3.14</span> Choice of Site Level MCAT Metric Thresholds</h2>
+<h2><span class="header-section-number">6.14</span> Choice of Site Level MCAT Metric Thresholds</h2>
 <p>The discriptive statistics presented in the previous section were used to select MCAT metrics thresolds.</p>
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:fig">Table 3.1: </span>Translating MCAT Metric Thresholds from the Bed to the Site Scale.
+<span id="tab:fig">Table 6.1: </span>Translating MCAT Metric Thresholds from the Bed to the Site Scale.
 </caption>
 <thead>
 <tr>
@@ -695,7 +707,7 @@ ES 100
 &gt;15.7
 </td>
 <td style="text-align:left;">
-3*
+&gt;3*
 </td>
 <td style="text-align:right;">
 49
@@ -711,8 +723,20 @@ ES 100
 </tfoot>
 </table>
 </div>
-<div id="export-to-maxent-swd-format" class="section level2">
-<h2><span class="header-section-number">3.15</span> Export to Maxent “SWD” format</h2>
+<div id="export-to-maxent-swd-format-1" class="section level2">
+<h2><span class="header-section-number">6.15</span> Export to Maxent “SWD” format</h2>
+<p>The purpose of this step is to assign the ADH predictor variables (and optionally the wind/wave variables) to each MCAT metric. The Maxent documentation refers to this format as the “Samples With Data” (SWD) format because it contains the samples (i.e., sample identifier, latitude, longitude) with the environmental predictor variables (e.g., q5_velocity, q5_depth, q5_slope, etc.).</p>
+<ul>
+<li><p>Use Extract Multi Values to Points (spatial analyst) tool to write new values (velocity, depth, slope, and ss) onto each MCAT metric feature class and <code>background</code>.</p>
+<ul>
+<li>Input point features: <code>\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Data\SB_Mussels.gdb\SB_ILStatePlaneW\PercentListed</code></li>
+<li>Input rasters: velocity, depth, slope, and ss (use rasters in the <code>Adh.gdb</code>, not .bil) copy unionidae_swd and delete 3 variable fields. Ensure all layers have same spatial reference before running the tool. Copy .gdb on local drive prior to running Maxent.</li>
+<li>Repeat this process for <code>PercentTolerant</code>, <code>PercentLampsilini</code>, <code>PercentJuvenile</code>, <code>PercentOver15yrs</code>, <code>Abundance</code>, <code>species_pielou</code>, <code>tribe_pielou</code>, <code>rarefy_samples</code>, and <code>background</code>.</li>
+</ul></li>
+<li>Ensure all layers have same spatial reference before running the tool.<br />
+</li>
+<li><p>Export <code>background</code> and each mussel MCAT metric as .csv files. Ensure ObjectID field is deleted in Excel prior to upload in Maxent.</p></li>
+</ul>
 
 </div>
 </div>
@@ -728,7 +752,7 @@ ES 100
         </div>
       </div>
 <a href="mussel-data-processing.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="create-backgound-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="develop-maxent-mussel-model.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

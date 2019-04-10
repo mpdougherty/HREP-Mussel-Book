@@ -13,7 +13,6 @@ Working geodatabase: `//mvrdfs/egis/Work/EMP/HREP_Projects/SteamboatSlough/Musse
 * Export the events to the geodatabase as: `Cordova_YEAR`
 * Create 3 new fields (type: long integer) titled 'NumberLive', 'NUM5YEAR', and 'NUM30MM'
 * Use field calculator to populate each field with '0' indicating absence and '1' for presence in each new field (number live, number less than 5 years, and number less than 30mm in length).
-* Create a definition query to select only those records where: `NUMBER_LIV > 0`
 * Dissolve the `Cordova_YEAR` feature class by `SAMPLEID` to collapse mussel tabular data to the unique sample location points. The dissolve tool can also be used to collapse mussel tabular data to unique sample location using multiple fields; e.g., if a count by species is required for analysis, select `SAMPLEID` and `ScientificName`. In the statistics box, add the newly created fields 'Number_Live', 'NUM5YEAR', and 'NUM30MM' and select 'SUM' as statistic to be calculated for each.
 * Append all three datasets into one feature class in the .gdb called `Cordova`.  Right-click this feature class and select 'load'. 
 * Export to `.csv`. 

@@ -53,12 +53,13 @@ The goal of this step is to convert the raw Adaptive Hydraulics Model (Adh) data
 * Create a new folder and geodatabase to represent the alternative that this Adh model represents. In this example we will be modeling the existing condition alternative: `\\mvrdfs\egis\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Adh\Existing_condition/existingcondition.gdb`
 * Get the Adh output from the hydraulic engineer. Copy it to the alternative folder you created in the last step. EC-HH Working directory: `\\mvr-netapp2\MVRDATA\ED\ec-hh\Mississippi_River\Steamboat Island\AdH\Model Runs\`
 * Use Excel to convert the space-delimited `.txt` file to `.csv`. Open a blank Excel workbook and open the `.txt` file. Use the import wizard to convert the space-delimited file into an Excel workbook. Ensure the import works correctly, delete any header information above the row of field names, and then save as a `.csv` file. 
-* Import the `.csv` file into the `existingcondition` geodatabase. Name the table by the flow condition it represents (Q5, Q95). 
+* Import the `.csv` file into the `existingcondition` geodatabase. Name the table by the flow condition it represents (Q5, Q95). Ensure that the field types are all set to `double`. 
 * Add the Q5 table into a blank ArcMap document. 
 * Right-click the `Q5` table and click "Display XY Data".
 * Set appropriate 'X','Y', and 'Z' fields.
 * Identify the datum and coordinate system recorded in the Adh table; all future output feature classes and rasters will need to be in the same projected coordinate system. In this example, Datum: 'NAD 1983 2011 US Feet' and Coordinate System: 'StatePlane Illinois West FIPS 1202'.
 * Export `Q5_Events` as new point feature class named `Q5_pts`.
+* Repeat the above steps to create point feature classes for the Q95 model results. 
 * Use the IDW (Spatial Analyst) tool to interpolate a raster surface.
 
     * Input point features: `Q5_pts`. 
