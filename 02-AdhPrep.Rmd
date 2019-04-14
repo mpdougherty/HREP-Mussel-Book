@@ -66,16 +66,7 @@ The goal of this step is to convert the raw Adaptive Hydraulics Model (Adh) data
     * Z value field: velocity
     * Output raster: `\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Adh\Existing_condition\existingcondition.gdb\q5_velocity`
     
-* Complete these steps for the other variables, 'depth', 'slope', and 'sheer stress', 'froude_number', 'reynolds_number'.
-
-## Convert to .bil format
-The goal of this step is to convert the Adh output into a format that can be used by Maxent. The .bil format is one of the formats common to both Maxent and Esri. This step will repeated for all Adh (Q5, Q95) predictors.
-
-* Use the Copy Raster (Data Management) tool to covert the Adh predictor rasters into .bil format.
-
-    * Input Raster: `q5_velocity`
-    * Output Raster Dataset: `\\mvrdfs\egis\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Adh\Existing_condition\q5_velocity.bil` (Note: cannot save .bil format within the .gdb)
-    * Format: Esri BIL
+* Complete these steps for the other variables, `dept`, `slope`, and `sheer stress`, `froude_number`, `reynolds_number`.
 
 
 ## Calculate Slope
@@ -89,4 +80,17 @@ The goal of the step is to calculate slope from the Adh depth variable created i
     * Z factor = 1 (linear units same)
     
 * Use Copy Raster (Data Management) tool to convert the `q5_slope` raster into .bil format, as outlined in previous step.
-  
+* Repeat the above steps to conver calculate the Q95 slope.  
+
+
+## Convert to .bil format
+The goal of this step is to convert the Adh output into a format that can be used by Maxent. The .bil format is one of the formats common to both Maxent and Esri. This step will repeated for all Adh (Q5, Q95) predictors.
+
+* Use the Copy Raster (Data Management) tool to covert the Adh predictor rasters into .bil format.
+
+    * Input Raster: `q5_velocity`
+    * Output Raster Dataset: `\\mvrdfs\egis\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Adh\Existing_condition\q5_velocity.bil` (Note: cannot save .bil format within the .gdb)
+    * Format: Esri BIL
+
+* Repeat the above step for all of the other environmental predictor variables. 
+

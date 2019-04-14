@@ -52,12 +52,17 @@ sp2arc <- function(sp_object, fc_path) {
 }
 ```
 
-## Create the Individuals table
+## Create Individuals
 The purpose of this step is to assemble the "individual" data for each of the surveys within the study area that will be used in the study. 
 
 * Working geodatabase: `//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW`
-* Create a feature class respresenting all individual mussel samples in the study area, using a definition query to include only live individuals (`NUMBER_LIV > 0`) and name it `Cordova_all_individuals`. Note: the `abundance` metric will be based on live mussel counts for each quadrat.
+* Create a feature class respresenting all individual mussel samples in the study area and name it `Cordova_all_individuals`. 
 * Add the following fields (Type=long integer) to the attribute table: `Listed`, `Tolerant`, `Lampsilini`, `Juveniles`, `Over_15yrs`, `tribe` 
+
+## Create Samples
+The purpose of this step is to create a point feature class to represent the unique sample locations (sites) where mussels have been sampled. 
+
+* Dissolve the `Cordova_all_individuals` feature class by `SAMPLE_ID`. Add `SUM_NumberLive` in the statistics section of the tool. Uncheck create multipart features. Set Output Feature Class to the working .gdb and name it `Samples`.
 
 ## Create Percent Listed
 The purpose of this step is to calculate the percent listed MCAT metric for each sampled site. 
@@ -324,6 +329,13 @@ The purpose of this section is to display the range of calculated values for eac
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 ### Import MCAT Metrics from geodatabase
+
+## Samples
+samples_sp <- arc2sp("//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW/samples")
+
+# Convert sp object to a data frame
+samples <- samples_sp@data
+
 ## Percent Listed
 percent_listed_sp <- arc2sp("//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW/PercentListed")
 
@@ -404,7 +416,6 @@ percent_lamp_p <- ggplot(percent_lamp, aes(perc_lampsilini)) +
 print(percent_lamp_p)
 ```
 
-
 ### Percent Juveniles
 ```{r echo=FALSE, fig.height=3, fig.width=6.5}
 percent_juv_p <- ggplot(percent_juv, aes(Perc_juvenile)) + 
@@ -464,7 +475,7 @@ metric_thresholds <- tribble(
 "% tolerant"       , ">62.7"          , "38.3-62.7"                , "<38.3"      , "<40"        , nrow(percent_tolerant[percent_tolerant$Perc_tolerant < 40, ]),
 "% lampsilini"     , "<17.2 or >56.4" , "<17.2-34.7 or >39.5-56.4" , ">34.7-39.5" , ">40"        , nrow(percent_lamp[percent_lamp$perc_lampsilini > 40, ]),
 "% juveniles"      , "<19.8"          , "<19.8-49.3"               , ">49.3"      , ">50"        , nrow(percent_juv[percent_juv$Perc_juvenile > 50, ]),
-"% >= 15 years"    , "<0.8 or >16.0"  , ">5.6-16.0"                , ">2.4-5.6"   , ">5"         , nrow(percent_over15[percent_over15$Perc_over_15yrs > 5, ]),
+"% >= 15 years"    , "<0.8 or >16.0"  , ">5.6-16.0"                , ">2.4-5.6"   , ">5*"         , nrow(percent_over15[percent_over15$Perc_over_15yrs > 5, ]),
 "abundance"        , "<8"             , "8-13"                     , ">13"        , ">13"        , nrow(abund[abund$num_sq_m > 13, ]),
 "species evenness" , "<0.665"         , "0.665-0.780"              , ">0.780"     , ">0.7"       , nrow(species_pielou[species_pielou$MEAN_pielou_evenness > 0.7, ]),
 "tribe evenness"   , "<0.719"         , "0.719-0.823"              , ">0.823"     , ">0.8"       , nrow(tribe_pielou[tribe_pielou$MEAN_tribe_pielou_evenness > 0.8, ]),
@@ -482,12 +493,116 @@ kable(metric_thresholds,
 ```
 
 
+## Calculate MCAT Site Score
+The purpose of this section is to calculate an MCAT Site score. This score is composed of the number of MCAT metrics met for each site. A site that meets none of the MCAT metrics receives a score of zero while a site that meets all of the scores receives a score of nine. 
+
+```{r echo=FALSE}
+# Add MCAT metric fields to a new `samples_mcat` table
+## Add percent listed
+samples_mcat <- merge(x = samples, 
+                      y = percent_listed[, c("SampleID", "Perc_listed")], 
+                      by = "SampleID", all = TRUE)
+
+## Add percent tolerant
+samples_mcat <- merge(x = samples_mcat, 
+                      y = percent_tolerant[, c("SampleID", "Perc_tolerant")], 
+                      by = "SampleID", all = TRUE)
+
+## Add percent lampsilini
+samples_mcat <- merge(x = samples_mcat, 
+                      y = percent_lamp[, c("SampleID", "perc_lampsilini")], 
+                      by = "SampleID", all = TRUE)
+
+## Add percent juveniles
+samples_mcat <- merge(x = samples_mcat, 
+                      y = percent_juv[, c("SampleID", "Perc_juvenile")], 
+                      by = "SampleID", all = TRUE)
+
+## Add percent over 15 years
+samples_mcat <- merge(x = samples_mcat, 
+                      y = percent_over15[, c("SampleID", "Perc_over_15yrs")], 
+                      by = "SampleID", all = TRUE)
+
+## Add abundance
+samples_mcat <- merge(x = samples_mcat, 
+                      y = abund[, c("SampleID", "num_sq_m")], 
+                      by = "SampleID", all = TRUE)
+
+## Add species evenness
+samples_mcat <- merge(x = samples_mcat,
+                      y = species_pielou[, c("SampleID", "MEAN_pielou_evenness")],
+                      by = "SampleID", all = TRUE)
+
+## Add tribe evenness
+samples_mcat <- merge(x = samples_mcat,
+                      y = tribe_pielou[, c("SampleID", "MEAN_tribe_pielou_evenness")],
+                      by = "SampleID", all = TRUE)
+
+## Add ES 100
+samples_mcat <- merge(x = samples_mcat,
+                      y = rarefy_samples[, c("SampleID", "MEAN_rarefy_es_100")],
+                      by = "SampleID", all = TRUE)
+
+# Add MCAT metric flag fields to indicate those sites that meet the MCAT site threshold
+samples_mcat$mcat_perc_listed      <- ifelse(samples_mcat$Perc_listed > 3, 1, 0)
+samples_mcat$mcat_perc_tolerant    <- ifelse(samples_mcat$Perc_tolerant < 40, 1, 0)
+samples_mcat$mcat_perc_lampsilini  <- ifelse(samples_mcat$perc_lampsilini > 40, 1, 0)
+samples_mcat$mcat_perc_juveniles   <- ifelse(samples_mcat$Perc_juvenile > 50, 1, 0)
+samples_mcat$mcat_perc_over_15     <- ifelse(samples_mcat$Perc_over_15yrs > 5, 1, 0)
+samples_mcat$mcat_abundance        <- ifelse(samples_mcat$num_sq_m > 13, 1, 0)
+samples_mcat$mcat_species_evenness <- ifelse(samples_mcat$MEAN_pielou_evenness > 0.7, 1, 0)
+samples_mcat$mcat_tribe_evenness   <- ifelse(samples_mcat$MEAN_tribe_pielou_evenness > 0.8, 1, 0)
+samples_mcat$mcat_es100            <- ifelse(samples_mcat$MEAN_rarefy_es_100 > 3, 1, 0)
+
+# Remove NAs from flag fields
+samples_mcat$mcat_perc_listed[is.na(samples_mcat$mcat_perc_listed)]           <- 0
+samples_mcat$mcat_perc_tolerant[is.na(samples_mcat$mcat_perc_tolerant)]       <- 0
+samples_mcat$mcat_perc_lampsilini[is.na(samples_mcat$mcat_perc_lampsilini)]   <- 0
+samples_mcat$mcat_perc_juveniles[is.na(samples_mcat$mcat_perc_juveniles)]     <- 0
+samples_mcat$mcat_perc_over_15[is.na(samples_mcat$mcat_perc_over_15)]         <- 0
+samples_mcat$mcat_abundance[is.na(samples_mcat$mcat_abundance)]               <- 0
+samples_mcat$mcat_species_evenness[is.na(samples_mcat$mcat_species_evenness)] <- 0
+samples_mcat$mcat_tribe_evenness[is.na(samples_mcat$mcat_tribe_evenness)]     <- 0
+samples_mcat$mcat_es100[is.na(samples_mcat$mcat_es100)]                       <- 0
+
+# Create MCAT Site Score
+samples_mcat$mcat_site_score <- samples_mcat$mcat_perc_listed + 
+                                samples_mcat$mcat_perc_tolerant + 
+                                samples_mcat$mcat_perc_lampsilini + 
+                                samples_mcat$mcat_perc_juveniles + 
+                                samples_mcat$mcat_perc_over_15 + 
+                                samples_mcat$mcat_abundance + 
+                                samples_mcat$mcat_species_evenness + 
+                                samples_mcat$mcat_tribe_evenness + 
+                                samples_mcat$mcat_es100
+```
+
+```{r echo=FALSE}
+# Merge the MCAT site scores back onto the sp object
+samples_mcat_sp <- sp::merge(x = samples_sp,
+                             y = samples_mcat[, -which(names(samples_mcat) %in% c("OBJECTID",                                                               "SUM_NumberLive"))],
+                             by = "SampleID")
+```
+
+```{r echo=FALSE, eval=FALSE}
+# Export to geodatabase
+sp2arc(samples_mcat_sp, fc_path = "//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW/samples_mcat")
+```
+
+```{r echo=FALSE, , fig.height=4, fig.width=6.5, fig.cap="Frequency of MCAT Site Scores. "}
+ggplot(samples_mcat, aes(factor(mcat_site_score))) + 
+  stat_count() +
+  theme_bw() +
+  labs(x = "MCAT Site Score")
+```
+
+
 ## Export to Maxent "SWD" format
 The purpose of this step is to assign the ADH predictor variables (and optionally the wind/wave variables) to each MCAT metric. The Maxent documentation refers to this format as the "Samples With Data" (SWD) format because it contains the samples (i.e., sample identifier, latitude, longitude) with the environmental predictor variables (e.g., q5_velocity, q5_depth, q5_slope, etc.). 
 
 * Use Extract Multi Values to Points (spatial analyst) tool to write new values (velocity, depth, slope, and ss) onto each MCAT metric feature class and `background`.
 
-     * Input point features: `\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Data\SB_Mussels.gdb\SB_ILStatePlaneW\PercentListed`
+     * Input point features: `//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW/PercentListed`
      * Input rasters: velocity, depth, slope, and ss (use rasters in the `Adh.gdb`, not .bil)  copy unionidae_swd and delete 3 variable fields. Ensure all layers have same spatial reference before running the tool. Copy .gdb on local drive prior to running Maxent.
      * Repeat this process for `PercentTolerant`, `PercentLampsilini`, `PercentJuvenile`, `PercentOver15yrs`, `Abundance`, `species_pielou`, `tribe_pielou`, `rarefy_samples`, and `background`.
 * Ensure all layers have same spatial reference before running the tool.  

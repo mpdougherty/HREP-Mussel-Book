@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>HREP Mussel Modeling</title>
+  <title>Chapter 7 Explore MCAT Metrics | HREP Mussel Modeling</title>
   <meta name="description" content="This document describes the process for modeling mussel suitability on Upper Mississippi River Restoration (UMRR) Habitat Rehabilitation and Restoration Projects (HREP).">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="HREP Mussel Modeling" />
+  <meta property="og:title" content="Chapter 7 Explore MCAT Metrics | HREP Mussel Modeling" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="HREP Mussel Modeling" />
+  <meta name="twitter:title" content="Chapter 7 Explore MCAT Metrics | HREP Mussel Modeling" />
   
   <meta name="twitter:description" content="This document describes the process for modeling mussel suitability on Upper Mississippi River Restoration (UMRR) Habitat Rehabilitation and Restoration Projects (HREP)." />
   
@@ -34,8 +34,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-
-<link rel="next" href="introduction.html">
+<link rel="prev" href="calculate-mussel-metrics.html">
+<link rel="next" href="develop-maxent-mussel-model.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -200,20 +200,47 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">HREP Mussel Modeling</h1>
-<h2 class="subtitle"><em>Modeling Mussel Habitat Suitability for Upper Mississippi River Restoration Projects</em></h2>
-<p class="author"><em>Michael Dougherty, Geographer, US Army Corps of Engineers, Rock Island District</em></p>
-<p class="author"><em>Davi Michl, Biologist, US Army Corps of Engineers, Rock Island District</em></p>
-<p class="author"><em>Dan Kelner, Fisheries Biologist, US Army Corps of Engineers, St. Paul District</em></p>
-<p class="date"><em>2019-04-14</em></p>
+<div id="explore-mcat-metrics" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Explore MCAT Metrics</h1>
+<div id="explore-mcat-metrics-by-environmental-predictors" class="section level2">
+<h2><span class="header-section-number">7.1</span> Explore MCAT Metrics by Environmental Predictors</h2>
+<p>The purpose of this step is to explore relationships between the MCAT metrics and the hypothesized environmental predictors.</p>
 </div>
-<div id="preface" class="section level1 unnumbered">
-<h1>Preface</h1>
-<p>This project has been funded by the US Army Corps of Engineers (USACE) Upper Mississippi River Restoration Program (UMRR).</p>
-<p><img src="docs/images/HDQLO-03_h120.jpg" /><!-- --><img src="docs/images/UMRRlogo_tag_rgb_300px.jpg" /><!-- --></p>
-<div id="abstract" class="section level2">
-<h2><span class="header-section-number">0.1</span> Abstract</h2>
+<div id="mcat-site-score-by-velocity" class="section level2">
+<h2><span class="header-section-number">7.2</span> MCAT Site Score by Velocity</h2>
+<div class="figure"><span id="fig:unnamed-chunk-38"></span>
+<img src="docs/images/MCAT_Site_Scores_velocity.png" alt="MCAT Site Scores with Velocity." width="504" />
+<p class="caption">
+Figure 7.1: MCAT Site Scores with Velocity.
+</p>
+</div>
+<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-39-1.png" width="624" /></p>
+<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-40-1.png" width="624" /></p>
+</div>
+<div id="mcat-site-score-by-shear-stress" class="section level2">
+<h2><span class="header-section-number">7.3</span> MCAT Site Score by Shear Stress</h2>
+<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-41-1.png" width="624" /></p>
+<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-42-1.png" width="624" /></p>
+</div>
+<div id="mcat-site-score-by-reynolds-number" class="section level2">
+<h2><span class="header-section-number">7.4</span> MCAT Site Score by Reynolds Number</h2>
+<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-43-1.png" width="624" /></p>
+<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-44-1.png" width="624" /></p>
+</div>
+<div id="mcat-site-score-by-froude-number" class="section level2">
+<h2><span class="header-section-number">7.5</span> MCAT Site Score by Froude Number</h2>
+<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-45-1.png" width="624" /></p>
+<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-46-1.png" width="624" /></p>
+</div>
+<div id="mcat-site-score-by-depth" class="section level2">
+<h2><span class="header-section-number">7.6</span> MCAT Site Score by Depth</h2>
+<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-47-1.png" width="624" /></p>
+<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-48-1.png" width="624" /></p>
+</div>
+<div id="mcat-site-score-by-slope" class="section level2">
+<h2><span class="header-section-number">7.7</span> MCAT Site Score by Slope</h2>
+<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-49-1.png" width="624" /></p>
+<p><img src="HREP_Mussel_Modeling_files/figure-html/unnamed-chunk-50-1.png" width="624" /></p>
 
 </div>
 </div>
@@ -222,8 +249,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           </div>
         </div>
       </div>
-
-<a href="introduction.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="calculate-mussel-metrics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="develop-maxent-mussel-model.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

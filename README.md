@@ -19,3 +19,5 @@ This project has been funded by the US Army Corps of Engineers (USACE) Upper Mis
 * [Davi Michl](mailto:Davi.E.Michl@usace.army.mil), Biologist, US Army Corps of Engineers, Rock Island District
 * [Dan Kelner](mailto:Daniel.E.Kelner@usace.army.mil), Fisheries Biologist, US Army Corps of Engineers, St. Paul District
 
+## Read the Report
+Read the report here: [https://mpdougherty.github.io/HREP-Mussel-Manual/index.html](https://mpdougherty.github.io/HREP-Mussel-Manual/index.html)
