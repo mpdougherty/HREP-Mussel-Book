@@ -56,38 +56,81 @@ sp2arc <- function(sp_object, fc_path) {
 The purpose of this step is to assemble the "individual" data for each of the surveys within the study area that will be used in the study. 
 
 * Working geodatabase: `//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW`
-* Create a feature class respresenting all individual mussel samples in the study area and name it `Cordova_all_individuals`. 
-* Add the following fields (Type=long integer) to the attribute table: `Listed`, `Tolerant`, `Lampsilini`, `Juveniles`, `Over_15yrs`, `tribe` 
+* Create a feature class respresenting all individual mussel samples in the study area and name it `Cordova_all_individuals`. Records from all surveys in the study area should be appended to this table. 
+* Create "flag" fields to indicate that mussel individuals fall into sertian categories. Add the following fields (Type=long integer) to the `Cordova_all_individuals` attribute table: `Listed`, `Tolerant`, `Lampsilini`, `Juveniles`, `Over_15yrs`, `tribe` 
+* Use the Field Calculator tool on each of the fields that were created in the last step to set the value of all records to zero. 
 
-## Create Samples
-The purpose of this step is to create a point feature class to represent the unique sample locations (sites) where mussels have been sampled. 
-
-* Dissolve the `Cordova_all_individuals` feature class by `SAMPLE_ID`. Add `SUM_NumberLive` in the statistics section of the tool. Uncheck create multipart features. Set Output Feature Class to the working .gdb and name it `Samples`.
 
 ## Create Percent Listed
 The purpose of this step is to calculate the percent listed MCAT metric for each sampled site. 
 
-* Dissolve the `Cordova_all_individuals` feature class by `SAMPLE_ID` and `ENAME` (Scientific name).  Add 'SUM_NumberLive' and 'SUM_Listed' fields in the Statistics section of the tool. Uncheck create multipart features. Set Output Feature Class to the working .gdb and name it `PercentListed`.
-* Open the `PercentListed` attribute table. Add a field titled 'Perc_listed' Type=double and enter the expression `([SUM_Listed] / [SUM_NumberLive]) * 100` into the field calculator to calculate % of individual listed species per quadrat sample.
-* Add 3 fields titled 'species' Type=string and Length=20; 'longitude' Type=double; and 'latitude' Type=double; in that order. 
-* Use field calculator to populate the field with species="perc_listed". Use Calculate Geometry to populate the 'longitude' and 'latitude' fields, ensuring that the coordinate system is set to 'NAD 1983 2011 US Feet' and 'StatePlane Illinois West FIPS 1202' and the units are set to US feet.
-* Use the Symbology tab to select a suitability threshold based on quartiles (e.g., only selecting "fair" or "good" locations with >=50% listed species). In the Symbology tab, Show: Quantities; field value 'perc_listed'; classes=5; and method=quantile. 
-* Once a threshold is selected, create a definition query where `Perc_listed > 3`.  This will result in a lower quantity of sample records.
-* Export selected to .csv for Maxent model run.
+* Determine which mussels in the `Cordova_all_individuals` feature class are listed and set the flag field. Use the list below to select each of the following species and set the flag `Listed` field equal to one. 
+
+**UMR Listed Species**
+
+* *Cumberlandia monodonta*
+* *Elliptio crassidens*
+* *Elliptio dilatata*
+* *Ellipsaria lineolata*
+* *Fusconia ebena*
+* *Lampsilis higginsii*
+* *Lampsilis teres teres*
+* *Lampsilis teres anodontoides*
+* *Ligumia recta*
+* *Plethobasus cyphyus*
+* *Potamilus capax*
+* *Simpsonaias ambigua*
+
+* Create a definition query on the `Cordova_all_individuals` feature class where `Listed` = 1.
+* Dissolve the `Cordova_all_individuals` feature class by `SAMPLE_ID` and `ENAME` (Scientific name). Add `SUM_NumberLive` and `SUM_Listed` fields in the Statistics section of the tool. Uncheck create multipart features. Set Output Feature Class to the working .gdb and name it `PercentListed`.
+* Open the `PercentListed` attribute table. Add a field titled `Perc_listed` Type = double.
+* Use the Field Calculator tool to calculate the percent of individual listed species per sampled quadrat using the expression `([SUM_Listed] / [SUM_NumberLive]) * 100`.
+
 
 ## Create Percent Tolerant
 The purpose of this step is to calculate the percent tolerant MCAT metric for each sampled site. 
 
-* Dissolve this feature class by `SAMPLE_ID` and `ENAME` (Scientific name).  Add 'SUM_NumberLive' and 'SUM_Tolerant' fields in the Statistics section of the tool. Uncheck create multipart features. Set Output Feature Class to the working .gdb and name it `PercentTolerant`.
-* Open the `PercentTolerant` attribute table. Add a field titled 'Perc_tolerant' Type=double and enter the expression `([SUM_Tolerant] / [SUM_NumberLive]) * 100` into the field calculator to calculate % of individual tolerant species per quadrat sample.
-* Add 3 fields titled 'species' Type=string and Length=20; 'longitude' Type=double; and 'latitude' Type=double; in that order. 
-* Use field calculator to populate the field with species="perc_tolerant". Use Calculate Geometry to populate the 'longitude' and 'latitude' fields, ensuring that the coordinate system is set to 'NAD 1983 2011 US Feet' and 'StatePlane Illinois West FIPS 1202' and the units are set to US feet.
-* Use the Symbology tab to select a suitability threshold based on quartiles (e.g., only selecting "fair" or "good" locations with >=50% listed species). In the Symbology tab, Show: Quantities; field value 'perc_listed'; classes=5; and method=quantile. 
-* Once a threshold is selected, create a definition query where `Perc_tolerant < 40`.  This will result in a lower quantity of sample records.
-* Export selected to .csv for Maxent model run.
+* Determine which mussels in the `Cordova_all_individuals` feature class are considered tolerant and set the flag field. Use the list below to select each of the following species and set the flag `Tolerant` field equal to one. 
+
+**Tolerant Species**
+
+* *Amblema plicata*
+* *Obliquaria reflexa*
+* *Quadrula quadrula*
+
+* Create a definition query on the `Cordova_all_individuals` feature class where `Tolerant` = 1.
+* Dissolve the `Cordova_all_individuals` feature class by `SAMPLE_ID` and `ENAME` (Scientific name). Add `SUM_NumberLive` and `SUM_Tolerant` fields in the Statistics section of the tool. Uncheck create multipart features. Set Output Feature Class to the working .gdb and name it `PercentTolerant`.
+* Open the `PercentTolerant` attribute table. Add a field titled `Perc_tolerant` Type = double. 
+* Use the Field Calculator tool to calcualte the percent of individual tolerant species per sampled quadrat using the expression `([SUM_Tolerant] / [SUM_NumberLive]) * 100`.
+
 
 ## Create Percent Tribe Lampsilini
 The purpose of this step is to calculate the percent tribe Lampsilini MCAT metric for each sampled site.
+
+* Determine which mussels in the `Cordova_all_individuals` feature class are in the Lampsilini tribe and set the flag field. Use the list below to select each of the following species and set the flag `Lampsilini` field equal to one. 
+
+**Lampsilini Tribe**
+
+* *Actinonaias ligamentina*
+* *Ellipsaria lineolata*
+* *Lampsilis cardium*
+* *Lampsilis higginsii*
+* *Lampsilis teres (teres)*
+* *Leptodea fragilis*
+* *Ligumia recta*
+* *Obliquaria reflexa*
+* *Obovaria olivaria*
+* *Potamilus alatus*
+* *Potamilus capax*
+* *Potamilus ohiensis*
+* *Toxolasma parvum*
+* *Truncilla donaciformis*
+* *Truncilla truncata*
+
+* Create a definition query on the `Cordova_all_individuals` feature class where `Lampsilini` = 1.
+* Dissolve the `Cordova_all_individuals` feature class by `SAMPLE_ID` and `ENAME` (Scientific name). Add `SUM_NumberLive` and `SUM_Tolerant` fields in the Statistics section of the tool. Uncheck create multipart features. Set Output Feature Class to the working .gdb and name it `PercentLampsilini`.
+* Open the `PercentLampsilini` attribute table. Add a field titled `perc_lampsilini` Type = double. 
+* Use the Field Calculator tool to calcualte the percent of individual tolerant species per sampled quadrat using the expression `([SUM_Tolerant] / [SUM_NumberLive]) * 100`.
 
 ## Create Percent Juveniles
 The purpose of this step is to calculate the percent juveniles MCAT metric for each sampled site.
@@ -200,7 +243,6 @@ sp2arc(sample_species_pielou, fc_path = "//mvrdfs/EGIS/Work/EMP/HREP_Projects/St
                        `pielou_evenness`, MEAN
     * Create Multipart: unchecked
 
-* Add "SWD" fields.
 
 ## Create Tribe Eveness
 The purpose of this step is to calculate the Pielou's evenness index (range 0-1), estimated at the tribe level.  (will probably need to add a new column for tribe; dissolve on this with sample ID)
@@ -272,7 +314,6 @@ sp2arc(sample_tribe_pielou, fc_path = "//mvrdfs/EGIS/Work/EMP/HREP_Projects/Stea
                        `tribe_pielou_evenness`, MEAN
     * Create Multipart: unchecked
 
-* Add "SWD" fields.
 
 ## Create ES 100
 The purpose of this step is to calculate the ES 100 MCAT metric for each sampled site. ES_100 is the expected number of species with a sample size of 100 estimated by rarefaction based on random resampling of the data [@dunn2016]. 
@@ -321,7 +362,6 @@ sp2arc(rarefy_sampleid_species, fc_path = "//mvrdfs/EGIS/Work/EMP/HREP_Projects/
                          `specnumber`, MEAN
     * Create Multipart: unchecked
 
-* Add "SWD" fields.
 
 
 ## Determine MCAT Metric per site threshold
@@ -600,10 +640,13 @@ ggplot(samples_mcat, aes(factor(mcat_site_score))) +
 ## Export to Maxent "SWD" format
 The purpose of this step is to assign the ADH predictor variables (and optionally the wind/wave variables) to each MCAT metric. The Maxent documentation refers to this format as the "Samples With Data" (SWD) format because it contains the samples (i.e., sample identifier, latitude, longitude) with the environmental predictor variables (e.g., q5_velocity, q5_depth, q5_slope, etc.). 
 
+* Add 3 fields titled 'species' Type=string and Length=20; 'longitude' Type=double; and 'latitude' Type=double; in that order. 
+* Use field calculator to populate the field with species="perc_listed". Use Calculate Geometry to populate the 'longitude' and 'latitude' fields, ensuring that the coordinate system is set to 'NAD 1983 2011 US Feet' and 'StatePlane Illinois West FIPS 1202' and the units are set to US feet.
+
 * Use Extract Multi Values to Points (spatial analyst) tool to write new values (velocity, depth, slope, and ss) onto each MCAT metric feature class and `background`.
 
      * Input point features: `//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW/PercentListed`
-     * Input rasters: velocity, depth, slope, and ss (use rasters in the `Adh.gdb`, not .bil)  copy unionidae_swd and delete 3 variable fields. Ensure all layers have same spatial reference before running the tool. Copy .gdb on local drive prior to running Maxent.
+     * Input rasters: velocity, depth, slope, and ss (use rasters in the `Adh.gdb`, not .bil)  copy unionidae_swd and delete 3 variable fields.
      * Repeat this process for `PercentTolerant`, `PercentLampsilini`, `PercentJuvenile`, `PercentOver15yrs`, `Abundance`, `species_pielou`, `tribe_pielou`, `rarefy_samples`, and `background`.
 * Ensure all layers have same spatial reference before running the tool.  
 * Export `background` and each mussel MCAT metric as .csv files. Ensure ObjectID field is deleted in Excel prior to upload in Maxent.
