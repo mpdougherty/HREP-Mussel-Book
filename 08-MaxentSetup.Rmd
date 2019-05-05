@@ -1,19 +1,43 @@
 # Develop Maxent Mussel Model
+This chapter will describe the process used to configure and run the [Maxent](https://biodiversityinformatics.amnh.org/open_source/maxent/) model [@phillips2017opening]. 
 
-## Convert from `.bil` to `.mxe` format
-To speed model creation (from 10's of hours to 10's of minutes), convert the predictors to the Maxent `.mxe` format.
+```{r echo=FALSE, fig.cap="HREP Mussel Modeling Workflow, Run Maxent Step."}
+include_graphics("docs/images/workflow_maxent.png")
+```
 
-* Open command prompt and change directory by typing `c:` and then `cd C:\Users\b6pdpdem\Documents\SteamboatMusselModel`
-*  Create predictor_mxe folder
+## Download the Maxent Software
+The purpose of this section is to describe the process for downloading and configuring the Maxent software. 
 
-```java -Xmx5g -cp maxent.jar density.Convert C:\Users\b6pdpdem\Documents\SteamboatMusselModel\predictors bil C:\Users\b6pdpdem\Documents\SteamboatMusselModel\predictors_mxe mxe```
+<<add further Maxent configuration instructions here>>
+
+
+
+
+
+## Convert predictors from `.bil` to `.mxe` format
+The purpose of this step is to describe how to convert a raster format that ESRI products can read to a raster format the Maxent can read and write effeciently. To speed model creation (from 10's of hours to 10's of minutes), convert the predictors from the `.bil` format to the Maxent `.mxe` format.
+
+* Open command prompt and change to the working directory. Change to the correct drive if necessary by typing `c:`. Then used `cd C:\Users\b6pdpdem\Documents\SteamboatMusselModel` to change to your local working directory. 
+* In the working directory, create an `input_bil` folder. Copy the `.bil` format predictor rasters created in previous chapters into this folder. 
+* In the working directory, create an `input_mxe` folder. 
+
+```java -Xmx5g -cp maxent.jar density.Convert C:\Users\b6pdpdem\Documents\SteamboatMusselModel\input_bil bil C:\Users\b6pdpdem\Documents\SteamboatMusselModel\input_mxe mxe```
+
 
 
 ## Run Maxent
+The purpose of this section is to describe the process of configuring the Maxent model. 
+
+<<add further Maxent configuration instructions here>>
 
 
-## Convert model output from 
-To convert the `.mxe` format back to a format that can be read by ESRI. 
+
+
+
+
+
+## Convert model output from `.mxe` back to `bil` format
+The purpose of this step is to describe how to convert a raster in the Maxent `.mxe` format back to the `.bil` format that can be read by ESRI. 
 
 ```java -Xmx5g -cp maxent.jar density.Convert C:\Users\b6pdpdem\Documents\SteamboatMusselModel\sb_existing_20181203_2 mxe C:\Users\b6pdpdem\Documents\SteamboatMusselModel\sb_existing_20181203_2 bil```
 

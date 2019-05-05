@@ -13,9 +13,13 @@ biblio-style: apalike
 link-citations: yes
 description: "This document describes the process for modeling mussel suitability on Upper Mississippi River Restoration (UMRR) Habitat Rehabilitation and Restoration Projects (HREP)."
 ---
+```{r}
+library(knitr)
+```
 
 # Preface {-}
 This project has been funded by the US Army Corps of Engineers (USACE) Upper Mississippi River Restoration Program (UMRR). 
+
 
 ```{r echo=FALSE}
 knitr::include_graphics("docs/images/HDQLO-03_h120.jpg")

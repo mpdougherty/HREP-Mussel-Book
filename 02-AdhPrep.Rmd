@@ -1,10 +1,15 @@
-# Prepare Environmental Predictor Data
+# Prepare Hydraulic Data
+This chapter will describe the process used to prepare hydraulic modeling data for input to the Maxent model. For this study, the USACE developed Adaptive Hydraulics (AdH) 2D hydraulic model was used to model river dynamics. This chapter will describe how to process AdH outputs into usable datasets for mussel modeling. 
+
+```{r echo=FALSE, fig.cap="HREP Mussel Modeling Workflow, Hydraulic Predictors Step."}
+include_graphics("docs/images/workflow_hydraulic.png")
+```
 
 ## Create Mask
-The goal of this step is to define no data areas outside of the study.
+The goal of this step is to define no data areas outside of the study. This step will use the UMRR Long Term Resource Monitoring (LTRM) decadal land cover mapping dataset to create a mask of the study area. 
 
 * Create a new polygon feature class named: `\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Data\SB_Mussels.gdb\SB_ILStatePlaneW\study_area`.
-* Edit the the 'study_area' feature class by tracing one of the rasters created in the previous step (e.g., 'velocity'). The resulting polygon will become the clip feature for the next tool run.
+* Start an edit session on the `study_area` feature class and draw a polygon around the study area. Ensure that this polygon entirely covers the study area. 
 * Use the `Aquatic_Areas_2010` layer to prepare data for the Clip (Analysis) tool (`\\mvrdfs\egis\Data\Layers\Biology\Aquatic_Areas_2010.lyr`).
 
     * Input Features: `Aquatic Areas 2010\Classifications\Aquatic Areas: Level 2`

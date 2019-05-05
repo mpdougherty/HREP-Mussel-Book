@@ -1,18 +1,71 @@
 # Introduction
 
+## Need for the Study
+
+* Mussels are important UMR biotic communities!
+* Few methods exist for evaluating mussel habitat suitability for UMRR HREPs
+* Spatially explicit models are helpful to evaluate spatial variation of habitat suitability across projects
+* Evaluate impact of project features on existing mussel communities
+* Evaluate likelihood that project features will create suitable habitat for mussels
+
+
+## Species Distribution Modeling
 Species Distribution Modeling (SDM) has become a common method for mapping suitable habitats for many species or taxa groups [@elith2008working, @elith2009species]. The `dismo` R package has been created to support SDM in R [see the `dismo` package vignette `sdm`, @hijmans2013species]. Another good overview of SDM in R [@hijmans_sdm].
 
-## Literature Review
+Presence Data (dependent variables)
 
-* MCAT
+* Take advantage of existing UMR mussel data
+
+
+Predictor Variables (independent variables)
+
+* Many HREPs invest in 2D hydraulic models. Let’s use them!
+* Mapping substrate is expensive
+* Hydraulic only mussel models explain ~%60 of variation
+* Is that good enough to make better informed HREP planning decisions?
+
+
+## Previous UMR Mussel Modeling
+
 * UMESC Pool 8 mussel model
 * UMESC Pool 18 mussel model
 
-## Identify Available Datasets
+
+## Workflow
+
+
+```{r echo=FALSE, fig.cap="HREP Mussel Modeling Workflow."}
+include_graphics("docs/images/workflow.png")
+```
+
+
+## Mussel Database
 The USACE Mussel Database
+
 HREP pre-project survey
 
 * 2018 Steamboat survey
 * 2014 Cordova survey
 * 2010 Cordova survey
+
+
+## Calculate MCAT Metrics
+
+
+## Calculate Background
+
+
+## Prepare Hydraulic Predictors
+
+
+## Prepare Wind-Wave Predictors
+
+
+## Run Maxent
+
+
+## Evaluate Model
+
+
+## Repeat for Each Alternative
 

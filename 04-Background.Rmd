@@ -1,4 +1,9 @@
 # Create Backgound Data
+This chapter will describe the process used to calculate background data for input to the Maxent model. Background point data are used to define the habitat available within to mussels within the study area.  
+
+```{r echo=FALSE, fig.cap="HREP Mussel Modeling Workflow, Calculate Background Step."}
+include_graphics("docs/images/workflow_calculate_background.png")
+```
 
 ## Create Background Data
 Create a background to constrain points to aquatic areas (more data resolution) and reduce Maxent run times.

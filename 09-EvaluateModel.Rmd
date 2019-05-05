@@ -1,0 +1,10 @@
+# Evaulate Model
+This chapter will describe how to evaluate how well the existing condition model fits the mussel data for the study area.  
+
+```{r echo=FALSE, fig.cap="HREP Mussel Modeling Workflow, Evaluate Model Step."}
+include_graphics("docs/images/workflow_evaluate_model.png")
+```
+
+## Goodness of Fit
+
+
