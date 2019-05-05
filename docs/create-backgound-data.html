@@ -196,6 +196,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="9" data-path="evaulate-model.html"><a href="evaulate-model.html"><i class="fa fa-check"></i><b>9</b> Evaulate Model</a><ul>
 <li class="chapter" data-level="9.1" data-path="evaulate-model.html"><a href="evaulate-model.html#goodness-of-fit"><i class="fa fa-check"></i><b>9.1</b> Goodness of Fit</a></li>
 </ul></li>
+<li class="chapter" data-level="10" data-path="evaluate-alternatives.html"><a href="evaluate-alternatives.html"><i class="fa fa-check"></i><b>10</b> Evaluate Alternatives</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -220,9 +221,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1><span class="header-section-number">Chapter 4</span> Create Backgound Data</h1>
 <p>This chapter will describe the process used to calculate background data for input to the Maxent model. Background point data are used to define the habitat available within to mussels within the study area.</p>
 <div class="figure"><span id="fig:unnamed-chunk-7"></span>
-<img src="docs/images/workflow_calculate_background.png" alt="HREP Mussel Modeling Workflow, Hydraulic Predictors Step." width="760" />
+<img src="docs/images/workflow_calculate_background.png" alt="HREP Mussel Modeling Workflow, Calculate Background Step." width="760" />
 <p class="caption">
-Figure 4.1: HREP Mussel Modeling Workflow, Hydraulic Predictors Step.
+Figure 4.1: HREP Mussel Modeling Workflow, Calculate Background Step.
 </p>
 </div>
 <div id="create-background-data" class="section level2">
@@ -239,7 +240,9 @@ Figure 4.1: HREP Mussel Modeling Workflow, Hydraulic Predictors Step.
 <li>Leave all others as defaults</li>
 <li>Click Ok to run the tool</li>
 </ul></li>
-<li><p>Open the <code>background</code> attribute table. Add 3 fields titled ‘species’ Type=string and Length=20; ‘longitude’ Type=double; and ‘latitude’ Type=double; in that order. Use field calculator to populate the field with species=“background”. Use Calculate Geometry to populate the ‘longitude’ and ‘latitude’ fields, ensuring that the coordinate system is set to ‘NAD 1983 2011 US Feet’ and ‘StatePlane Illinois West FIPS 1202’ and the units are set to US feet. Do the same for <code>unionidae_swd</code>.</p></li>
+<li>In the <code>background</code> feature class, add 3 fields one named <code>species</code> Type = Text and Length=20; one named <code>longitude</code> Type = Double; and one named <code>latitude</code> Type = Double.</li>
+<li>For the <code>species</code> field use field calculator to set the value of the field to <code>species</code> = “background”.</li>
+<li><p>Use the Calculate Geometry tool to populate the <code>longitude</code> and <code>latitude</code> fields, ensuring that the coordinate system is set to <code>NAD 1983 2011 US Feet</code> and <code>StatePlane Illinois West FIPS 1202</code> and the units are set to <code>US feet</code>.</p></li>
 </ul>
 </div>
 <div id="export-to-maxent-swd-format" class="section level2">
