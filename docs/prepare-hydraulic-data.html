@@ -27,7 +27,7 @@
 <meta name="author" content="Dan Kelner, Fisheries Biologist, US Army Corps of Engineers, St. Paul District">
 
 
-<meta name="date" content="2019-05-05">
+<meta name="date" content="2019-05-09">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -125,11 +125,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.12" data-path="introduction.html"><a href="introduction.html#repeat-for-each-alternative"><i class="fa fa-check"></i><b>1.12</b> Repeat for Each Alternative</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html"><i class="fa fa-check"></i><b>2</b> Prepare Hydraulic Data</a><ul>
-<li class="chapter" data-level="2.1" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#create-mask"><i class="fa fa-check"></i><b>2.1</b> Create Mask</a></li>
-<li class="chapter" data-level="2.2" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#set-environments"><i class="fa fa-check"></i><b>2.2</b> Set Environments</a></li>
-<li class="chapter" data-level="2.3" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#process-adh-model-outputs"><i class="fa fa-check"></i><b>2.3</b> Process ADH Model Outputs</a></li>
-<li class="chapter" data-level="2.4" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#calculate-slope"><i class="fa fa-check"></i><b>2.4</b> Calculate Slope</a></li>
-<li class="chapter" data-level="2.5" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#convert-to-.bil-format"><i class="fa fa-check"></i><b>2.5</b> Convert to .bil format</a></li>
+<li class="chapter" data-level="2.1" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#import-adh-mesh-nodes"><i class="fa fa-check"></i><b>2.1</b> Import Adh Mesh Nodes</a></li>
+<li class="chapter" data-level="2.2" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#create-mask"><i class="fa fa-check"></i><b>2.2</b> Create Mask</a></li>
+<li class="chapter" data-level="2.3" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#set-environments"><i class="fa fa-check"></i><b>2.3</b> Set Environments</a></li>
+<li class="chapter" data-level="2.4" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#convert-adh-mesh-nodes-to-raster"><i class="fa fa-check"></i><b>2.4</b> Convert Adh Mesh Nodes to Raster</a></li>
+<li class="chapter" data-level="2.5" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#calculate-slope"><i class="fa fa-check"></i><b>2.5</b> Calculate Slope</a></li>
+<li class="chapter" data-level="2.6" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#convert-to-.bil-format"><i class="fa fa-check"></i><b>2.6</b> Convert to .bil format</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html"><i class="fa fa-check"></i><b>3</b> Prepare Wind and Wave Data</a><ul>
 <li class="chapter" data-level="3.1" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html#identify-appropriate-weather-stations"><i class="fa fa-check"></i><b>3.1</b> Identify Appropriate Weather Stations</a></li>
@@ -226,31 +227,48 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 Figure 2.1: HREP Mussel Modeling Workflow, Hydraulic Predictors Step.
 </p>
 </div>
+<div id="import-adh-mesh-nodes" class="section level2">
+<h2><span class="header-section-number">2.1</span> Import Adh Mesh Nodes</h2>
+<p>The purpose of this step is convert the AdH mesh node output into a set of point feature classes.</p>
+<ul>
+<li>Create a new folder and geodatabase to represent the alternative that this AdH model represents. In this example we will be modeling the existing condition alternative: <code>\\mvrdfs\egis\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Adh\Existing_condition/existingcondition.gdb</code></li>
+<li>Get the AdH output from the hydraulic engineer. Copy it to the alternative folder you created in the last step. EC-HH Working directory: <code>\\mvr-netapp2\MVRDATA\ED\ec-hh\Mississippi_River\Steamboat Island\AdH\Model Runs\</code></li>
+<li>Examine the AdH output file format and determine the steps required to convert it to <code>.csv</code> format.</li>
+<li>If the file contains header information other than field names (e.g., number of records, software version), delete those extraneous header rows so that only the row field names and data remain.</li>
+<li>If the file is tab or space-delimited, use Excel to convert the delimited text file to <code>.csv</code>. Open a blank Excel workbook and open the delimited text file. Use the import wizard to convert the tab or space-delimited file into an Excel workbook. Ensure the import works correctly and then save as a <code>.csv</code> file.</li>
+<li>Import the <code>.csv</code> file into the <code>existingcondition</code> geodatabase. Name the table by the flow condition it represents (Q5, Q95). Ensure that the field types are all set to <code>double</code>.</li>
+<li>Add the Q5 table into a blank ArcMap document.</li>
+<li>Right-click the <code>Q5</code> table and click “Display XY Data”.</li>
+<li>Set appropriate ‘X’,‘Y’, and ‘Z’ fields.</li>
+<li>Identify the datum and coordinate system recorded in the AdH table; all future output feature classes and rasters will need to be in the same projected coordinate system. In this example, Datum: ‘NAD 1983 2011 US Feet’ and Coordinate System: ‘StatePlane Illinois West FIPS 1202’.</li>
+<li>Export <code>Q5_Events</code> as new point feature class named <code>Q5_pts</code>.</li>
+<li>Repeat the above steps to create point feature classes for the Q95 model results.</li>
+</ul>
+</div>
 <div id="create-mask" class="section level2">
-<h2><span class="header-section-number">2.1</span> Create Mask</h2>
-<p>The goal of this step is to define no data areas outside of the study. This step will use the UMRR Long Term Resource Monitoring (LTRM) decadal land cover mapping dataset to create a mask of the study area.</p>
+<h2><span class="header-section-number">2.2</span> Create Mask</h2>
+<p>The goal of this step is to define no data areas outside of the study. This step will use the UMRR Long Term Resource Monitoring (LTRM) Aquatic Areas dataset to create a mask of the study area.</p>
 <ul>
 <li>Create a new polygon feature class named: <code>\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Data\SB_Mussels.gdb\SB_ILStatePlaneW\study_area</code>.</li>
-<li>Start an edit session on the <code>study_area</code> feature class and draw a polygon around the study area. Ensure that this polygon entirely covers the study area.</li>
+<li>Start an edit session on the <code>study_area</code> feature class and draw a polygon around the study area. Ensure that this polygon entirely covers the <code>Q5_pts</code> and <code>Q95_pts</code>.</li>
 <li><p>Use the <code>Aquatic_Areas_2010</code> layer to prepare data for the Clip (Analysis) tool (<code>\\mvrdfs\egis\Data\Layers\Biology\Aquatic_Areas_2010.lyr</code>).</p>
 <ul>
 <li>Input Features: <code>Aquatic Areas 2010\Classifications\Aquatic Areas: Level 2</code></li>
 <li>Clip Features: <code>study_area</code></li>
 <li>Output Feature Class: <code>\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Data\SB_Mussels.gdb\aquatic_areas</code></li>
 </ul></li>
-<li>Delete “Isolated Floodplain Lake” records from the <code>aquatic_areas</code> attribute table.<br />
+<li>Delete “Isolated Floodplain Lake” records from the <code>aquatic_areas</code> attribute table. Mussels are unlikely to be found in these areas.<br />
 </li>
-<li><p>Use the Dissolve (Data Management tool) <code>aquatic_areas</code> using ‘LAND_WATER’ as the dissolve field.</p>
+<li>Use the Dissolve (Data Management) tool on <code>aquatic_areas</code> using ‘LAND_WATER’ as the dissolve field.
 <ul>
+<li>Input features: <code>aquatic_areas</code></li>
 <li>Output feature class: <code>\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Data\SB_Mussels.gdb\aquatic_areas_dissolve</code></li>
 <li>Create multipart features: uncheck box</li>
 </ul></li>
-<li>Open an edit session to edit the <code>aquatic_areas_dissolve</code> attribute table. Select the row where ‘LAND_WATER’ field is set to Land, and delete.</li>
-<li>Run the Multipart to Singlepart Tool (Data Management) on <code>aquatic_areas_dissolve</code>. Name the feature class <code>aquatic_areas_dissolve_singlepart</code>.</li>
-<li>Turn on <code>topobathy</code> and use it as a guide to edit out areas where where it is too shallow in the <code>aquatic_areas_dissolve_singlepart</code> feature class. Be sure to merge the polygons before saving edits and delete intermediates <code>aquatic_areas_dissolve</code> and <code>aquatic_areas_dissolve_singlepart</code>.</li>
-<li><p>Use the Buffer (Analysis) tool to expand the study area beyond the extent of valid values. This expanded area will be used to define no data portions of the modeled Adh values.</p>
+<li><p>Open an edit session to edit the <code>aquatic_areas_dissolve</code> attribute table. Select the row where ‘LAND_WATER’ field is set to Land, and delete. Use the merge tool on this feature class to ensure there is only one row.</p></li>
+<li><p>Use the Buffer (Analysis) tool to expand the study area beyond the extent of valid values. Use a buffer of approximately 20 meters to ensure that mussel samples fall well within the study area. Areas that fall outside the buffered area will be used to define no data in the AdH rasters.</p>
 <ul>
-<li>Input features: <code>aquatic_areas</code></li>
+<li>Input features: <code>aquatic_areas_dissolve</code></li>
 <li>Output Feature Class: <code>\\mvrdfs\egis\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Data\SB_Mussels.gdb\SB_ILStatePlaneW\aquatic_areas_20m</code></li>
 <li>Distance: 20 meters</li>
 </ul></li>
@@ -260,49 +278,39 @@ Figure 2.1: HREP Mussel Modeling Workflow, Hydraulic Predictors Step.
 <li>Value field: <code>OBJECTID</code></li>
 <li>Output Raster Dataset: <code>\\mvrdfs\egis\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Adh\Existing_condition\existingcondition.gdb\mask</code></li>
 </ul></li>
-<li><p>Set Environments</p>
+<li>Set Environments
 <ul>
-<li>Ouput Coordinates: <code>NAD_1983_2011_StatePlane_Illinois_West_FIPS_1202_Ft_US</code></li>
+<li>Output Coordinates: <code>NAD_1983_2011_StatePlane_Illinois_West_FIPS_1202_Ft_US</code></li>
 <li>Processing Extent: <code>study_area</code></li>
 <li>Cell Size: 3 ft</li>
 </ul></li>
 </ul>
 </div>
 <div id="set-environments" class="section level2">
-<h2><span class="header-section-number">2.2</span> Set Environments</h2>
-<p>The purpose of this step is to set the Environments to <code>mask</code> so that all the subsequent Adh raster outputs will have the same coordinate system, extent, cell alignment, cell size, and no data area. *Set Environments</p>
+<h2><span class="header-section-number">2.3</span> Set Environments</h2>
+<p>The purpose of this step is to set the Environments to <code>mask</code> so that all the subsequent AdH raster outputs will have the same coordinate system, extent, cell alignment, cell size, and no data area. *Set Environments</p>
 <pre><code>* Ouput Coordinates: `mask`
 * Processing Extent: `mask`
 * Snap raster: `mask`
 * Cell Size: `mask`
 * Mask: `mask`</code></pre>
 </div>
-<div id="process-adh-model-outputs" class="section level2">
-<h2><span class="header-section-number">2.3</span> Process ADH Model Outputs</h2>
-<p>The goal of this step is to convert the raw Adaptive Hydraulics Model (Adh) data (depth, slope velocity, sheer stress, froude_number, reynolds_number) into raster format that can be input to the Maxent model. Adh models will be produced for the Q5 (high flow) and Q95 (low flow) flow conditions. This wil result in the creation of 12 raster (one for each of 6 Adh parameter) by 2 flow conditions.</p>
+<div id="convert-adh-mesh-nodes-to-raster" class="section level2">
+<h2><span class="header-section-number">2.4</span> Convert Adh Mesh Nodes to Raster</h2>
+<p>The goal of this step is to convert the raw Adaptive Hydraulics Model (AdH) data (depth, slope velocity, sheer stress, froude_number, Reynolds_number) into raster format that can be input to the Maxent model. AdH models will be produced for the Q5 (high flow) and Q95 (low flow) flow conditions. This will result in the creation of 12 rasters (one for each of 6 AdH parameter) by 2 flow conditions.</p>
 <ul>
-<li>Create a new folder and geodatabase to represent the alternative that this Adh model represents. In this example we will be modeling the existing condition alternative: <code>\\mvrdfs\egis\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Adh\Existing_condition/existingcondition.gdb</code></li>
-<li>Get the Adh output from the hydraulic engineer. Copy it to the alternative folder you created in the last step. EC-HH Working directory: <code>\\mvr-netapp2\MVRDATA\ED\ec-hh\Mississippi_River\Steamboat Island\AdH\Model Runs\</code></li>
-<li>Use Excel to convert the space-delimited <code>.txt</code> file to <code>.csv</code>. Open a blank Excel workbook and open the <code>.txt</code> file. Use the import wizard to convert the space-delimited file into an Excel workbook. Ensure the import works correctly, delete any header information above the row of field names, and then save as a <code>.csv</code> file.</li>
-<li>Import the <code>.csv</code> file into the <code>existingcondition</code> geodatabase. Name the table by the flow condition it represents (Q5, Q95). Ensure that the field types are all set to <code>double</code>.</li>
-<li>Add the Q5 table into a blank ArcMap document.</li>
-<li>Right-click the <code>Q5</code> table and click “Display XY Data”.</li>
-<li>Set appropriate ‘X’,‘Y’, and ‘Z’ fields.</li>
-<li>Identify the datum and coordinate system recorded in the Adh table; all future output feature classes and rasters will need to be in the same projected coordinate system. In this example, Datum: ‘NAD 1983 2011 US Feet’ and Coordinate System: ‘StatePlane Illinois West FIPS 1202’.</li>
-<li>Export <code>Q5_Events</code> as new point feature class named <code>Q5_pts</code>.</li>
-<li>Repeat the above steps to create point feature classes for the Q95 model results.</li>
 <li><p>Use the IDW (Spatial Analyst) tool to interpolate a raster surface.</p>
 <ul>
 <li>Input point features: <code>Q5_pts</code>.</li>
 <li>Z value field: velocity</li>
 <li>Output raster: <code>\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Adh\Existing_condition\existingcondition.gdb\q5_velocity</code></li>
 </ul></li>
-<li><p>Complete these steps for the other variables, <code>dept</code>, <code>slope</code>, and <code>sheer stress</code>, <code>froude_number</code>, <code>reynolds_number</code>.</p></li>
+<li><p>Complete these steps for the other variables, <code>depth</code>, <code>sheer stress</code>, <code>froude_number</code>, and <code>reynolds_number</code>.</p></li>
 </ul>
 </div>
 <div id="calculate-slope" class="section level2">
-<h2><span class="header-section-number">2.4</span> Calculate Slope</h2>
-<p>The goal of the step is to calculate slope from the Adh depth variable created in the previous step.</p>
+<h2><span class="header-section-number">2.5</span> Calculate Slope</h2>
+<p>The goal of the step is to calculate slope from the AdH depth variable created in the previous step.</p>
 <ul>
 <li><p>Use the Slope (Spatial Analyst) tool to calculate slope.</p>
 <ul>
@@ -312,18 +320,18 @@ Figure 2.1: HREP Mussel Modeling Workflow, Hydraulic Predictors Step.
 <li>Z factor = 1 (linear units same)</li>
 </ul></li>
 <li>Use Copy Raster (Data Management) tool to convert the <code>q5_slope</code> raster into .bil format, as outlined in previous step.</li>
-<li><p>Repeat the above steps to conver calculate the Q95 slope.</p></li>
+<li><p>Repeat the above steps to convert calculate the Q95 slope.</p></li>
 </ul>
 </div>
 <div id="convert-to-.bil-format" class="section level2">
-<h2><span class="header-section-number">2.5</span> Convert to .bil format</h2>
-<p>The goal of this step is to convert the Adh output into a format that can be used by Maxent. The .bil format is one of the formats common to both Maxent and Esri. This step will repeated for all Adh (Q5, Q95) predictors.</p>
+<h2><span class="header-section-number">2.6</span> Convert to .bil format</h2>
+<p>The goal of this step is to convert the AdH output into a format that can be used by Maxent. The .bil format is one of the formats common to both Maxent and ESRI. This step will repeated for all AdH (Q5, Q95) predictors.</p>
 <ul>
-<li><p>Use the Copy Raster (Data Management) tool to covert the Adh predictor rasters into .bil format.</p>
+<li><p>Use the Copy Raster (Data Management) tool to covert the AdH predictor rasters into .bil format.</p>
 <ul>
 <li>Input Raster: <code>q5_velocity</code></li>
 <li>Output Raster Dataset: <code>\\mvrdfs\egis\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Adh\Existing_condition\q5_velocity.bil</code> (Note: cannot save .bil format within the .gdb)</li>
-<li>Format: Esri BIL</li>
+<li>Format: ESRI BIL</li>
 </ul></li>
 <li><p>Repeat the above step for all of the other environmental predictor variables.</p></li>
 </ul>

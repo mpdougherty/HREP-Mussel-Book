@@ -27,7 +27,7 @@ knitr::include_graphics("docs/images/UMRRlogo_tag_rgb_300px.jpg")
 ```
 
 ## Abstract
-This technical report describes a method for modeling mussel habitat suitability at the site scale for Upper Mississippi River Restoration Program (UMRR) Habitat Restoration and Enhancement Projects (HREP). This approach was designed to take advantage of UMRR Partnership organizations' previous investments in mussel surveys, wind and wave modeling methodology, and hydraulic modeling. This approach is currently under development and being being evaulated while being applied to several current HREPs. The validity and usefulness of this approach is being evaluated through the standard USACE project review process. The Steamboat Island HREP is used in this technical report as a learning example to walk a user through the detailed process to reproduce this analysis for another project. 
+This technical report describes a method for modeling mussel habitat suitability at the site scale for Upper Mississippi River Restoration Program (UMRR) Habitat Restoration and Enhancement Projects (HREP). This approach was designed to take advantage of UMRR Partnership organizations' previous investments in mussel surveys, wind and wave modeling methodology, and hydraulic modeling. This approach is currently under development and being being evaluated while being applied to several current HREPs. The validity and usefulness of this approach is being evaluated through the standard USACE project review process. The Steamboat Island HREP is used in this technical report as a learning example to walk a user through the detailed process to reproduce this analysis for another project. 
 
 
 ```{r include=FALSE}

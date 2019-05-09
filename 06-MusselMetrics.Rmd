@@ -95,7 +95,7 @@ The purpose of this step is to calculate the percent tolerant MCAT metric for ea
 * Create a definition query on the `Cordova_all_individuals` feature class where `Tolerant` = 1.
 * Dissolve the `Cordova_all_individuals` feature class by `SAMPLE_ID` and `ENAME` (Scientific name). Add `SUM_NumberLive` and `SUM_Tolerant` fields in the Statistics section of the tool. Uncheck create multipart features. Set Output Feature Class to the working .gdb and name it `PercentTolerant`.
 * Open the `PercentTolerant` attribute table. Add a field titled `Perc_tolerant` Type = double. 
-* Use the Field Calculator tool to calcualte the percent of individual tolerant species per sampled quadrat using the expression `([SUM_Tolerant] / [SUM_NumberLive]) * 100`.
+* Use the Field Calculator tool to calculate the percent of individual tolerant species per sampled quadrat using the expression `([SUM_Tolerant] / [SUM_NumberLive]) * 100`.
 
 
 ## Create Percent Tribe Lampsilini
@@ -124,7 +124,7 @@ The purpose of this step is to calculate the percent tribe Lampsilini MCAT metri
 * Create a definition query on the `Cordova_all_individuals` feature class where `Lampsilini` = 1.
 * Dissolve the `Cordova_all_individuals` feature class by `SAMPLE_ID` and `ENAME` (Scientific name). Add `SUM_NumberLive` and `SUM_Tolerant` fields in the Statistics section of the tool. Uncheck create multipart features. Set Output Feature Class to the working .gdb and name it `PercentLampsilini`.
 * Open the `PercentLampsilini` attribute table. Add a field titled `perc_lampsilini` Type = double. 
-* Use the Field Calculator tool to calcualte the percent of individual tolerant species per sampled quadrat using the expression `([SUM_Tolerant] / [SUM_NumberLive]) * 100`.
+* Use the Field Calculator tool to calculate the percent of individual tolerant species per sampled quadrat using the expression `([SUM_Tolerant] / [SUM_NumberLive]) * 100`.
 
 ## Create Percent Juveniles
 The purpose of this step is to calculate the percent juveniles MCAT metric for each sampled site.
@@ -359,7 +359,7 @@ sp2arc(rarefy_sampleid_species, fc_path = "//mvrdfs/EGIS/Work/EMP/HREP_Projects/
 
 
 ## MCAT Metric Site Level Thresholds
-The descriptive statistics presented in the previous section were used to select MCAT metrics thresolds. 
+The descriptive statistics presented in the previous section were used to select MCAT metrics thresholds. 
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
 ### Import MCAT Metrics from geodatabase

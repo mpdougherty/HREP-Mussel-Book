@@ -27,7 +27,7 @@
 <meta name="author" content="Dan Kelner, Fisheries Biologist, US Army Corps of Engineers, St. Paul District">
 
 
-<meta name="date" content="2019-05-05">
+<meta name="date" content="2019-05-09">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -125,11 +125,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.12" data-path="introduction.html"><a href="introduction.html#repeat-for-each-alternative"><i class="fa fa-check"></i><b>1.12</b> Repeat for Each Alternative</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html"><i class="fa fa-check"></i><b>2</b> Prepare Hydraulic Data</a><ul>
-<li class="chapter" data-level="2.1" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#create-mask"><i class="fa fa-check"></i><b>2.1</b> Create Mask</a></li>
-<li class="chapter" data-level="2.2" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#set-environments"><i class="fa fa-check"></i><b>2.2</b> Set Environments</a></li>
-<li class="chapter" data-level="2.3" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#process-adh-model-outputs"><i class="fa fa-check"></i><b>2.3</b> Process ADH Model Outputs</a></li>
-<li class="chapter" data-level="2.4" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#calculate-slope"><i class="fa fa-check"></i><b>2.4</b> Calculate Slope</a></li>
-<li class="chapter" data-level="2.5" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#convert-to-.bil-format"><i class="fa fa-check"></i><b>2.5</b> Convert to .bil format</a></li>
+<li class="chapter" data-level="2.1" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#import-adh-mesh-nodes"><i class="fa fa-check"></i><b>2.1</b> Import Adh Mesh Nodes</a></li>
+<li class="chapter" data-level="2.2" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#create-mask"><i class="fa fa-check"></i><b>2.2</b> Create Mask</a></li>
+<li class="chapter" data-level="2.3" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#set-environments"><i class="fa fa-check"></i><b>2.3</b> Set Environments</a></li>
+<li class="chapter" data-level="2.4" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#convert-adh-mesh-nodes-to-raster"><i class="fa fa-check"></i><b>2.4</b> Convert Adh Mesh Nodes to Raster</a></li>
+<li class="chapter" data-level="2.5" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#calculate-slope"><i class="fa fa-check"></i><b>2.5</b> Calculate Slope</a></li>
+<li class="chapter" data-level="2.6" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#convert-to-.bil-format"><i class="fa fa-check"></i><b>2.6</b> Convert to .bil format</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html"><i class="fa fa-check"></i><b>3</b> Prepare Wind and Wave Data</a><ul>
 <li class="chapter" data-level="3.1" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html#identify-appropriate-weather-stations"><i class="fa fa-check"></i><b>3.1</b> Identify Appropriate Weather Stations</a></li>
@@ -281,7 +282,7 @@ Figure 6.1: HREP Mussel Modeling Workflow, Calculate MCAT Metrics Step.
 <li>Create a definition query on the <code>Cordova_all_individuals</code> feature class where <code>Tolerant</code> = 1.</li>
 <li>Dissolve the <code>Cordova_all_individuals</code> feature class by <code>SAMPLE_ID</code> and <code>ENAME</code> (Scientific name). Add <code>SUM_NumberLive</code> and <code>SUM_Tolerant</code> fields in the Statistics section of the tool. Uncheck create multipart features. Set Output Feature Class to the working .gdb and name it <code>PercentTolerant</code>.</li>
 <li>Open the <code>PercentTolerant</code> attribute table. Add a field titled <code>Perc_tolerant</code> Type = double.</li>
-<li><p>Use the Field Calculator tool to calcualte the percent of individual tolerant species per sampled quadrat using the expression <code>([SUM_Tolerant] / [SUM_NumberLive]) * 100</code>.</p></li>
+<li><p>Use the Field Calculator tool to calculate the percent of individual tolerant species per sampled quadrat using the expression <code>([SUM_Tolerant] / [SUM_NumberLive]) * 100</code>.</p></li>
 </ul>
 </div>
 <div id="create-percent-tribe-lampsilini" class="section level2">
@@ -310,7 +311,7 @@ Figure 6.1: HREP Mussel Modeling Workflow, Calculate MCAT Metrics Step.
 <li>Create a definition query on the <code>Cordova_all_individuals</code> feature class where <code>Lampsilini</code> = 1.</li>
 <li>Dissolve the <code>Cordova_all_individuals</code> feature class by <code>SAMPLE_ID</code> and <code>ENAME</code> (Scientific name). Add <code>SUM_NumberLive</code> and <code>SUM_Tolerant</code> fields in the Statistics section of the tool. Uncheck create multipart features. Set Output Feature Class to the working .gdb and name it <code>PercentLampsilini</code>.</li>
 <li>Open the <code>PercentLampsilini</code> attribute table. Add a field titled <code>perc_lampsilini</code> Type = double.</li>
-<li><p>Use the Field Calculator tool to calcualte the percent of individual tolerant species per sampled quadrat using the expression <code>([SUM_Tolerant] / [SUM_NumberLive]) * 100</code>.</p></li>
+<li><p>Use the Field Calculator tool to calculate the percent of individual tolerant species per sampled quadrat using the expression <code>([SUM_Tolerant] / [SUM_NumberLive]) * 100</code>.</p></li>
 </ul>
 </div>
 <div id="create-percent-juveniles" class="section level2">
@@ -512,7 +513,7 @@ rarefy_sampleid_species &lt;-<span class="st"> </span>sp<span class="op">::</spa
 </div>
 <div id="mcat-metric-site-level-thresholds" class="section level2">
 <h2><span class="header-section-number">6.11</span> MCAT Metric Site Level Thresholds</h2>
-<p>The descriptive statistics presented in the previous section were used to select MCAT metrics thresolds.</p>
+<p>The descriptive statistics presented in the previous section were used to select MCAT metrics thresholds.</p>
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:fig">Table 6.1: </span>Translating MCAT Metric Thresholds from the Bed to the Site Scale.

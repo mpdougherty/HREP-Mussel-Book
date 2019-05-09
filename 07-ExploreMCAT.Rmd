@@ -36,7 +36,7 @@ sp2arc <- function(sp_object, fc_path) {
 ```
 
 ## MCAT Metric Site Threshold
-The purpose of this section is to display the range of calculated values for each of the MCAT metrics for each of the sites in the Steamboat Island study area. The MCAT report is clear about metric thresholds to use for evaluating quality mussel beds. However, this study is using the individual site unit of analysis. Therefore, decisions must be made on what is the appropriate metric threshold to use for the site level of analysis. The descriptive statistics in this section will help to inform that decsion. 
+The purpose of this section is to display the range of calculated values for each of the MCAT metrics for each of the sites in the Steamboat Island study area. The MCAT report is clear about metric thresholds to use for evaluating quality mussel beds. However, this study is using the individual site unit of analysis. Therefore, decisions must be made on what is the appropriate metric threshold to use for the site level of analysis. The descriptive statistics in this section will help to inform that decision. 
 
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}

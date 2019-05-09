@@ -1,5 +1,5 @@
 # Mussel Data Processing
-This chapter will describe the process used to prepare mussel occurence data for input to the Maxent model. This analysis makes heavy use of the mussel surveys recorded in the [USACE Mussel Database](https://rsgisias.crrel.usace.army.mil/intro/mussels_dev.pub.main). 
+This chapter will describe the process used to prepare mussel occurrence data for input to the Maxent model. This analysis makes heavy use of the mussel surveys recorded in the [USACE Mussel Database](https://rsgisias.crrel.usace.army.mil/intro/mussels_dev.pub.main). 
 
 ```{r echo=FALSE, fig.cap="HREP Mussel Modeling Workflow, Mussel Database Step."}
 include_graphics("docs/images/workflow_mussel_database.png")
@@ -60,14 +60,14 @@ The purpose of this step is to assemble the "individual" data for each of the su
 
 
 ## Create a quantative table
-The purpose of this step is to create the `Cordova_all_individuals` feature class using a definion query on the `Cordova` feature class to only select quantative samples.
+The purpose of this step is to create the `Cordova_all_individuals` feature class using a definition query on the `Cordova` feature class to only select quantitative samples.
 
 * Using the `Cordova` feature class, create a definition query where `Method` = 'Quantitative'.
 * Export the selected records from the `Cordova` feature class and name this new feature class `Cordova_all_individuals`. 
 
 
 ## Create MCAT Flag Fields
-The purpose of this step is to create a series of MCAT flag fields to indicate which individual mussel records meet each MCAT metrics. This flag field will be set in the nect chapter. 
+The purpose of this step is to create a series of MCAT flag fields to indicate which individual mussel records meet each MCAT metrics. This flag field will be set in the next chapter. 
 
 * Create "flag" fields to indicate that mussel individuals fall into certain categories. Add the following fields (Type=long integer) to the `Cordova_all_individuals` attribute table: `Listed`, `Tolerant`, `Lampsilini`, `Juveniles`, `Over_15yrs`, `tribe` 
 * Use the Field Calculator tool on each of the fields that were created in the last step to set the value of all records to zero. 

@@ -27,7 +27,7 @@
 <meta name="author" content="Dan Kelner, Fisheries Biologist, US Army Corps of Engineers, St. Paul District">
 
 
-<meta name="date" content="2019-05-05">
+<meta name="date" content="2019-05-09">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -125,11 +125,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.12" data-path="introduction.html"><a href="introduction.html#repeat-for-each-alternative"><i class="fa fa-check"></i><b>1.12</b> Repeat for Each Alternative</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html"><i class="fa fa-check"></i><b>2</b> Prepare Hydraulic Data</a><ul>
-<li class="chapter" data-level="2.1" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#create-mask"><i class="fa fa-check"></i><b>2.1</b> Create Mask</a></li>
-<li class="chapter" data-level="2.2" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#set-environments"><i class="fa fa-check"></i><b>2.2</b> Set Environments</a></li>
-<li class="chapter" data-level="2.3" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#process-adh-model-outputs"><i class="fa fa-check"></i><b>2.3</b> Process ADH Model Outputs</a></li>
-<li class="chapter" data-level="2.4" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#calculate-slope"><i class="fa fa-check"></i><b>2.4</b> Calculate Slope</a></li>
-<li class="chapter" data-level="2.5" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#convert-to-.bil-format"><i class="fa fa-check"></i><b>2.5</b> Convert to .bil format</a></li>
+<li class="chapter" data-level="2.1" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#import-adh-mesh-nodes"><i class="fa fa-check"></i><b>2.1</b> Import Adh Mesh Nodes</a></li>
+<li class="chapter" data-level="2.2" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#create-mask"><i class="fa fa-check"></i><b>2.2</b> Create Mask</a></li>
+<li class="chapter" data-level="2.3" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#set-environments"><i class="fa fa-check"></i><b>2.3</b> Set Environments</a></li>
+<li class="chapter" data-level="2.4" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#convert-adh-mesh-nodes-to-raster"><i class="fa fa-check"></i><b>2.4</b> Convert Adh Mesh Nodes to Raster</a></li>
+<li class="chapter" data-level="2.5" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#calculate-slope"><i class="fa fa-check"></i><b>2.5</b> Calculate Slope</a></li>
+<li class="chapter" data-level="2.6" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#convert-to-.bil-format"><i class="fa fa-check"></i><b>2.6</b> Convert to .bil format</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html"><i class="fa fa-check"></i><b>3</b> Prepare Wind and Wave Data</a><ul>
 <li class="chapter" data-level="3.1" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html#identify-appropriate-weather-stations"><i class="fa fa-check"></i><b>3.1</b> Identify Appropriate Weather Stations</a></li>
@@ -219,7 +220,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
             <section class="normal" id="section-">
 <div id="mussel-data-processing" class="section level1">
 <h1><span class="header-section-number">Chapter 5</span> Mussel Data Processing</h1>
-<p>This chapter will describe the process used to prepare mussel occurence data for input to the Maxent model. This analysis makes heavy use of the mussel surveys recorded in the <a href="https://rsgisias.crrel.usace.army.mil/intro/mussels_dev.pub.main">USACE Mussel Database</a>.</p>
+<p>This chapter will describe the process used to prepare mussel occurrence data for input to the Maxent model. This analysis makes heavy use of the mussel surveys recorded in the <a href="https://rsgisias.crrel.usace.army.mil/intro/mussels_dev.pub.main">USACE Mussel Database</a>.</p>
 <div class="figure"><span id="fig:unnamed-chunk-8"></span>
 <img src="docs/images/workflow_mussel_database.png" alt="HREP Mussel Modeling Workflow, Mussel Database Step." width="732" />
 <p class="caption">
@@ -280,7 +281,7 @@ Figure 5.1: HREP Mussel Modeling Workflow, Mussel Database Step.
 </div>
 <div id="create-a-quantative-table" class="section level2">
 <h2><span class="header-section-number">5.7</span> Create a quantative table</h2>
-<p>The purpose of this step is to create the <code>Cordova_all_individuals</code> feature class using a definion query on the <code>Cordova</code> feature class to only select quantative samples.</p>
+<p>The purpose of this step is to create the <code>Cordova_all_individuals</code> feature class using a definition query on the <code>Cordova</code> feature class to only select quantitative samples.</p>
 <ul>
 <li>Using the <code>Cordova</code> feature class, create a definition query where <code>Method</code> = ‘Quantitative’.</li>
 <li>Export the selected records from the <code>Cordova</code> feature class and name this new feature class <code>Cordova_all_individuals</code>.</li>
@@ -288,7 +289,7 @@ Figure 5.1: HREP Mussel Modeling Workflow, Mussel Database Step.
 </div>
 <div id="create-mcat-flag-fields" class="section level2">
 <h2><span class="header-section-number">5.8</span> Create MCAT Flag Fields</h2>
-<p>The purpose of this step is to create a series of MCAT flag fields to indicate which individual mussel records meet each MCAT metrics. This flag field will be set in the nect chapter.</p>
+<p>The purpose of this step is to create a series of MCAT flag fields to indicate which individual mussel records meet each MCAT metrics. This flag field will be set in the next chapter.</p>
 <ul>
 <li>Create “flag” fields to indicate that mussel individuals fall into certain categories. Add the following fields (Type=long integer) to the <code>Cordova_all_individuals</code> attribute table: <code>Listed</code>, <code>Tolerant</code>, <code>Lampsilini</code>, <code>Juveniles</code>, <code>Over_15yrs</code>, <code>tribe</code></li>
 <li>Use the Field Calculator tool on each of the fields that were created in the last step to set the value of all records to zero.</li>

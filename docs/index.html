@@ -27,7 +27,7 @@
 <meta name="author" content="Dan Kelner, Fisheries Biologist, US Army Corps of Engineers, St. Paul District">
 
 
-<meta name="date" content="2019-05-05">
+<meta name="date" content="2019-05-09">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -125,11 +125,12 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.12" data-path="introduction.html"><a href="introduction.html#repeat-for-each-alternative"><i class="fa fa-check"></i><b>1.12</b> Repeat for Each Alternative</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html"><i class="fa fa-check"></i><b>2</b> Prepare Hydraulic Data</a><ul>
-<li class="chapter" data-level="2.1" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#create-mask"><i class="fa fa-check"></i><b>2.1</b> Create Mask</a></li>
-<li class="chapter" data-level="2.2" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#set-environments"><i class="fa fa-check"></i><b>2.2</b> Set Environments</a></li>
-<li class="chapter" data-level="2.3" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#process-adh-model-outputs"><i class="fa fa-check"></i><b>2.3</b> Process ADH Model Outputs</a></li>
-<li class="chapter" data-level="2.4" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#calculate-slope"><i class="fa fa-check"></i><b>2.4</b> Calculate Slope</a></li>
-<li class="chapter" data-level="2.5" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#convert-to-.bil-format"><i class="fa fa-check"></i><b>2.5</b> Convert to .bil format</a></li>
+<li class="chapter" data-level="2.1" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#import-adh-mesh-nodes"><i class="fa fa-check"></i><b>2.1</b> Import Adh Mesh Nodes</a></li>
+<li class="chapter" data-level="2.2" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#create-mask"><i class="fa fa-check"></i><b>2.2</b> Create Mask</a></li>
+<li class="chapter" data-level="2.3" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#set-environments"><i class="fa fa-check"></i><b>2.3</b> Set Environments</a></li>
+<li class="chapter" data-level="2.4" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#convert-adh-mesh-nodes-to-raster"><i class="fa fa-check"></i><b>2.4</b> Convert Adh Mesh Nodes to Raster</a></li>
+<li class="chapter" data-level="2.5" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#calculate-slope"><i class="fa fa-check"></i><b>2.5</b> Calculate Slope</a></li>
+<li class="chapter" data-level="2.6" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#convert-to-.bil-format"><i class="fa fa-check"></i><b>2.6</b> Convert to .bil format</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html"><i class="fa fa-check"></i><b>3</b> Prepare Wind and Wave Data</a><ul>
 <li class="chapter" data-level="3.1" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html#identify-appropriate-weather-stations"><i class="fa fa-check"></i><b>3.1</b> Identify Appropriate Weather Stations</a></li>
@@ -223,7 +224,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p class="author"><em>Michael Dougherty, Geographer, US Army Corps of Engineers, Rock Island District</em></p>
 <p class="author"><em>Davi Michl, Biologist, US Army Corps of Engineers, Rock Island District</em></p>
 <p class="author"><em>Dan Kelner, Fisheries Biologist, US Army Corps of Engineers, St. Paul District</em></p>
-<p class="date"><em>2019-05-05</em></p>
+<p class="date"><em>2019-05-09</em></p>
 </div>
 <div id="preface" class="section level1 unnumbered">
 <h1>Preface</h1>
@@ -231,7 +232,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p><img src="docs/images/HDQLO-03_h120.jpg" /><!-- --><img src="docs/images/UMRRlogo_tag_rgb_300px.jpg" /><!-- --></p>
 <div id="abstract" class="section level2">
 <h2><span class="header-section-number">0.1</span> Abstract</h2>
-<p>This technical report describes a method for modeling mussel habitat suitability at the site scale for Upper Mississippi River Restoration Program (UMRR) Habitat Restoration and Enhancement Projects (HREP). This approach was designed to take advantage of UMRR Partnership organizations’ previous investments in mussel surveys, wind and wave modeling methodology, and hydraulic modeling. This approach is currently under development and being being evaulated while being applied to several current HREPs. The validity and usefulness of this approach is being evaluated through the standard USACE project review process. The Steamboat Island HREP is used in this technical report as a learning example to walk a user through the detailed process to reproduce this analysis for another project.</p>
+<p>This technical report describes a method for modeling mussel habitat suitability at the site scale for Upper Mississippi River Restoration Program (UMRR) Habitat Restoration and Enhancement Projects (HREP). This approach was designed to take advantage of UMRR Partnership organizations’ previous investments in mussel surveys, wind and wave modeling methodology, and hydraulic modeling. This approach is currently under development and being being evaluated while being applied to several current HREPs. The validity and usefulness of this approach is being evaluated through the standard USACE project review process. The Steamboat Island HREP is used in this technical report as a learning example to walk a user through the detailed process to reproduce this analysis for another project.</p>
 
 </div>
 </div>

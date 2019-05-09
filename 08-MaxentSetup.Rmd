@@ -15,7 +15,7 @@ The purpose of this section is to describe the process for downloading and confi
 
 
 ## Convert predictors from `.bil` to `.mxe` format
-The purpose of this step is to describe how to convert a raster format that ESRI products can read to a raster format the Maxent can read and write effeciently. To speed model creation (from 10's of hours to 10's of minutes), convert the predictors from the `.bil` format to the Maxent `.mxe` format.
+The purpose of this step is to describe how to convert a raster format that ESRI products can read to a raster format the Maxent can read and write efficiently. To speed model creation (from 10's of hours to 10's of minutes), convert the predictors from the `.bil` format to the Maxent `.mxe` format.
 
 * Open command prompt and change to the working directory. Change to the correct drive if necessary by typing `c:`. Then used `cd C:\Users\b6pdpdem\Documents\SteamboatMusselModel` to change to your local working directory. 
 * In the working directory, create an `input_bil` folder. Copy the `.bil` format predictor rasters created in previous chapters into this folder. 
@@ -51,7 +51,7 @@ Follow these simple performance guidelines to reduce Maxent run time from a week
 * Increase the memory available to the java virtual machine (JVM). Edit the first line of the `maxent.bat` file to something like the following: `java -Xmx5g -jar maxent.jar`, where the `-Xmx` parameter sets the maximum heap size for the JVM. Set it to something less than the total amount of physical memory on your computer. 
 * Do not run the model across the LAN (inputs and outputs stored on a network file system). Copy all inputs and write all outputs to the local file system.
 * Use a solid state drive for storing inputs and outputs. 
-* Use the "SWD" format for specifying both samples (species occurances) and environmental layers (background points). 
+* Use the "SWD" format for specifying both samples (species occurrences) and environmental layers (background points). 
 * Convert all predictor grids to the Maxent `.mxe` format. 
 * Write all outputs to the Maxent `.mxe` format. 
 * Set the `threads` parameter to at least the number of cores on your computer (or a large percentage of logical processors) to speed processing of replicates. 

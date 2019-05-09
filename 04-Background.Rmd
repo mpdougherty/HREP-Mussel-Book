@@ -14,9 +14,9 @@ Create a background to constrain points to aquatic areas (more data resolution) 
     * Output feature class: `background`
     * Constraining feature class:`aquatic_areas_5m`
     * Number of points: 10000
-    * Mininum allowed distance: 25m
+    * Minimum allowed distance: 25m
     * Leave all others as defaults
-    * Click Ok to run the tool
+    * Click OK to run the tool
 
 * In the `background` feature class, add 3 fields one named `species` Type = Text and Length=20; one named `longitude` Type = Double; and one named `latitude` Type = Double. 
 * For the `species` field use field calculator to set the value of the field to `species` = "background". 
