@@ -34,13 +34,10 @@ The goal of this step is to define no data areas outside of the study. This step
     * Clip Features: `study_area`
     * Output Feature Class: `\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Data\SB_Mussels.gdb\aquatic_areas`
     
-* Delete "Isolated Floodplain Lake" records from the `aquatic_areas` attribute table. Mussels are unlikely to be found in these areas.  
-* Use the Dissolve (Data Management) tool on `aquatic_areas` using 'LAND_WATER' as the dissolve field. 
-    * Input features: `aquatic_areas`
-    * Output feature class: `\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Data\SB_Mussels.gdb\aquatic_areas_dissolve`
-    * Create multipart features: uncheck box  
-    
-* Open an edit session to edit the `aquatic_areas_dissolve` attribute table. Select the row where 'LAND_WATER' field is set to Land, and delete. Use the merge tool on this feature class to ensure there is only one row.
+* Open an edit session to edit the `aquatic_areas` attribute table.
+  * Delete "Isolated Floodplain Lake" records from the `aquatic_areas` attribute table. Mussels are unlikely to be found in these areas.  
+  * Select rows where 'LAND_WATER' field is set to Land, and delete. 
+  * Use the merge tool on this feature class to ensure there is only one row representing Water.
 
 * Use the Buffer (Analysis) tool to expand the study area beyond the extent of valid values. Use a buffer of approximately 20 meters to ensure that mussel samples fall well within the study area. Areas that fall outside the buffered area will be used to define no data in the AdH rasters.
 
@@ -74,7 +71,7 @@ The goal of this step is to convert the raw Adaptive Hydraulics Model (AdH) data
 * Use the IDW (Spatial Analyst) tool to interpolate a raster surface.
 
     * Input point features: `Q5_pts`. 
-    * Z value field: velocity
+    * Z value field: `velocity`
     * Output raster: `\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Adh\Existing_condition\existingcondition.gdb\q5_velocity`
     
 * Complete these steps for the other variables, `depth`, `sheer stress`, `froude_number`, and `reynolds_number`.
