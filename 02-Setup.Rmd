@@ -1,0 +1,18 @@
+# Setup
+This chapter will describe the steps required to setup your computer to perform this analysis. 
+
+
+## Download the Maxent Software
+The purpose of this section is to describe the process for downloading and configuring the Maxent software. 
+
+<<add further Maxent configuration instructions here>>
+
+
+## Install R and RStudio
+
+
+## Install ArcGIS Desktop or ArcGIS Pro
+
+
+## Install Tutorial Data
+To help analysts learn how to reproduce this analysis, the approach described in this technical report is structured as a tutorial available for optional download. Download [tutorial data](data/tutorial_data.zip) here. 
