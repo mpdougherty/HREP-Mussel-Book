@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 2 Prepare Hydraulic Data | HREP Mussel Modeling</title>
+  <title>Chapter 3 Prepare Hydraulic Data | HREP Mussel Modeling</title>
   <meta name="description" content="This document describes the process for modeling mussel suitability on Upper Mississippi River Restoration (UMRR) Habitat Rehabilitation and Restoration Projects (HREP).">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 2 Prepare Hydraulic Data | HREP Mussel Modeling" />
+  <meta property="og:title" content="Chapter 3 Prepare Hydraulic Data | HREP Mussel Modeling" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Prepare Hydraulic Data | HREP Mussel Modeling" />
+  <meta name="twitter:title" content="Chapter 3 Prepare Hydraulic Data | HREP Mussel Modeling" />
   
   <meta name="twitter:description" content="This document describes the process for modeling mussel suitability on Upper Mississippi River Restoration (UMRR) Habitat Rehabilitation and Restoration Projects (HREP)." />
   
@@ -27,14 +27,14 @@
 <meta name="author" content="Dan Kelner, Fisheries Biologist, US Army Corps of Engineers, St. Paul District">
 
 
-<meta name="date" content="2019-05-09">
+<meta name="date" content="2019-05-13">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="introduction.html">
+<link rel="prev" href="setup.html">
 <link rel="next" href="prepare-wind-and-wave-data.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -109,6 +109,8 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a><ul>
 <li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#abstract"><i class="fa fa-check"></i><b>0.1</b> Abstract</a></li>
+<li class="chapter" data-level="0.2" data-path="index.html"><a href="index.html#how-to-read-this-technical-report"><i class="fa fa-check"></i><b>0.2</b> How to Read this Technical Report</a></li>
+<li class="chapter" data-level="0.3" data-path="index.html"><a href="index.html#tutorial-data"><i class="fa fa-check"></i><b>0.3</b> Tutorial Data</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a><ul>
 <li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#need-for-the-study"><i class="fa fa-check"></i><b>1.1</b> Need for the Study</a></li>
@@ -124,80 +126,88 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="1.11" data-path="introduction.html"><a href="introduction.html#evaluate-model"><i class="fa fa-check"></i><b>1.11</b> Evaluate Model</a></li>
 <li class="chapter" data-level="1.12" data-path="introduction.html"><a href="introduction.html#repeat-for-each-alternative"><i class="fa fa-check"></i><b>1.12</b> Repeat for Each Alternative</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html"><i class="fa fa-check"></i><b>2</b> Prepare Hydraulic Data</a><ul>
-<li class="chapter" data-level="2.1" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#import-adh-mesh-nodes"><i class="fa fa-check"></i><b>2.1</b> Import Adh Mesh Nodes</a></li>
-<li class="chapter" data-level="2.2" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#create-mask"><i class="fa fa-check"></i><b>2.2</b> Create Mask</a></li>
-<li class="chapter" data-level="2.3" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#set-environments"><i class="fa fa-check"></i><b>2.3</b> Set Environments</a></li>
-<li class="chapter" data-level="2.4" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#convert-adh-mesh-nodes-to-raster"><i class="fa fa-check"></i><b>2.4</b> Convert Adh Mesh Nodes to Raster</a></li>
-<li class="chapter" data-level="2.5" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#calculate-slope"><i class="fa fa-check"></i><b>2.5</b> Calculate Slope</a></li>
-<li class="chapter" data-level="2.6" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#convert-to-.bil-format"><i class="fa fa-check"></i><b>2.6</b> Convert to .bil format</a></li>
+<li class="chapter" data-level="2" data-path="setup.html"><a href="setup.html"><i class="fa fa-check"></i><b>2</b> Setup</a><ul>
+<li class="chapter" data-level="2.1" data-path="setup.html"><a href="setup.html#download-the-maxent-software"><i class="fa fa-check"></i><b>2.1</b> Download the Maxent Software</a></li>
+<li class="chapter" data-level="2.2" data-path="setup.html"><a href="setup.html#install-r-and-rstudio"><i class="fa fa-check"></i><b>2.2</b> Install R and RStudio</a></li>
+<li class="chapter" data-level="2.3" data-path="setup.html"><a href="setup.html#install-arcgis-desktop-or-arcgis-pro"><i class="fa fa-check"></i><b>2.3</b> Install ArcGIS Desktop or ArcGIS Pro</a></li>
+<li class="chapter" data-level="2.4" data-path="setup.html"><a href="setup.html#install-tutorial-data"><i class="fa fa-check"></i><b>2.4</b> Install Tutorial Data</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html"><i class="fa fa-check"></i><b>3</b> Prepare Wind and Wave Data</a><ul>
-<li class="chapter" data-level="3.1" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html#identify-appropriate-weather-stations"><i class="fa fa-check"></i><b>3.1</b> Identify Appropriate Weather Stations</a></li>
-<li class="chapter" data-level="3.2" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html#obtain-wind-data"><i class="fa fa-check"></i><b>3.2</b> Obtain Wind Data</a></li>
-<li class="chapter" data-level="3.3" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html#determine-period-of-record"><i class="fa fa-check"></i><b>3.3</b> Determine Period of Record</a></li>
+<li class="chapter" data-level="3" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html"><i class="fa fa-check"></i><b>3</b> Prepare Hydraulic Data</a><ul>
+<li class="chapter" data-level="3.1" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#import-adh-mesh-nodes"><i class="fa fa-check"></i><b>3.1</b> Import Adh Mesh Nodes</a></li>
+<li class="chapter" data-level="3.2" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#create-mask"><i class="fa fa-check"></i><b>3.2</b> Create Mask</a></li>
+<li class="chapter" data-level="3.3" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#set-environments"><i class="fa fa-check"></i><b>3.3</b> Set Environments</a></li>
+<li class="chapter" data-level="3.4" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#convert-adh-mesh-nodes-to-raster"><i class="fa fa-check"></i><b>3.4</b> Convert Adh Mesh Nodes to Raster</a></li>
+<li class="chapter" data-level="3.5" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#calculate-slope"><i class="fa fa-check"></i><b>3.5</b> Calculate Slope</a></li>
+<li class="chapter" data-level="3.6" data-path="prepare-hydraulic-data.html"><a href="prepare-hydraulic-data.html#convert-to-.bil-format"><i class="fa fa-check"></i><b>3.6</b> Convert to .bil format</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="create-backgound-data.html"><a href="create-backgound-data.html"><i class="fa fa-check"></i><b>4</b> Create Backgound Data</a><ul>
-<li class="chapter" data-level="4.1" data-path="create-backgound-data.html"><a href="create-backgound-data.html#create-background-data"><i class="fa fa-check"></i><b>4.1</b> Create Background Data</a></li>
-<li class="chapter" data-level="4.2" data-path="create-backgound-data.html"><a href="create-backgound-data.html#export-to-maxent-swd-format"><i class="fa fa-check"></i><b>4.2</b> Export to Maxent “SWD” Format</a></li>
+<li class="chapter" data-level="4" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html"><i class="fa fa-check"></i><b>4</b> Prepare Wind and Wave Data</a><ul>
+<li class="chapter" data-level="4.1" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html#identify-appropriate-weather-stations"><i class="fa fa-check"></i><b>4.1</b> Identify Appropriate Weather Stations</a></li>
+<li class="chapter" data-level="4.2" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html#obtain-wind-data"><i class="fa fa-check"></i><b>4.2</b> Obtain Wind Data</a></li>
+<li class="chapter" data-level="4.3" data-path="prepare-wind-and-wave-data.html"><a href="prepare-wind-and-wave-data.html#determine-period-of-record"><i class="fa fa-check"></i><b>4.3</b> Determine Period of Record</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html"><i class="fa fa-check"></i><b>5</b> Mussel Data Processing</a><ul>
-<li class="chapter" data-level="5.1" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html#identify-mussel-surveys-in-study-area"><i class="fa fa-check"></i><b>5.1</b> Identify Mussel Surveys in Study Area</a></li>
-<li class="chapter" data-level="5.2" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html#import-sample-locations"><i class="fa fa-check"></i><b>5.2</b> Import Sample Locations</a></li>
-<li class="chapter" data-level="5.3" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html#import-individual-mussel-records"><i class="fa fa-check"></i><b>5.3</b> Import Individual Mussel Records</a></li>
-<li class="chapter" data-level="5.4" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html#join-sample-location-to-individual-mussel-records"><i class="fa fa-check"></i><b>5.4</b> Join Sample Location to Individual Mussel Records</a></li>
-<li class="chapter" data-level="5.5" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html#repeat-for-each-mussel-survey-in-the-study-area"><i class="fa fa-check"></i><b>5.5</b> Repeat for each mussel survey in the study area</a></li>
-<li class="chapter" data-level="5.6" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html#append-surveys-together-into-a-single-study-area-feature-class"><i class="fa fa-check"></i><b>5.6</b> Append Surveys together into a single Study Area feature class</a></li>
-<li class="chapter" data-level="5.7" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html#create-a-quantative-table"><i class="fa fa-check"></i><b>5.7</b> Create a quantative table</a></li>
-<li class="chapter" data-level="5.8" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html#create-mcat-flag-fields"><i class="fa fa-check"></i><b>5.8</b> Create MCAT Flag Fields</a></li>
-<li class="chapter" data-level="5.9" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html#create-the-samples-table"><i class="fa fa-check"></i><b>5.9</b> Create the <code>samples</code> table</a></li>
+<li class="chapter" data-level="5" data-path="create-backgound-data.html"><a href="create-backgound-data.html"><i class="fa fa-check"></i><b>5</b> Create Backgound Data</a><ul>
+<li class="chapter" data-level="5.1" data-path="create-backgound-data.html"><a href="create-backgound-data.html#create-background-data"><i class="fa fa-check"></i><b>5.1</b> Create Background Data</a></li>
+<li class="chapter" data-level="5.2" data-path="create-backgound-data.html"><a href="create-backgound-data.html#export-to-maxent-swd-format"><i class="fa fa-check"></i><b>5.2</b> Export to Maxent “SWD” Format</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html"><i class="fa fa-check"></i><b>6</b> Calculate Mussel Metrics</a><ul>
-<li class="chapter" data-level="6.1" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#mcat-metrics"><i class="fa fa-check"></i><b>6.1</b> MCAT Metrics</a></li>
-<li class="chapter" data-level="6.2" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-listed"><i class="fa fa-check"></i><b>6.2</b> Create Percent Listed</a></li>
-<li class="chapter" data-level="6.3" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-tolerant"><i class="fa fa-check"></i><b>6.3</b> Create Percent Tolerant</a></li>
-<li class="chapter" data-level="6.4" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-tribe-lampsilini"><i class="fa fa-check"></i><b>6.4</b> Create Percent Tribe Lampsilini</a></li>
-<li class="chapter" data-level="6.5" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-juveniles"><i class="fa fa-check"></i><b>6.5</b> Create Percent Juveniles</a></li>
-<li class="chapter" data-level="6.6" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-over-15-years"><i class="fa fa-check"></i><b>6.6</b> Create Percent Over 15 Years</a></li>
-<li class="chapter" data-level="6.7" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-abundance"><i class="fa fa-check"></i><b>6.7</b> Create Abundance</a></li>
-<li class="chapter" data-level="6.8" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-species-evenness"><i class="fa fa-check"></i><b>6.8</b> Create Species Evenness</a></li>
-<li class="chapter" data-level="6.9" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-tribe-eveness"><i class="fa fa-check"></i><b>6.9</b> Create Tribe Eveness</a></li>
-<li class="chapter" data-level="6.10" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-es-100"><i class="fa fa-check"></i><b>6.10</b> Create ES 100</a></li>
-<li class="chapter" data-level="6.11" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#mcat-metric-site-level-thresholds"><i class="fa fa-check"></i><b>6.11</b> MCAT Metric Site Level Thresholds</a></li>
-<li class="chapter" data-level="6.12" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#calculate-mcat-site-score"><i class="fa fa-check"></i><b>6.12</b> Calculate MCAT Site Score</a></li>
-<li class="chapter" data-level="6.13" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#export-to-maxent-swd-format-1"><i class="fa fa-check"></i><b>6.13</b> Export to Maxent “SWD” format</a></li>
+<li class="chapter" data-level="6" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html"><i class="fa fa-check"></i><b>6</b> Mussel Data Processing</a><ul>
+<li class="chapter" data-level="6.1" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html#identify-mussel-surveys-in-study-area"><i class="fa fa-check"></i><b>6.1</b> Identify Mussel Surveys in Study Area</a></li>
+<li class="chapter" data-level="6.2" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html#import-sample-locations"><i class="fa fa-check"></i><b>6.2</b> Import Sample Locations</a></li>
+<li class="chapter" data-level="6.3" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html#import-individual-mussel-records"><i class="fa fa-check"></i><b>6.3</b> Import Individual Mussel Records</a></li>
+<li class="chapter" data-level="6.4" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html#join-sample-location-to-individual-mussel-records"><i class="fa fa-check"></i><b>6.4</b> Join Sample Location to Individual Mussel Records</a></li>
+<li class="chapter" data-level="6.5" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html#repeat-for-each-mussel-survey-in-the-study-area"><i class="fa fa-check"></i><b>6.5</b> Repeat for each mussel survey in the study area</a></li>
+<li class="chapter" data-level="6.6" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html#append-surveys-together-into-a-single-study-area-feature-class"><i class="fa fa-check"></i><b>6.6</b> Append Surveys together into a single Study Area feature class</a></li>
+<li class="chapter" data-level="6.7" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html#create-a-quantative-table"><i class="fa fa-check"></i><b>6.7</b> Create a quantative table</a></li>
+<li class="chapter" data-level="6.8" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html#create-mcat-flag-fields"><i class="fa fa-check"></i><b>6.8</b> Create MCAT Flag Fields</a></li>
+<li class="chapter" data-level="6.9" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html#create-the-samples-table"><i class="fa fa-check"></i><b>6.9</b> Create the <code>samples</code> table</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html"><i class="fa fa-check"></i><b>7</b> Explore MCAT Metrics</a><ul>
-<li class="chapter" data-level="7.1" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#mcat-metric-site-threshold"><i class="fa fa-check"></i><b>7.1</b> MCAT Metric Site Threshold</a><ul>
-<li class="chapter" data-level="7.1.1" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#percent-listed"><i class="fa fa-check"></i><b>7.1.1</b> Percent Listed</a></li>
-<li class="chapter" data-level="7.1.2" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#percent-tolerant"><i class="fa fa-check"></i><b>7.1.2</b> Percent Tolerant</a></li>
-<li class="chapter" data-level="7.1.3" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#percent-tribe-lampsilini"><i class="fa fa-check"></i><b>7.1.3</b> Percent Tribe Lampsilini</a></li>
-<li class="chapter" data-level="7.1.4" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#percent-juveniles"><i class="fa fa-check"></i><b>7.1.4</b> Percent Juveniles</a></li>
-<li class="chapter" data-level="7.1.5" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#percent-over-15-years"><i class="fa fa-check"></i><b>7.1.5</b> Percent over 15 years</a></li>
-<li class="chapter" data-level="7.1.6" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#abundance"><i class="fa fa-check"></i><b>7.1.6</b> Abundance</a></li>
-<li class="chapter" data-level="7.1.7" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#species-evenness"><i class="fa fa-check"></i><b>7.1.7</b> Species Evenness</a></li>
-<li class="chapter" data-level="7.1.8" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#tribe-evenness"><i class="fa fa-check"></i><b>7.1.8</b> Tribe Evenness</a></li>
-<li class="chapter" data-level="7.1.9" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#es_100"><i class="fa fa-check"></i><b>7.1.9</b> ES_100</a></li>
+<li class="chapter" data-level="7" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html"><i class="fa fa-check"></i><b>7</b> Calculate Mussel Metrics</a><ul>
+<li class="chapter" data-level="7.1" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#mcat-metrics"><i class="fa fa-check"></i><b>7.1</b> MCAT Metrics</a></li>
+<li class="chapter" data-level="7.2" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-listed"><i class="fa fa-check"></i><b>7.2</b> Create Percent Listed</a></li>
+<li class="chapter" data-level="7.3" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-tolerant"><i class="fa fa-check"></i><b>7.3</b> Create Percent Tolerant</a></li>
+<li class="chapter" data-level="7.4" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-tribe-lampsilini"><i class="fa fa-check"></i><b>7.4</b> Create Percent Tribe Lampsilini</a></li>
+<li class="chapter" data-level="7.5" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-juveniles"><i class="fa fa-check"></i><b>7.5</b> Create Percent Juveniles</a></li>
+<li class="chapter" data-level="7.6" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-over-15-years"><i class="fa fa-check"></i><b>7.6</b> Create Percent Over 15 Years</a></li>
+<li class="chapter" data-level="7.7" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-abundance"><i class="fa fa-check"></i><b>7.7</b> Create Abundance</a></li>
+<li class="chapter" data-level="7.8" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-species-evenness"><i class="fa fa-check"></i><b>7.8</b> Create Species Evenness</a></li>
+<li class="chapter" data-level="7.9" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-tribe-eveness"><i class="fa fa-check"></i><b>7.9</b> Create Tribe Eveness</a></li>
+<li class="chapter" data-level="7.10" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-es-100"><i class="fa fa-check"></i><b>7.10</b> Create ES 100</a></li>
+<li class="chapter" data-level="7.11" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#mcat-metric-site-level-thresholds"><i class="fa fa-check"></i><b>7.11</b> MCAT Metric Site Level Thresholds</a></li>
+<li class="chapter" data-level="7.12" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#calculate-mcat-site-score"><i class="fa fa-check"></i><b>7.12</b> Calculate MCAT Site Score</a></li>
+<li class="chapter" data-level="7.13" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#export-to-maxent-swd-format-1"><i class="fa fa-check"></i><b>7.13</b> Export to Maxent “SWD” format</a></li>
 </ul></li>
-<li class="chapter" data-level="7.2" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#mcat-site-scores"><i class="fa fa-check"></i><b>7.2</b> MCAT Site Scores</a></li>
-<li class="chapter" data-level="7.3" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#mcat-site-score-by-velocity"><i class="fa fa-check"></i><b>7.3</b> MCAT Site Score by Velocity</a></li>
-<li class="chapter" data-level="7.4" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#mcat-site-score-by-shear-stress"><i class="fa fa-check"></i><b>7.4</b> MCAT Site Score by Shear Stress</a></li>
-<li class="chapter" data-level="7.5" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#mcat-site-score-by-reynolds-number"><i class="fa fa-check"></i><b>7.5</b> MCAT Site Score by Reynolds Number</a></li>
-<li class="chapter" data-level="7.6" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#mcat-site-score-by-froude-number"><i class="fa fa-check"></i><b>7.6</b> MCAT Site Score by Froude Number</a></li>
-<li class="chapter" data-level="7.7" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#mcat-site-score-by-depth"><i class="fa fa-check"></i><b>7.7</b> MCAT Site Score by Depth</a></li>
-<li class="chapter" data-level="7.8" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#mcat-site-score-by-slope"><i class="fa fa-check"></i><b>7.8</b> MCAT Site Score by Slope</a></li>
+<li class="chapter" data-level="8" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html"><i class="fa fa-check"></i><b>8</b> Explore MCAT Metrics</a><ul>
+<li class="chapter" data-level="8.1" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#mcat-metric-site-threshold"><i class="fa fa-check"></i><b>8.1</b> MCAT Metric Site Threshold</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#percent-listed"><i class="fa fa-check"></i><b>8.1.1</b> Percent Listed</a></li>
+<li class="chapter" data-level="8.1.2" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#percent-tolerant"><i class="fa fa-check"></i><b>8.1.2</b> Percent Tolerant</a></li>
+<li class="chapter" data-level="8.1.3" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#percent-tribe-lampsilini"><i class="fa fa-check"></i><b>8.1.3</b> Percent Tribe Lampsilini</a></li>
+<li class="chapter" data-level="8.1.4" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#percent-juveniles"><i class="fa fa-check"></i><b>8.1.4</b> Percent Juveniles</a></li>
+<li class="chapter" data-level="8.1.5" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#percent-over-15-years"><i class="fa fa-check"></i><b>8.1.5</b> Percent over 15 years</a></li>
+<li class="chapter" data-level="8.1.6" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#abundance"><i class="fa fa-check"></i><b>8.1.6</b> Abundance</a></li>
+<li class="chapter" data-level="8.1.7" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#species-evenness"><i class="fa fa-check"></i><b>8.1.7</b> Species Evenness</a></li>
+<li class="chapter" data-level="8.1.8" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#tribe-evenness"><i class="fa fa-check"></i><b>8.1.8</b> Tribe Evenness</a></li>
+<li class="chapter" data-level="8.1.9" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#es_100"><i class="fa fa-check"></i><b>8.1.9</b> ES_100</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="develop-maxent-mussel-model.html"><a href="develop-maxent-mussel-model.html"><i class="fa fa-check"></i><b>8</b> Develop Maxent Mussel Model</a><ul>
-<li class="chapter" data-level="8.1" data-path="develop-maxent-mussel-model.html"><a href="develop-maxent-mussel-model.html#download-the-maxent-software"><i class="fa fa-check"></i><b>8.1</b> Download the Maxent Software</a></li>
-<li class="chapter" data-level="8.2" data-path="develop-maxent-mussel-model.html"><a href="develop-maxent-mussel-model.html#convert-predictors-from-.bil-to-.mxe-format"><i class="fa fa-check"></i><b>8.2</b> Convert predictors from <code>.bil</code> to <code>.mxe</code> format</a></li>
-<li class="chapter" data-level="8.3" data-path="develop-maxent-mussel-model.html"><a href="develop-maxent-mussel-model.html#run-maxent-1"><i class="fa fa-check"></i><b>8.3</b> Run Maxent</a></li>
-<li class="chapter" data-level="8.4" data-path="develop-maxent-mussel-model.html"><a href="develop-maxent-mussel-model.html#convert-model-output-from-.mxe-back-to-bil-format"><i class="fa fa-check"></i><b>8.4</b> Convert model output from <code>.mxe</code> back to <code>bil</code> format</a></li>
-<li class="chapter" data-level="8.5" data-path="develop-maxent-mussel-model.html"><a href="develop-maxent-mussel-model.html#maxent-speed-issues"><i class="fa fa-check"></i><b>8.5</b> Maxent speed Issues</a></li>
+<li class="chapter" data-level="8.2" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#mcat-site-scores"><i class="fa fa-check"></i><b>8.2</b> MCAT Site Scores</a></li>
+<li class="chapter" data-level="8.3" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#mcat-site-score-by-velocity"><i class="fa fa-check"></i><b>8.3</b> MCAT Site Score by Velocity</a></li>
+<li class="chapter" data-level="8.4" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#mcat-site-score-by-shear-stress"><i class="fa fa-check"></i><b>8.4</b> MCAT Site Score by Shear Stress</a></li>
+<li class="chapter" data-level="8.5" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#mcat-site-score-by-reynolds-number"><i class="fa fa-check"></i><b>8.5</b> MCAT Site Score by Reynolds Number</a></li>
+<li class="chapter" data-level="8.6" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#mcat-site-score-by-froude-number"><i class="fa fa-check"></i><b>8.6</b> MCAT Site Score by Froude Number</a></li>
+<li class="chapter" data-level="8.7" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#mcat-site-score-by-depth"><i class="fa fa-check"></i><b>8.7</b> MCAT Site Score by Depth</a></li>
+<li class="chapter" data-level="8.8" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#mcat-site-score-by-slope"><i class="fa fa-check"></i><b>8.8</b> MCAT Site Score by Slope</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="evaulate-model.html"><a href="evaulate-model.html"><i class="fa fa-check"></i><b>9</b> Evaulate Model</a><ul>
-<li class="chapter" data-level="9.1" data-path="evaulate-model.html"><a href="evaulate-model.html#goodness-of-fit"><i class="fa fa-check"></i><b>9.1</b> Goodness of Fit</a></li>
+<li class="chapter" data-level="9" data-path="develop-maxent-mussel-model.html"><a href="develop-maxent-mussel-model.html"><i class="fa fa-check"></i><b>9</b> Develop Maxent Mussel Model</a><ul>
+<li class="chapter" data-level="9.1" data-path="develop-maxent-mussel-model.html"><a href="develop-maxent-mussel-model.html#download-the-maxent-software-1"><i class="fa fa-check"></i><b>9.1</b> Download the Maxent Software</a></li>
+<li class="chapter" data-level="9.2" data-path="develop-maxent-mussel-model.html"><a href="develop-maxent-mussel-model.html#convert-predictors-from-.bil-to-.mxe-format"><i class="fa fa-check"></i><b>9.2</b> Convert predictors from <code>.bil</code> to <code>.mxe</code> format</a></li>
+<li class="chapter" data-level="9.3" data-path="develop-maxent-mussel-model.html"><a href="develop-maxent-mussel-model.html#run-maxent-1"><i class="fa fa-check"></i><b>9.3</b> Run Maxent</a></li>
+<li class="chapter" data-level="9.4" data-path="develop-maxent-mussel-model.html"><a href="develop-maxent-mussel-model.html#convert-model-output-from-.mxe-back-to-bil-format"><i class="fa fa-check"></i><b>9.4</b> Convert model output from <code>.mxe</code> back to <code>bil</code> format</a></li>
+<li class="chapter" data-level="9.5" data-path="develop-maxent-mussel-model.html"><a href="develop-maxent-mussel-model.html#maxent-speed-issues"><i class="fa fa-check"></i><b>9.5</b> Maxent speed Issues</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="evaluate-alternatives.html"><a href="evaluate-alternatives.html"><i class="fa fa-check"></i><b>10</b> Evaluate Alternatives</a></li>
+<li class="chapter" data-level="10" data-path="evaulate-model.html"><a href="evaulate-model.html"><i class="fa fa-check"></i><b>10</b> Evaulate Model</a><ul>
+<li class="chapter" data-level="10.1" data-path="evaulate-model.html"><a href="evaulate-model.html#goodness-of-fit"><i class="fa fa-check"></i><b>10.1</b> Goodness of Fit</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="evaluate-alternatives.html"><a href="evaluate-alternatives.html"><i class="fa fa-check"></i><b>11</b> Evaluate Alternatives</a><ul>
+<li class="chapter" data-level="11.1" data-path="evaluate-alternatives.html"><a href="evaluate-alternatives.html#island-head-alternative"><i class="fa fa-check"></i><b>11.1</b> Island Head Alternative</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -219,16 +229,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
             <section class="normal" id="section-">
 <div id="prepare-hydraulic-data" class="section level1">
-<h1><span class="header-section-number">Chapter 2</span> Prepare Hydraulic Data</h1>
+<h1><span class="header-section-number">Chapter 3</span> Prepare Hydraulic Data</h1>
 <p>This chapter will describe the process used to prepare hydraulic modeling data for input to the Maxent model. For this study, the USACE developed Adaptive Hydraulics (AdH) 2D hydraulic model was used to model river dynamics. This chapter will describe how to process AdH outputs into usable datasets for mussel modeling.</p>
 <div class="figure"><span id="fig:unnamed-chunk-5"></span>
 <img src="docs/images/workflow_hydraulic.png" alt="HREP Mussel Modeling Workflow, Hydraulic Predictors Step." width="758" />
 <p class="caption">
-Figure 2.1: HREP Mussel Modeling Workflow, Hydraulic Predictors Step.
+Figure 3.1: HREP Mussel Modeling Workflow, Hydraulic Predictors Step.
 </p>
 </div>
 <div id="import-adh-mesh-nodes" class="section level2">
-<h2><span class="header-section-number">2.1</span> Import Adh Mesh Nodes</h2>
+<h2><span class="header-section-number">3.1</span> Import Adh Mesh Nodes</h2>
 <p>The purpose of this step is convert the AdH mesh node output into a set of point feature classes.</p>
 <ul>
 <li>Create a new folder and geodatabase to represent the alternative that this AdH model represents. In this example we will be modeling the existing condition alternative: <code>\\mvrdfs\egis\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Adh\Existing_condition/existingcondition.gdb</code></li>
@@ -246,7 +256,7 @@ Figure 2.1: HREP Mussel Modeling Workflow, Hydraulic Predictors Step.
 </ul>
 </div>
 <div id="create-mask" class="section level2">
-<h2><span class="header-section-number">2.2</span> Create Mask</h2>
+<h2><span class="header-section-number">3.2</span> Create Mask</h2>
 <p>The goal of this step is to define no data areas outside of the study. This step will use the UMRR Long Term Resource Monitoring (LTRM) Aquatic Areas dataset to create a mask of the study area.</p>
 <ul>
 <li>Create a new polygon feature class named: <code>\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Data\SB_Mussels.gdb\SB_ILStatePlaneW\study_area</code>.</li>
@@ -257,15 +267,11 @@ Figure 2.1: HREP Mussel Modeling Workflow, Hydraulic Predictors Step.
 <li>Clip Features: <code>study_area</code></li>
 <li>Output Feature Class: <code>\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Data\SB_Mussels.gdb\aquatic_areas</code></li>
 </ul></li>
+<li>Open an edit session to edit the <code>aquatic_areas</code> attribute table.</li>
 <li>Delete “Isolated Floodplain Lake” records from the <code>aquatic_areas</code> attribute table. Mussels are unlikely to be found in these areas.<br />
 </li>
-<li>Use the Dissolve (Data Management) tool on <code>aquatic_areas</code> using ‘LAND_WATER’ as the dissolve field.
-<ul>
-<li>Input features: <code>aquatic_areas</code></li>
-<li>Output feature class: <code>\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Data\SB_Mussels.gdb\aquatic_areas_dissolve</code></li>
-<li>Create multipart features: uncheck box</li>
-</ul></li>
-<li><p>Open an edit session to edit the <code>aquatic_areas_dissolve</code> attribute table. Select the row where ‘LAND_WATER’ field is set to Land, and delete. Use the merge tool on this feature class to ensure there is only one row.</p></li>
+<li>Select rows where ‘LAND_WATER’ field is set to Land, and delete.</li>
+<li><p>Use the merge tool on this feature class to ensure there is only one row representing Water.</p></li>
 <li><p>Use the Buffer (Analysis) tool to expand the study area beyond the extent of valid values. Use a buffer of approximately 20 meters to ensure that mussel samples fall well within the study area. Areas that fall outside the buffered area will be used to define no data in the AdH rasters.</p>
 <ul>
 <li>Input features: <code>aquatic_areas_dissolve</code></li>
@@ -287,7 +293,7 @@ Figure 2.1: HREP Mussel Modeling Workflow, Hydraulic Predictors Step.
 </ul>
 </div>
 <div id="set-environments" class="section level2">
-<h2><span class="header-section-number">2.3</span> Set Environments</h2>
+<h2><span class="header-section-number">3.3</span> Set Environments</h2>
 <p>The purpose of this step is to set the Environments to <code>mask</code> so that all the subsequent AdH raster outputs will have the same coordinate system, extent, cell alignment, cell size, and no data area. *Set Environments</p>
 <pre><code>* Ouput Coordinates: `mask`
 * Processing Extent: `mask`
@@ -296,20 +302,20 @@ Figure 2.1: HREP Mussel Modeling Workflow, Hydraulic Predictors Step.
 * Mask: `mask`</code></pre>
 </div>
 <div id="convert-adh-mesh-nodes-to-raster" class="section level2">
-<h2><span class="header-section-number">2.4</span> Convert Adh Mesh Nodes to Raster</h2>
+<h2><span class="header-section-number">3.4</span> Convert Adh Mesh Nodes to Raster</h2>
 <p>The goal of this step is to convert the raw Adaptive Hydraulics Model (AdH) data (depth, slope velocity, sheer stress, froude_number, Reynolds_number) into raster format that can be input to the Maxent model. AdH models will be produced for the Q5 (high flow) and Q95 (low flow) flow conditions. This will result in the creation of 12 rasters (one for each of 6 AdH parameter) by 2 flow conditions.</p>
 <ul>
 <li><p>Use the IDW (Spatial Analyst) tool to interpolate a raster surface.</p>
 <ul>
 <li>Input point features: <code>Q5_pts</code>.</li>
-<li>Z value field: velocity</li>
+<li>Z value field: <code>velocity</code></li>
 <li>Output raster: <code>\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Adh\Existing_condition\existingcondition.gdb\q5_velocity</code></li>
 </ul></li>
 <li><p>Complete these steps for the other variables, <code>depth</code>, <code>sheer stress</code>, <code>froude_number</code>, and <code>reynolds_number</code>.</p></li>
 </ul>
 </div>
 <div id="calculate-slope" class="section level2">
-<h2><span class="header-section-number">2.5</span> Calculate Slope</h2>
+<h2><span class="header-section-number">3.5</span> Calculate Slope</h2>
 <p>The goal of the step is to calculate slope from the AdH depth variable created in the previous step.</p>
 <ul>
 <li><p>Use the Slope (Spatial Analyst) tool to calculate slope.</p>
@@ -324,7 +330,7 @@ Figure 2.1: HREP Mussel Modeling Workflow, Hydraulic Predictors Step.
 </ul>
 </div>
 <div id="convert-to-.bil-format" class="section level2">
-<h2><span class="header-section-number">2.6</span> Convert to .bil format</h2>
+<h2><span class="header-section-number">3.6</span> Convert to .bil format</h2>
 <p>The goal of this step is to convert the AdH output into a format that can be used by Maxent. The .bil format is one of the formats common to both Maxent and ESRI. This step will repeated for all AdH (Q5, Q95) predictors.</p>
 <ul>
 <li><p>Use the Copy Raster (Data Management) tool to covert the AdH predictor rasters into .bil format.</p>
@@ -343,7 +349,7 @@ Figure 2.1: HREP Mussel Modeling Workflow, Hydraulic Predictors Step.
           </div>
         </div>
       </div>
-<a href="introduction.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="setup.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="prepare-wind-and-wave-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

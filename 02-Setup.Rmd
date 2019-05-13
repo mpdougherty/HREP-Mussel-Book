@@ -3,7 +3,7 @@ This chapter will describe the steps required to setup your computer to perform 
 
 
 ## Download the Maxent Software
-The purpose of this section is to describe the process for downloading and configuring the Maxent software. 
+The purpose of this section is to describe the process for downloading and configuring the [Maxent](https://biodiversityinformatics.amnh.org/open_source/maxent/) software [@phillips2017opening]. 
 
 <<add further Maxent configuration instructions here>>
 
