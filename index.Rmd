@@ -18,7 +18,7 @@ library(knitr)
 ```
 
 # Preface {-}
-This project has been funded by the US Army Corps of Engineers (USACE) Upper Mississippi River Restoration Program (UMRR). 
+This project has been funded by the US Army Corps of Engineers (USACE) [Upper Mississippi River Restoration Program (UMRR)](https://www.mvr.usace.army.mil/Missions/Environmental-Protection-and-Restoration/Upper-Mississippi-River-Restoration/). 
 
 
 ```{r echo=FALSE}
