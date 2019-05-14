@@ -26,7 +26,7 @@ The purpose of this step is to import sample locations from the USACE Mussel Dat
 ## Import Individual Mussel Records
 The purpose of this step is to import individual mussel records from the USACE mussel Database. 
 
-* Import "individual" data tables for each survey. This table contains records for individual mussels. 
+* Import "individual" data tables for each survey to the working geodatabase. These tables contain records for individual mussels. 
 * Add `double` fields `Northing` and `Easting` to each mussel tabular data. 
 * Add a text field `Method` 
 
@@ -40,7 +40,7 @@ The purpose of this step is to join the individual mussel records to the sample 
 * Use the "Display XY" tool to create events from the mussel tabular data. 
 * Export the events to the geodatabase as: `Cordova_YEAR`
 * Create 2 new fields (type: long integer) titled `NumberLive` and `NUM5YEAR`.
-* Use field calculator to populate each field with '0' indicating absence and '1' for presence in each new field (`NumberLive` and `NUM5YEAR` (number less than 5 years).
+* Use field calculator to populate each field with '0' indicating absence and '1' for presence in each new field (`NumberLive` and `NUM5YEAR` (number less than or equal to 5 years).
 
 ## Repeat for each mussel survey in the study area
 The purpose of this step is to repeat the above three steps for each of the other mussel survey events within the study area. 
@@ -59,10 +59,10 @@ The purpose of this step is to assemble the "individual" data for each of the su
 
 
 
-## Create a quantative table
+## Create a quantitative table
 The purpose of this step is to create the `Cordova_all_individuals` feature class using a definition query on the `Cordova` feature class to only select quantitative samples.
 
-* Using the `Cordova` feature class, create a definition query where `Method` = 'Quantitative'.
+* Using the `Cordova` feature class, create a definition query where `Method` = 'Quantitative' OR `EName`!= "No unionids".
 * Export the selected records from the `Cordova` feature class and name this new feature class `Cordova_all_individuals`. 
 
 
@@ -76,10 +76,10 @@ The purpose of this step is to create a series of MCAT flag fields to indicate w
 ## Create the `samples` table
 The purpose of this step is to create a feature class representing the sampled sites. 
 
-* Create a table of SampleID by tribe Pielou evenness score. Use the `Dissolve` tool:
+* Create a table of SampleID. Use the `Dissolve` tool:
     * Input Features: `Cordova_all_individuals`
     * Output feature class: `samples`
     * Dissolve Fields: `SampleID`
-    * Statistics Fields: `SUM_NumberLive`, MEAN
+    * Statistics Fields: `NumberLive`, SUM
     * Create Multipart: unchecked
 

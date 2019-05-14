@@ -27,7 +27,7 @@
 <meta name="author" content="Dan Kelner, Fisheries Biologist, US Army Corps of Engineers, St. Paul District">
 
 
-<meta name="date" content="2019-05-13">
+<meta name="date" content="2019-05-14">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -156,7 +156,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="6.4" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html#join-sample-location-to-individual-mussel-records"><i class="fa fa-check"></i><b>6.4</b> Join Sample Location to Individual Mussel Records</a></li>
 <li class="chapter" data-level="6.5" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html#repeat-for-each-mussel-survey-in-the-study-area"><i class="fa fa-check"></i><b>6.5</b> Repeat for each mussel survey in the study area</a></li>
 <li class="chapter" data-level="6.6" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html#append-surveys-together-into-a-single-study-area-feature-class"><i class="fa fa-check"></i><b>6.6</b> Append Surveys together into a single Study Area feature class</a></li>
-<li class="chapter" data-level="6.7" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html#create-a-quantative-table"><i class="fa fa-check"></i><b>6.7</b> Create a quantative table</a></li>
+<li class="chapter" data-level="6.7" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html#create-a-quantitative-table"><i class="fa fa-check"></i><b>6.7</b> Create a quantitative table</a></li>
 <li class="chapter" data-level="6.8" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html#create-mcat-flag-fields"><i class="fa fa-check"></i><b>6.8</b> Create MCAT Flag Fields</a></li>
 <li class="chapter" data-level="6.9" data-path="mussel-data-processing.html"><a href="mussel-data-processing.html#create-the-samples-table"><i class="fa fa-check"></i><b>6.9</b> Create the <code>samples</code> table</a></li>
 </ul></li>
@@ -255,7 +255,7 @@ Figure 6.1: HREP Mussel Modeling Workflow, Mussel Database Step.
 <h2><span class="header-section-number">6.3</span> Import Individual Mussel Records</h2>
 <p>The purpose of this step is to import individual mussel records from the USACE mussel Database.</p>
 <ul>
-<li>Import “individual” data tables for each survey. This table contains records for individual mussels.</li>
+<li>Import “individual” data tables for each survey to the working geodatabase. These tables contain records for individual mussels.</li>
 <li>Add <code>double</code> fields <code>Northing</code> and <code>Easting</code> to each mussel tabular data.</li>
 <li>Add a text field <code>Method</code></li>
 </ul>
@@ -271,7 +271,7 @@ Figure 6.1: HREP Mussel Modeling Workflow, Mussel Database Step.
 <li>Use the “Display XY” tool to create events from the mussel tabular data.</li>
 <li>Export the events to the geodatabase as: <code>Cordova_YEAR</code></li>
 <li>Create 2 new fields (type: long integer) titled <code>NumberLive</code> and <code>NUM5YEAR</code>.</li>
-<li>Use field calculator to populate each field with ‘0’ indicating absence and ‘1’ for presence in each new field (<code>NumberLive</code> and <code>NUM5YEAR</code> (number less than 5 years).</li>
+<li>Use field calculator to populate each field with ‘0’ indicating absence and ‘1’ for presence in each new field (<code>NumberLive</code> and <code>NUM5YEAR</code> (number less than or equal to 5 years).</li>
 </ul>
 </div>
 <div id="repeat-for-each-mussel-survey-in-the-study-area" class="section level2">
@@ -289,11 +289,11 @@ Figure 6.1: HREP Mussel Modeling Workflow, Mussel Database Step.
 </ul>
 <p>&lt;<add further load instructions here>&gt;</p>
 </div>
-<div id="create-a-quantative-table" class="section level2">
-<h2><span class="header-section-number">6.7</span> Create a quantative table</h2>
+<div id="create-a-quantitative-table" class="section level2">
+<h2><span class="header-section-number">6.7</span> Create a quantitative table</h2>
 <p>The purpose of this step is to create the <code>Cordova_all_individuals</code> feature class using a definition query on the <code>Cordova</code> feature class to only select quantitative samples.</p>
 <ul>
-<li>Using the <code>Cordova</code> feature class, create a definition query where <code>Method</code> = ‘Quantitative’.</li>
+<li>Using the <code>Cordova</code> feature class, create a definition query where <code>Method</code> = ‘Quantitative’ OR <code>EName</code>!= “No unionids”.</li>
 <li>Export the selected records from the <code>Cordova</code> feature class and name this new feature class <code>Cordova_all_individuals</code>.</li>
 </ul>
 </div>
@@ -309,12 +309,12 @@ Figure 6.1: HREP Mussel Modeling Workflow, Mussel Database Step.
 <h2><span class="header-section-number">6.9</span> Create the <code>samples</code> table</h2>
 <p>The purpose of this step is to create a feature class representing the sampled sites.</p>
 <ul>
-<li>Create a table of SampleID by tribe Pielou evenness score. Use the <code>Dissolve</code> tool:
+<li>Create a table of SampleID. Use the <code>Dissolve</code> tool:
 <ul>
 <li>Input Features: <code>Cordova_all_individuals</code></li>
 <li>Output feature class: <code>samples</code></li>
 <li>Dissolve Fields: <code>SampleID</code></li>
-<li>Statistics Fields: <code>SUM_NumberLive</code>, MEAN</li>
+<li>Statistics Fields: <code>NumberLive</code>, SUM</li>
 <li>Create Multipart: unchecked</li>
 </ul></li>
 </ul>
