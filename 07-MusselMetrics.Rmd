@@ -53,7 +53,9 @@ sp2arc <- function(sp_object, fc_path) {
   arcgisbinding::arc.write(data = arcobj, path = fc_path)
 }
 ```
+## Include Live Mussels Only Prior to Metrics Calculations
 
+Create a definition query on the `Cordova_all_individuals` feature class where `NumberLive > 0.
 
 ## Create Percent Listed
 The purpose of this step is to calculate the percent listed MCAT metric for each sampled site. 
@@ -75,9 +77,8 @@ The purpose of this step is to calculate the percent listed MCAT metric for each
 * *Potamilus capax*
 * *Simpsonaias ambigua*
 
-* Create a definition query on the `Cordova_all_individuals` feature class where `Listed` = 1.
-* Dissolve the `Cordova_all_individuals` feature class by `SAMPLE_ID` and `ENAME` (Scientific name). Add `SUM_NumberLive` and `SUM_Listed` fields in the Statistics section of the tool. Uncheck create multipart features. Set Output Feature Class to the working .gdb and name it `PercentListed`.
-* Open the `PercentListed` attribute table. Add a field titled `Perc_listed` Type = double.
+* Dissolve the `Cordova_all_individuals` feature class by `SAMPLE_ID`. Add `SUM_NumberLive` and `SUM_Listed` fields in the Statistics section of the tool. Uncheck create multipart features. Set Output Feature Class to the working .gdb and name it `PercentListed`.
+* Open the `PercentListed` attribute table. Add a field titled `perc_listed` Type = double.
 * Use the Field Calculator tool to calculate the percent of individual listed species per sampled quadrat using the expression `([SUM_Listed] / [SUM_NumberLive]) * 100`.
 
 
@@ -92,9 +93,8 @@ The purpose of this step is to calculate the percent tolerant MCAT metric for ea
 * *Obliquaria reflexa*
 * *Quadrula quadrula*
 
-* Create a definition query on the `Cordova_all_individuals` feature class where `Tolerant` = 1.
-* Dissolve the `Cordova_all_individuals` feature class by `SAMPLE_ID` and `ENAME` (Scientific name). Add `SUM_NumberLive` and `SUM_Tolerant` fields in the Statistics section of the tool. Uncheck create multipart features. Set Output Feature Class to the working .gdb and name it `PercentTolerant`.
-* Open the `PercentTolerant` attribute table. Add a field titled `Perc_tolerant` Type = double. 
+* Dissolve the `Cordova_all_individuals` feature class by `SAMPLE_ID`. Add `SUM_NumberLive` and `SUM_Tolerant` fields in the Statistics section of the tool. Uncheck create multipart features. Set Output Feature Class to the working .gdb and name it `PercentTolerant`.
+* Open the `PercentTolerant` attribute table. Add a field titled `perc_tolerant` Type = double. 
 * Use the Field Calculator tool to calculate the percent of individual tolerant species per sampled quadrat using the expression `([SUM_Tolerant] / [SUM_NumberLive]) * 100`.
 
 
@@ -121,21 +121,30 @@ The purpose of this step is to calculate the percent tribe Lampsilini MCAT metri
 * *Truncilla donaciformis*
 * *Truncilla truncata*
 
-* Create a definition query on the `Cordova_all_individuals` feature class where `Lampsilini` = 1.
-* Dissolve the `Cordova_all_individuals` feature class by `SAMPLE_ID` and `ENAME` (Scientific name). Add `SUM_NumberLive` and `SUM_Tolerant` fields in the Statistics section of the tool. Uncheck create multipart features. Set Output Feature Class to the working .gdb and name it `PercentLampsilini`.
+* Dissolve the `Cordova_all_individuals` feature class by `SAMPLE_ID`. Add `SUM_NumberLive` and `SUM_Lampsilini` fields in the Statistics section of the tool. Uncheck create multipart features. Set Output Feature Class to the working .gdb and name it `PercentLampsilini`.
 * Open the `PercentLampsilini` attribute table. Add a field titled `perc_lampsilini` Type = double. 
-* Use the Field Calculator tool to calculate the percent of individual tolerant species per sampled quadrat using the expression `([SUM_Tolerant] / [SUM_NumberLive]) * 100`.
+* Use the Field Calculator tool to calculate the percent of individual tolerant species per sampled quadrat using the expression `([SUM_Lampsilini] / [SUM_NumberLive]) * 100`.
 
 ## Create Percent Juveniles
 The purpose of this step is to calculate the percent juveniles MCAT metric for each sampled site.
 
+* Determine which mussels in the `Cordova_all_individuals` feature class are <= 5 years-old. Sort the `Age` field in ascending order to select mussels aged 5 and under.  Use the Field Calculator to set the flag `Juveniles` field equal to one.
+* Dissolve the `Cordova_all_individuals` feature class by `SAMPLE_ID`. Add `SUM_NumberLive` and `SUM_Juveniles` fields in the Statistics section of the tool. Uncheck create multipart features. Set Output Feature Class to the working .gdb and name it `PercentJuveniles`.
+* Open the `PercentJuveniles` attribute table. Add a field titled `perc_juveniles` Type = double. 
+* Use the Field Calculator tool to calculate the percent of individual tolerant species per sampled quadrat using the expression `([SUM_Juveniles] / [SUM_NumberLive]) * 100`.
+
 ## Create Percent Over 15 Years
 The purpose of this step is to calculate the percent over 15 years old MCAT metric for each sampled site.
+
+* Determine which mussels in the `Cordova_all_individuals` feature class are >= 15 years-old. Sort the `Age` field in ascending order to select mussels aged 15 and over.  Use the Field Calculator to set the flag `Over_15yrs` field equal to one.
+* Dissolve the `Cordova_all_individuals` feature class by `SAMPLE_ID`. Add `SUM_NumberLive` and `SUM_Over_15yrs` fields in the Statistics section of the tool. Uncheck create multipart features. Set Output Feature Class to the working .gdb and name it `PercentOver15yrs`.
+* Open the `PercentOver15yrs` attribute table. Add a field titled `perc_over_15yrs` Type = double. 
+* Use the Field Calculator tool to calculate the percent of individual tolerant species per sampled quadrat using the expression `([SUM_Over_15yrs] / [SUM_NumberLive]) * 100`.
 
 ## Create Abundance
 The purpose of this step is to calculate the Abundance MCAT metric for each sampled site.
 
-* For the abundance metric, dissolve `Cordova_all_individuals` by `SAMPLE_ID` and `ENAME` (Scientific name).  Add 'SUM_NumberLive' field in the Statistics section of the tool. Uncheck create multipart features. Set Output Feature Class to the working .gdb and name it `Abundance`.
+* For the abundance metric, dissolve `Cordova_all_individuals` by `SAMPLE_ID`.  Add 'SUM_NumberLive' field in the Statistics section of the tool. Uncheck create multipart features. Set Output Feature Class to the working .gdb and name it `Abundance`.
 
 ```{r}
 # Import Abundance from geodatabase
@@ -559,14 +568,26 @@ ggplot(samples_mcat, aes(factor(mcat_site_score))) +
 ## Export to Maxent "SWD" format
 The purpose of this step is to assign the ADH predictor variables (and optionally the wind/wave variables) to each MCAT metric. The Maxent documentation refers to this format as the "Samples With Data" (SWD) format because it contains the samples (i.e., sample identifier, latitude, longitude) with the environmental predictor variables (e.g., q5_velocity, q5_depth, q5_slope, etc.). 
 
-* Add 3 fields titled 'species' Type=string and Length=20; 'longitude' Type=double; and 'latitude' Type=double; in that order. 
-* Use field calculator to populate the field with species="perc_listed". Use Calculate Geometry to populate the 'longitude' and 'latitude' fields, ensuring that the coordinate system is set to 'NAD 1983 2011 US Feet' and 'StatePlane Illinois West FIPS 1202' and the units are set to US feet.
+* In the `samples_mcat` feature class, add 3 fields named:
 
-* Use Extract Multi Values to Points (spatial analyst) tool to write new values (velocity, depth, slope, and ss) onto each MCAT metric feature class and `background`.
+  * `species` Type = string and Length = 20
+  * `longitude` Type = double
+  * `latitude` Type = double
+  
+* Use the Field Calculator tool to populate the `species` field using the following expression: `species = "mcat"`. 
+* Use the Calculate Geometry tool to populate the `longitude` and `latitude` fields, ensuring that the coordinate system is set to `NAD 1983 2011 US Feet` and `StatePlane Illinois West FIPS 1202` and the units are set to `US feet`.
+* Use the Extract Multi Values to Points (spatial analyst) tool to write the raster values (`q5_velocity`, `q5_depth`, `q5_slope`, `q5_ss`, `q5_reynolds`, `q5_froude`, `q95_velocity`, `q95_depth`, `q95_slope`, `q95_ss`, `q95_reynolds`, `q95_froude`) to each point in the `samples_mcat` feature class and the `background` feature class (Section 5.2 of this document).
 
-     * Input point features: `//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW/PercentListed`
-     * Input rasters: velocity, depth, slope, and ss (use rasters in the `Adh.gdb`, not .bil)  copy unionidae_swd and delete 3 variable fields.
-     * Repeat this process for `PercentTolerant`, `PercentLampsilini`, `PercentJuvenile`, `PercentOver15yrs`, `Abundance`, `species_pielou`, `tribe_pielou`, `rarefy_samples`, and `background`.
+     * Input point features: `//mvrdfs/EGIS/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Data/SB_Mussels.gdb/SB_ILStatePlaneW/samples_mcat`
+     * Input rasters: `q5_velocity`, `q5_depth`, `q5_slope`, `q5_ss`, `q5_reynolds`, `q5_froude`, `q95_velocity`, `q95_depth`, `q95_slope`, `q95_ss`, `q95_reynolds`, `q95_froude`
+     * Repeat the previous step for `background`
+     
 * Ensure all layers have same spatial reference before running the tool.  
-* Export `background` and each mussel MCAT metric as .csv files. Ensure ObjectID field is deleted in Excel prior to upload in Maxent.
+
+* Select only records from the `samples_cat` feature class where the `mcat_site_score` >= 4. Create a definition query using the following expression: `mcat_site_score` >= 4
+* Export these selected records to a `.csv` files named `mcat.csv` to the following folder: `//mvrdfs/egis/Work/EMP/HREP_Projects/SteamboatSlough/Mussels/SteamboatMusselModel/Maxent/existing_condition/input_swd`
+
+* Repeat the Extract Multi Values to Points step for the `background` feature class to add environmetal predictor to the background points. 
+* Export the `background` attribute table as a `.csv` file to the `input_swd` folder listed above. 
+* Ensure the `ObjectID` field is deleted in Excel prior to use in Maxent.
 

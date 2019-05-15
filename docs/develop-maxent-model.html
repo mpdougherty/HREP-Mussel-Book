@@ -5,11 +5,11 @@
 
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Chapter 3 Prepare Hydraulic Data | HREP Mussel Modeling</title>
+  <title>Chapter 9 Develop Maxent Model | HREP Mussel Modeling</title>
   <meta name="description" content="This document describes the process for modeling mussel suitability on Upper Mississippi River Restoration (UMRR) Habitat Rehabilitation and Restoration Projects (HREP).">
   <meta name="generator" content="bookdown  and GitBook 2.6.7">
 
-  <meta property="og:title" content="Chapter 3 Prepare Hydraulic Data | HREP Mussel Modeling" />
+  <meta property="og:title" content="Chapter 9 Develop Maxent Model | HREP Mussel Modeling" />
   <meta property="og:type" content="book" />
   
   
@@ -17,7 +17,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Prepare Hydraulic Data | HREP Mussel Modeling" />
+  <meta name="twitter:title" content="Chapter 9 Develop Maxent Model | HREP Mussel Modeling" />
   
   <meta name="twitter:description" content="This document describes the process for modeling mussel suitability on Upper Mississippi River Restoration (UMRR) Habitat Rehabilitation and Restoration Projects (HREP)." />
   
@@ -34,8 +34,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="setup.html">
-<link rel="next" href="prepare-wind-and-wave-data.html">
+<link rel="prev" href="explore-mcat-metrics.html">
+<link rel="next" href="evaulate-model.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -228,120 +228,59 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="prepare-hydraulic-data" class="section level1">
-<h1><span class="header-section-number">Chapter 3</span> Prepare Hydraulic Data</h1>
-<p>This chapter will describe the process used to prepare hydraulic modeling data for input to the Maxent model. For this study, the USACE developed Adaptive Hydraulics (AdH) 2D hydraulic model was used to model river dynamics. This chapter will describe how to process AdH outputs into usable datasets for mussel modeling.</p>
-<div class="figure"><span id="fig:unnamed-chunk-5"></span>
-<img src="docs/images/workflow_hydraulic.png" alt="HREP Mussel Modeling Workflow, Hydraulic Predictors Step." width="758" />
+<div id="develop-maxent-model" class="section level1">
+<h1><span class="header-section-number">Chapter 9</span> Develop Maxent Model</h1>
+<p>This chapter will describe the process used to configure and run the <a href="https://biodiversityinformatics.amnh.org/open_source/maxent/">Maxent</a> model <span class="citation">(Phillips et al. <a href="#ref-phillips2017opening">2017</a>)</span>.</p>
+<div class="figure"><span id="fig:unnamed-chunk-61"></span>
+<img src="docs/images/workflow_maxent.png" alt="HREP Mussel Modeling Workflow, Run Maxent Step." width="719" />
 <p class="caption">
-Figure 3.1: HREP Mussel Modeling Workflow, Hydraulic Predictors Step.
+Figure 9.1: HREP Mussel Modeling Workflow, Run Maxent Step.
 </p>
 </div>
-<div id="import-adh-mesh-nodes" class="section level2">
-<h2><span class="header-section-number">3.1</span> Import Adh Mesh Nodes</h2>
-<p>The purpose of this step is convert the AdH mesh node output into a set of point feature classes.</p>
+<div id="convert-predictors-from-.bil-to-.mxe-format" class="section level2">
+<h2><span class="header-section-number">9.1</span> Convert predictors from <code>.bil</code> to <code>.mxe</code> format</h2>
+<p>The purpose of this step is to describe how to convert a raster format that ESRI products can read to a raster format the Maxent can read and write efficiently. To speed model creation (from 10’s of hours to 10’s of minutes), convert the predictors from the <code>.bil</code> format to the Maxent <code>.mxe</code> format.</p>
 <ul>
-<li>Create a new folder and geodatabase to represent the alternative that this AdH model represents. In this example we will be modeling the existing condition alternative: <code>\\mvrdfs\egis\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Adh\Existing_condition/existingcondition.gdb</code></li>
-<li>Get the AdH output from the hydraulic engineer. Copy it to the alternative folder you created in the last step. EC-HH Working directory: <code>\\mvr-netapp2\MVRDATA\ED\ec-hh\Mississippi_River\Steamboat Island\AdH\Model Runs\</code></li>
-<li>Examine the AdH output file format and determine the steps required to convert it to <code>.csv</code> format.</li>
-<li>If the file contains header information other than field names (e.g., number of records, software version), delete those extraneous header rows so that only the row field names and data remain.</li>
-<li>If the file is tab or space-delimited, use Excel to convert the delimited text file to <code>.csv</code>. Open a blank Excel workbook and open the delimited text file. Use the import wizard to convert the tab or space-delimited file into an Excel workbook. Ensure the import works correctly and then save as a <code>.csv</code> file.</li>
-<li>Import the <code>.csv</code> file into the <code>existingcondition</code> geodatabase. Name the table by the flow condition it represents (Q5, Q95). Ensure that the field types are all set to <code>double</code>.</li>
-<li>Add the Q5 table into a blank ArcMap document.</li>
-<li>Right-click the <code>Q5</code> table and click “Display XY Data”.</li>
-<li>Set appropriate ‘X’,‘Y’, and ‘Z’ fields.</li>
-<li>Identify the datum and coordinate system recorded in the AdH table; all future output feature classes and rasters will need to be in the same projected coordinate system. In this example, Datum: ‘NAD 1983 2011 US Feet’ and Coordinate System: ‘StatePlane Illinois West FIPS 1202’.</li>
-<li>Export <code>Q5_Events</code> as new point feature class named <code>Q5_pts</code>.</li>
-<li>Repeat the above steps to create point feature classes for the Q95 model results.</li>
+<li>Open command prompt and change to the working directory. Change to the correct drive if necessary by typing <code>c:</code>. Then used <code>cd C:\Users\b6pdpdem\Documents\SteamboatMusselModel</code> to change to your local working directory.</li>
+<li>In the working directory, create an <code>input_bil</code> folder. Copy the <code>.bil</code> format predictor rasters created in previous chapters into this folder.</li>
+<li>In the working directory, create an <code>input_mxe</code> folder.</li>
+</ul>
+<p><code>java -Xmx5g -cp maxent.jar density.Convert C:\Users\b6pdpdem\Documents\SteamboatMusselModel\input_bil bil C:\Users\b6pdpdem\Documents\SteamboatMusselModel\input_mxe mxe</code></p>
+</div>
+<div id="run-maxent-1" class="section level2">
+<h2><span class="header-section-number">9.2</span> Run Maxent</h2>
+<p>The purpose of this section is to describe the process of configuring the Maxent model.</p>
+<p>&lt;<add further Maxent configuration instructions here>&gt;</p>
+</div>
+<div id="convert-model-output-from-.mxe-back-to-bil-format" class="section level2">
+<h2><span class="header-section-number">9.3</span> Convert model output from <code>.mxe</code> back to <code>bil</code> format</h2>
+<p>The purpose of this step is to describe how to convert a raster in the Maxent <code>.mxe</code> format back to the <code>.bil</code> format that can be read by ESRI.</p>
+<p><code>java -Xmx5g -cp maxent.jar density.Convert C:\Users\b6pdpdem\Documents\SteamboatMusselModel\sb_existing_20181203_2 mxe C:\Users\b6pdpdem\Documents\SteamboatMusselModel\sb_existing_20181203_2 bil</code></p>
+<ul>
+<li>Use the <code>Define Projection</code> tool to set the projection of the <code>.bil</code> rasters.</li>
 </ul>
 </div>
-<div id="create-mask" class="section level2">
-<h2><span class="header-section-number">3.2</span> Create Mask</h2>
-<p>The goal of this step is to define no data areas outside of the study. This step will use the UMRR Long Term Resource Monitoring (LTRM) Aquatic Areas dataset to create a mask of the study area.</p>
+<div id="maxent-speed-issues" class="section level2">
+<h2><span class="header-section-number">9.4</span> Maxent speed Issues</h2>
+<p>Follow these simple performance guidelines to reduce Maxent run time from a week to half an hour.</p>
 <ul>
-<li>Create a new polygon feature class named: <code>\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Data\SB_Mussels.gdb\SB_ILStatePlaneW\study_area</code>.</li>
-<li>Start an edit session on the <code>study_area</code> feature class and draw a polygon around the study area. Ensure that this polygon entirely covers the <code>Q5_pts</code> and <code>Q95_pts</code>.</li>
-<li><p>Use the <code>Aquatic_Areas_2010</code> layer to prepare data for the Clip (Analysis) tool (<code>\\mvrdfs\egis\Data\Layers\Biology\Aquatic_Areas_2010.lyr</code>).</p>
-<ul>
-<li>Input Features: <code>Aquatic Areas 2010\Classifications\Aquatic Areas: Level 2</code></li>
-<li>Clip Features: <code>study_area</code></li>
-<li>Output Feature Class: <code>\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Data\SB_Mussels.gdb\aquatic_areas</code></li>
-</ul></li>
-<li>Open an edit session to edit the <code>aquatic_areas</code> attribute table.</li>
-<li>Delete “Isolated Floodplain Lake” records from the <code>aquatic_areas</code> attribute table. Mussels are unlikely to be found in these areas.<br />
-</li>
-<li>Select rows where ‘LAND_WATER’ field is set to Land, and delete.</li>
-<li><p>Use the merge tool on this feature class to ensure there is only one row representing Water.</p></li>
-<li><p>Use the Buffer (Analysis) tool to expand the study area beyond the extent of valid values. Use a buffer of approximately 20 meters to ensure that mussel samples fall well within the study area. Areas that fall outside the buffered area will be used to define no data in the AdH rasters.</p>
-<ul>
-<li>Input features: <code>aquatic_areas_dissolve</code></li>
-<li>Output Feature Class: <code>\\mvrdfs\egis\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Data\SB_Mussels.gdb\SB_ILStatePlaneW\aquatic_areas_20m</code></li>
-<li>Distance: 20 meters</li>
-</ul></li>
-<li><p>Use the Polygon to Raster (Conversion) tool to convert the <code>aquatic_areas_20m</code> feature class to a raster.</p>
-<ul>
-<li>Input Features: <code>aquatic_areas_20m</code></li>
-<li>Value field: <code>OBJECTID</code></li>
-<li>Output Raster Dataset: <code>\\mvrdfs\egis\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Adh\Existing_condition\existingcondition.gdb\mask</code></li>
-</ul></li>
-<li>Set Environments
-<ul>
-<li>Output Coordinates: <code>NAD_1983_2011_StatePlane_Illinois_West_FIPS_1202_Ft_US</code></li>
-<li>Processing Extent: <code>study_area</code></li>
-<li>Cell Size: 3 ft</li>
-</ul></li>
-</ul>
-</div>
-<div id="set-environments" class="section level2">
-<h2><span class="header-section-number">3.3</span> Set Environments</h2>
-<p>The purpose of this step is to set the Environments to <code>mask</code> so that all the subsequent AdH raster outputs will have the same coordinate system, extent, cell alignment, cell size, and no data area. *Set Environments</p>
-<pre><code>* Ouput Coordinates: `mask`
-* Processing Extent: `mask`
-* Snap raster: `mask`
-* Cell Size: `mask`
-* Mask: `mask`</code></pre>
-</div>
-<div id="convert-adh-mesh-nodes-to-raster" class="section level2">
-<h2><span class="header-section-number">3.4</span> Convert Adh Mesh Nodes to Raster</h2>
-<p>The goal of this step is to convert the raw Adaptive Hydraulics Model (AdH) data (depth, slope velocity, sheer stress, froude_number, Reynolds_number) into raster format that can be input to the Maxent model. AdH models will be produced for the Q5 (high flow) and Q95 (low flow) flow conditions. This will result in the creation of 12 rasters (one for each of 6 AdH parameter) by 2 flow conditions.</p>
-<ul>
-<li><p>Use the IDW (Spatial Analyst) tool to interpolate a raster surface.</p>
-<ul>
-<li>Input point features: <code>Q5_pts</code>.</li>
-<li>Z value field: <code>velocity</code></li>
-<li>Output raster: <code>\\mvrdfs\EGIS\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Adh\Existing_condition\existingcondition.gdb\q5_velocity</code></li>
-</ul></li>
-<li><p>Complete these steps for the other variables, <code>depth</code>, <code>sheer stress</code>, <code>froude_number</code>, and <code>reynolds_number</code>.</p></li>
-</ul>
-</div>
-<div id="calculate-slope" class="section level2">
-<h2><span class="header-section-number">3.5</span> Calculate Slope</h2>
-<p>The goal of the step is to calculate slope from the AdH depth variable created in the previous step.</p>
-<ul>
-<li><p>Use the Slope (Spatial Analyst) tool to calculate slope.</p>
-<ul>
-<li>Input raster: <code>q5_depth</code></li>
-<li>Output raster: <code>\\mvrdfs\egis\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Adh\Existing_condition\existingcondition.gdb\q5_slope</code></li>
-<li>Output measurement: degree</li>
-<li>Z factor = 1 (linear units same)</li>
-</ul></li>
-<li>Use Copy Raster (Data Management) tool to convert the <code>q5_slope</code> raster into .bil format, as outlined in previous step.</li>
-<li><p>Repeat the above steps to convert calculate the Q95 slope.</p></li>
-</ul>
-</div>
-<div id="convert-to-.bil-format" class="section level2">
-<h2><span class="header-section-number">3.6</span> Convert to .bil format</h2>
-<p>The goal of this step is to convert the AdH output into a format that can be used by Maxent. The .bil format is one of the formats common to both Maxent and ESRI. This step will repeated for all AdH (Q5, Q95) predictors.</p>
-<ul>
-<li><p>Use the Copy Raster (Data Management) tool to covert the AdH predictor rasters into .bil format.</p>
-<ul>
-<li>Input Raster: <code>q5_velocity</code></li>
-<li>Output Raster Dataset: <code>\\mvrdfs\egis\Work\EMP\HREP_Projects\SteamboatSlough\Mussels\SteamboatMusselModel\Adh\Existing_condition\q5_velocity.bil</code> (Note: cannot save .bil format within the .gdb)</li>
-<li>Format: ESRI BIL</li>
-</ul></li>
-<li><p>Repeat the above step for all of the other environmental predictor variables.</p></li>
+<li>Run the model on a physical computer, not on a virtual machine.</li>
+<li>Select a computer with the fastest processor and most memory available.</li>
+<li>Increase the memory available to the java virtual machine (JVM). Edit the first line of the <code>maxent.bat</code> file to something like the following: <code>java -Xmx5g -jar maxent.jar</code>, where the <code>-Xmx</code> parameter sets the maximum heap size for the JVM. Set it to something less than the total amount of physical memory on your computer.</li>
+<li>Do not run the model across the LAN (inputs and outputs stored on a network file system). Copy all inputs and write all outputs to the local file system.</li>
+<li>Use a solid state drive for storing inputs and outputs.</li>
+<li>Use the “SWD” format for specifying both samples (species occurrences) and environmental layers (background points).</li>
+<li>Convert all predictor grids to the Maxent <code>.mxe</code> format.</li>
+<li>Write all outputs to the Maxent <code>.mxe</code> format.</li>
+<li>Set the <code>threads</code> parameter to at least the number of cores on your computer (or a large percentage of logical processors) to speed processing of replicates.</li>
 </ul>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-phillips2017opening">
+<p>Phillips, Steven J, Robert P Anderson, Miroslav Dudík, Robert E Schapire, and Mary E Blair. 2017. “Opening the Black Box: An Open-Source Release of Maxent.” <em>Ecography</em> 40 (7). Wiley Online Library: 887–93. doi:<a href="https://doi.org/10.1111/ecog.03049">10.1111/ecog.03049</a>.</p>
 </div>
 </div>
             </section>
@@ -349,8 +288,8 @@ Figure 3.1: HREP Mussel Modeling Workflow, Hydraulic Predictors Step.
           </div>
         </div>
       </div>
-<a href="setup.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="prepare-wind-and-wave-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="explore-mcat-metrics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="evaulate-model.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

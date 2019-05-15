@@ -34,8 +34,8 @@ This technical report describes a method for modeling mussel habitat suitability
 The purpose of this technical report is to document the process used to model mussels on UMRR HREPs. This report will be of interest to at least three groups of individuals:
 
 * Model Reviewers - This technical report will serve as technical documentation for reviewers charged with evaluating this approach. 
-* Feasibility Project Delivery Team (PDT) members - This group will want to read chapter 1. Introduction to gain an overview of the process and then digest later chapters, 9. Evaluate Model, 10. Evaluate Alternatives, etc.
-* Analysts - This group will need to pay particular attention to chapters 2 through 10 to be able to follow the detailed instruction required to run the model. 
+* Feasibility Project Delivery Team (PDT) members - This group will want to read chapter [Introduction] to gain an overview of the process and then digest later chapters, [Evaluate Model], [Evaluate Alternatives], etc.
+* Analysts - This group will need to pay particular attention to chapters [Setup] through [Develop Maxent Model] to be able to follow the detailed instruction required to run the model. 
 
 
 ## Tutorial Data

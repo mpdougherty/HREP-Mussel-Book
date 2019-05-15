@@ -76,6 +76,7 @@ The purpose of this step is to create a series of MCAT flag fields to indicate w
 ## Create the `samples` table
 The purpose of this step is to create a feature class representing the sampled sites. 
 
+* Create a definition query on the `Cordova_all_individuals` feature class where `NumberLive > 0
 * Create a table of SampleID. Use the `Dissolve` tool:
     * Input Features: `Cordova_all_individuals`
     * Output feature class: `samples`

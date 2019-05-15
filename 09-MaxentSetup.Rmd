@@ -1,17 +1,9 @@
-# Develop Maxent Mussel Model
+# Develop Maxent Model
 This chapter will describe the process used to configure and run the [Maxent](https://biodiversityinformatics.amnh.org/open_source/maxent/) model [@phillips2017opening]. 
 
 ```{r echo=FALSE, fig.cap="HREP Mussel Modeling Workflow, Run Maxent Step."}
 include_graphics("docs/images/workflow_maxent.png")
 ```
-
-## Download the Maxent Software
-The purpose of this section is to describe the process for downloading and configuring the Maxent software. 
-
-<<add further Maxent configuration instructions here>>
-
-
-
 
 
 ## Convert predictors from `.bil` to `.mxe` format

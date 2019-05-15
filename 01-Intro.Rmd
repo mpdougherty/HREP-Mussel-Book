@@ -1,6 +1,9 @@
 # Introduction
+This chapter will provide an overview of the HREP mussel modeling process described in this technical report. 
+
 
 ## Need for the Study
+Mussels are receiving increased attention in UMRR HREPs not only for the purpose of avoiding mussel habitat impacts from the construction of habitat features, but for designing restoration features that benefit mussels.  
 
 * Mussels are important UMR biotic communities!
 * Few methods exist for evaluating mussel habitat suitability for UMRR HREPs
@@ -10,7 +13,15 @@
 
 
 ## Species Distribution Modeling
-Species Distribution Modeling (SDM) has become a common method for mapping suitable habitats for many species or taxa groups [@elith2008working, @elith2009species]. The `dismo` R package has been created to support SDM in R [see the `dismo` package vignette `sdm`, @hijmans2013species]. Another good overview of SDM in R [@hijmans_sdm].
+Species Distribution Modeling (SDM) has become a common method for mapping suitable habitats for many species or taxa groups [@elith2008working, @elith2009species]. The spatially explicit nature of these models makes them extremely well suited for HREP design as they predict habitat suitability across the study area. The [Maxent](https://biodiversityinformatics.amnh.org/open_source/maxent/) software for modeling species niches and distributions [@phillips2017opening] has been used for modeling a wide range of species, taxa group, guilds, and communities [@merow2013practical]. 
+
+
+## Previous UMR Mussel Modeling
+* UMESC Pool 10 [@steuer2008use]
+* UMESC Pool 8 [@zigler2008importance]
+* UMESC Pool 8 mussel model [@newton2011population]
+* UMESC Pool 18 mussel model [@zigler2012patterns]
+
 
 Presence Data (dependent variables)
 
@@ -25,10 +36,6 @@ Predictor Variables (independent variables)
 * Is that good enough to make better informed HREP planning decisions?
 
 
-## Previous UMR Mussel Modeling
-
-* UMESC Pool 8 mussel model
-* UMESC Pool 18 mussel model
 
 
 ## Workflow

@@ -27,14 +27,14 @@
 <meta name="author" content="Dan Kelner, Fisheries Biologist, US Army Corps of Engineers, St. Paul District">
 
 
-<meta name="date" content="2019-05-14">
+<meta name="date" content="2019-05-15">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   
   
-<link rel="prev" href="develop-maxent-mussel-model.html">
+<link rel="prev" href="develop-maxent-model.html">
 <link rel="next" href="evaluate-alternatives.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -162,18 +162,19 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="7" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html"><i class="fa fa-check"></i><b>7</b> Calculate Mussel Metrics</a><ul>
 <li class="chapter" data-level="7.1" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#mcat-metrics"><i class="fa fa-check"></i><b>7.1</b> MCAT Metrics</a></li>
-<li class="chapter" data-level="7.2" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-listed"><i class="fa fa-check"></i><b>7.2</b> Create Percent Listed</a></li>
-<li class="chapter" data-level="7.3" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-tolerant"><i class="fa fa-check"></i><b>7.3</b> Create Percent Tolerant</a></li>
-<li class="chapter" data-level="7.4" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-tribe-lampsilini"><i class="fa fa-check"></i><b>7.4</b> Create Percent Tribe Lampsilini</a></li>
-<li class="chapter" data-level="7.5" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-juveniles"><i class="fa fa-check"></i><b>7.5</b> Create Percent Juveniles</a></li>
-<li class="chapter" data-level="7.6" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-over-15-years"><i class="fa fa-check"></i><b>7.6</b> Create Percent Over 15 Years</a></li>
-<li class="chapter" data-level="7.7" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-abundance"><i class="fa fa-check"></i><b>7.7</b> Create Abundance</a></li>
-<li class="chapter" data-level="7.8" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-species-evenness"><i class="fa fa-check"></i><b>7.8</b> Create Species Evenness</a></li>
-<li class="chapter" data-level="7.9" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-tribe-eveness"><i class="fa fa-check"></i><b>7.9</b> Create Tribe Eveness</a></li>
-<li class="chapter" data-level="7.10" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-es-100"><i class="fa fa-check"></i><b>7.10</b> Create ES 100</a></li>
-<li class="chapter" data-level="7.11" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#mcat-metric-site-level-thresholds"><i class="fa fa-check"></i><b>7.11</b> MCAT Metric Site Level Thresholds</a></li>
-<li class="chapter" data-level="7.12" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#calculate-mcat-site-score"><i class="fa fa-check"></i><b>7.12</b> Calculate MCAT Site Score</a></li>
-<li class="chapter" data-level="7.13" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#export-to-maxent-swd-format-1"><i class="fa fa-check"></i><b>7.13</b> Export to Maxent “SWD” format</a></li>
+<li class="chapter" data-level="7.2" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#include-live-mussels-only-prior-to-metrics-calculations"><i class="fa fa-check"></i><b>7.2</b> Include Live Mussels Only Prior to Metrics Calculations</a></li>
+<li class="chapter" data-level="7.3" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-listed"><i class="fa fa-check"></i><b>7.3</b> Create Percent Listed</a></li>
+<li class="chapter" data-level="7.4" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-tolerant"><i class="fa fa-check"></i><b>7.4</b> Create Percent Tolerant</a></li>
+<li class="chapter" data-level="7.5" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-tribe-lampsilini"><i class="fa fa-check"></i><b>7.5</b> Create Percent Tribe Lampsilini</a></li>
+<li class="chapter" data-level="7.6" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-juveniles"><i class="fa fa-check"></i><b>7.6</b> Create Percent Juveniles</a></li>
+<li class="chapter" data-level="7.7" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-percent-over-15-years"><i class="fa fa-check"></i><b>7.7</b> Create Percent Over 15 Years</a></li>
+<li class="chapter" data-level="7.8" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-abundance"><i class="fa fa-check"></i><b>7.8</b> Create Abundance</a></li>
+<li class="chapter" data-level="7.9" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-species-evenness"><i class="fa fa-check"></i><b>7.9</b> Create Species Evenness</a></li>
+<li class="chapter" data-level="7.10" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-tribe-eveness"><i class="fa fa-check"></i><b>7.10</b> Create Tribe Eveness</a></li>
+<li class="chapter" data-level="7.11" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#create-es-100"><i class="fa fa-check"></i><b>7.11</b> Create ES 100</a></li>
+<li class="chapter" data-level="7.12" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#mcat-metric-site-level-thresholds"><i class="fa fa-check"></i><b>7.12</b> MCAT Metric Site Level Thresholds</a></li>
+<li class="chapter" data-level="7.13" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#calculate-mcat-site-score"><i class="fa fa-check"></i><b>7.13</b> Calculate MCAT Site Score</a></li>
+<li class="chapter" data-level="7.14" data-path="calculate-mussel-metrics.html"><a href="calculate-mussel-metrics.html#export-to-maxent-swd-format-1"><i class="fa fa-check"></i><b>7.14</b> Export to Maxent “SWD” format</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html"><i class="fa fa-check"></i><b>8</b> Explore MCAT Metrics</a><ul>
 <li class="chapter" data-level="8.1" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#mcat-metric-site-threshold"><i class="fa fa-check"></i><b>8.1</b> MCAT Metric Site Threshold</a><ul>
@@ -195,12 +196,11 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="8.7" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#mcat-site-score-by-depth"><i class="fa fa-check"></i><b>8.7</b> MCAT Site Score by Depth</a></li>
 <li class="chapter" data-level="8.8" data-path="explore-mcat-metrics.html"><a href="explore-mcat-metrics.html#mcat-site-score-by-slope"><i class="fa fa-check"></i><b>8.8</b> MCAT Site Score by Slope</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="develop-maxent-mussel-model.html"><a href="develop-maxent-mussel-model.html"><i class="fa fa-check"></i><b>9</b> Develop Maxent Mussel Model</a><ul>
-<li class="chapter" data-level="9.1" data-path="develop-maxent-mussel-model.html"><a href="develop-maxent-mussel-model.html#download-the-maxent-software-1"><i class="fa fa-check"></i><b>9.1</b> Download the Maxent Software</a></li>
-<li class="chapter" data-level="9.2" data-path="develop-maxent-mussel-model.html"><a href="develop-maxent-mussel-model.html#convert-predictors-from-.bil-to-.mxe-format"><i class="fa fa-check"></i><b>9.2</b> Convert predictors from <code>.bil</code> to <code>.mxe</code> format</a></li>
-<li class="chapter" data-level="9.3" data-path="develop-maxent-mussel-model.html"><a href="develop-maxent-mussel-model.html#run-maxent-1"><i class="fa fa-check"></i><b>9.3</b> Run Maxent</a></li>
-<li class="chapter" data-level="9.4" data-path="develop-maxent-mussel-model.html"><a href="develop-maxent-mussel-model.html#convert-model-output-from-.mxe-back-to-bil-format"><i class="fa fa-check"></i><b>9.4</b> Convert model output from <code>.mxe</code> back to <code>bil</code> format</a></li>
-<li class="chapter" data-level="9.5" data-path="develop-maxent-mussel-model.html"><a href="develop-maxent-mussel-model.html#maxent-speed-issues"><i class="fa fa-check"></i><b>9.5</b> Maxent speed Issues</a></li>
+<li class="chapter" data-level="9" data-path="develop-maxent-model.html"><a href="develop-maxent-model.html"><i class="fa fa-check"></i><b>9</b> Develop Maxent Model</a><ul>
+<li class="chapter" data-level="9.1" data-path="develop-maxent-model.html"><a href="develop-maxent-model.html#convert-predictors-from-.bil-to-.mxe-format"><i class="fa fa-check"></i><b>9.1</b> Convert predictors from <code>.bil</code> to <code>.mxe</code> format</a></li>
+<li class="chapter" data-level="9.2" data-path="develop-maxent-model.html"><a href="develop-maxent-model.html#run-maxent-1"><i class="fa fa-check"></i><b>9.2</b> Run Maxent</a></li>
+<li class="chapter" data-level="9.3" data-path="develop-maxent-model.html"><a href="develop-maxent-model.html#convert-model-output-from-.mxe-back-to-bil-format"><i class="fa fa-check"></i><b>9.3</b> Convert model output from <code>.mxe</code> back to <code>bil</code> format</a></li>
+<li class="chapter" data-level="9.4" data-path="develop-maxent-model.html"><a href="develop-maxent-model.html#maxent-speed-issues"><i class="fa fa-check"></i><b>9.4</b> Maxent speed Issues</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="evaulate-model.html"><a href="evaulate-model.html"><i class="fa fa-check"></i><b>10</b> Evaulate Model</a><ul>
 <li class="chapter" data-level="10.1" data-path="evaulate-model.html"><a href="evaulate-model.html#goodness-of-fit"><i class="fa fa-check"></i><b>10.1</b> Goodness of Fit</a></li>
@@ -254,7 +254,7 @@ Figure 10.2: Existing Condition Model Receiver Operating Characteristic Curve.
           </div>
         </div>
       </div>
-<a href="develop-maxent-mussel-model.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="develop-maxent-model.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="evaluate-alternatives.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
